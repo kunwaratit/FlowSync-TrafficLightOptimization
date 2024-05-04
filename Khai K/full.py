@@ -9,7 +9,7 @@ def mouse_callback(event, x, y, flags, param):
 
 
 # Open webcam capture
-cap = cv2.VideoCapture('rtsp://admin:PUMTJT@192.168.1.2:554/H.')  # Specify the RTSP URL for your IP camera
+cap = cv2.VideoCapture('ssdg/a3.mp4')  # Specify the RTSP URL for your IP camera
 
 model = YOLO('best.pt')
 classes = ['car', 'motorbike', 'truck', 'bus', 'Emergency']

@@ -4,7 +4,7 @@ from ultralytics import YOLO
 import math
 
 # Open webcam capture
-cap = cv2.VideoCapture('a3.mp4')  # Specify the RTSP URL for your IP camera
+cap = cv2.VideoCapture('ssdg/a3.mp4')  # Specify the RTSP URL for your IP camera
 
 model = YOLO('best.pt')
 classes = ['car', 'motorbike', 'truck', 'bus', 'Emergency']
@@ -17,7 +17,7 @@ display_height = 720
 fps_start_time = time.time()
 fps_counter = 0
 
-mask=cv2.imread('a3mask.png')
+mask=cv2.imread('ssdg/a3mask.png')
 while True:
     ret, img = cap.read()
     
@@ -54,7 +54,7 @@ while True:
     cv2.putText(img_resized, f'Time: {time.strftime("%H:%M:%S")}', (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
      
     cv2.imshow('Image', img_resized)
-    cv2.imshow('ImageReg', imgRegion)
+    # cv2.imshow('ImageReg', imgRegion)
     cv2.waitKey(1)
     if cv2.getWindowProperty('Image', cv2.WND_PROP_VISIBLE) < 1:
         break
