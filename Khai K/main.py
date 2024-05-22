@@ -4,7 +4,7 @@ from ultralytics import YOLO
 import math
 
 # Open webcam capture
-cap = cv2.VideoCapture('rtsp://admin:PUMTJT@192.168.1.2:554/H.')  # Specify the RTSP URL for your IP camera
+cap = cv2.VideoCapture('ssdg/a3.mp4')  # Specify the RTSP URL for your IP camera
 
 model = YOLO('best.pt')
 classes = ['car', 'motorbike', 'truck', 'bus', 'Emergency']
@@ -23,7 +23,7 @@ while True:
     
     img_resized = cv2.resize(img, (display_width, display_height))
     # imgRegion=cv2.bitwise_and(img_resized,mask)
-    results = model.predict(img_resized, stream=True)
+    results = model.predict(img_resized, stream=True,show=True)
    
     for r in results:
         boxes = r.boxes
