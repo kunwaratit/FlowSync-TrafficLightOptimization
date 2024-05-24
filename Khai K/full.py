@@ -3,20 +3,20 @@ import time
 from ultralytics import YOLO
 import math
 import numpy as np
-
-import sys
-sys.path.append('System')
-from ROI import mouse_callback
-
+# import sys
+# sys.path.append('System')
+# from ROI import mouse_callback
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 # Open webcam capture
-cap = cv2.VideoCapture('rtsp://admin:PUMTJT@192.168.1.3:554/H.')  # Specify the RTSP URL for your IP camera
+cap = cv2.VideoCapture('ssdg/a3.mp4')  # Specify the RTSP URL for your IP camera
 
 model = YOLO('best.pt')
 classes = ['car', 'motorbike', 'truck', 'bus', 'Emergency']
 
 # Constant width and height for display
-display_width = 640
-display_height = 640
+display_width = 540
+display_height = 720
 
 # Initialize variables for FPS calculation
 fps_start_time = time.time()
@@ -43,31 +43,19 @@ while True:
     results = model.predict(img_resized, stream=True,imgsz=640)
    
     for r in results:
-        boxes = r.boxes
-        for box in boxes:
-            x1, y1, x2, y2 = box.xyxy[0]
-            x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
-            
-            # center of object
-            cx=int(x1+x2)//2
-            cy=int(y1+y2)//2
-            results=cv2.pointPolygonTest(np.array(area,np.int32),(cx,cy),False)
-            
-            
-            
-            cls = int(box.cls[0])
-            conf = math.ceil(box.conf[0] * 100) / 100
-            if results>0:
-                    
-                cv2.rectangle(img_resized, (x1, y1), (x2, y2), (255, 0, 255), 3)
-                # Draw filled rectangle as background for confidence score text
-                text_size = cv2.getTextSize(f'#{classes[cls]} {conf}', cv2.FONT_HERSHEY_SIMPLEX, 0.9, 2)[0]
-                cv2.rectangle(img_resized, (x1, y1 - text_size[1] - 5), (x1 + text_size[0], y1), (255, 0, 255), -1)
-            
-                # Draw confidence score text
-                cv2.putText(img_resized, f'#{classes[cls]} {conf}', (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 255, 255), 2, cv2.LINE_AA)
-                # draw centre of obj
-                cv2.circle(img_resized,(cx,cy),3,(0,0,255),-1)
+            boxes = r.boxes
+            for box in boxes:
+                x1, y1, x2, y2 = map(int, box.xyxy[0])
+                cx, cy = (x1 + x2) // 2, (y1 + y2) // 2
+                if cv2.pointPolygonTest(np.array(area, np.int32), (cx, cy), False) > 0:
+                    cls = int(box.cls[0])
+                    conf = math.ceil(box.conf[0] * 100) / 100
+                    cv2.rectangle(img_resized, (x1, y1), (x2, y2), (255, 0, 255), 3)
+                    text_size = cv2.getTextSize(f'#{classes[cls]} {conf}', cv2.FONT_HERSHEY_SIMPLEX, 0.9, 2)[0]
+                    cv2.rectangle(img_resized, (x1, y1 - text_size[1] - 5), (x1 + text_size[0], y1), (255, 0, 255), -1)
+                    cv2.putText(img_resized, f'#{classes[cls]} {conf}', (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 255, 255), 2, cv2.LINE_AA)
+                    cv2.circle(img_resized, (cx, cy), 3, (0, 0, 255), -1)
+        
     cv2.polylines(img_resized,[np.array(area,np.int32)],True,(0,0,225),2)
     
     # Measure the end time for processing the current frame

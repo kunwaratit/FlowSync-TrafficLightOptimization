@@ -1,61 +1,67 @@
-# your_app/views.py
-import time
 import cv2
-from django.http import StreamingHttpResponse
-from django.shortcuts import render
+import time
 from ultralytics import YOLO
 import math
+import numpy as np
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
-def generate_frames():
-    cap = cv2.VideoCapture('static/ssdg/a3.mp4')
+@csrf_exempt
+def detect_objects(request):
+    cap = cv2.VideoCapture('static/ssdg/a3.mp4')  # Use your video source
     model = YOLO('best.pt')
     classes = ['car', 'motorbike', 'truck', 'bus', 'Emergency']
-    display_width = 540
-    display_height = 720
-    fps_start_time = time.time()
-    fps_counter = 0
+    area = [(136, 419), (8, 577), (480, 713), (342, 413), (136, 419)]
+    results_list = []
+    total_time = 0
+    frame_count = 0
+    start_time = time.time()
+    frame_counter = 0
 
     while True:
         ret, img = cap.read()
         if not ret:
             break
 
-        img_resized = cv2.resize(img, (display_width, display_height))
-        results = model.predict(img_resized, stream=True, show=True)
+        img_resized = cv2.resize(img, (640, 480))
+        mask = np.zeros_like(img_resized, dtype=np.uint8)
+        cv2.fillPoly(mask, [np.array(area, np.int32)], (255, 255, 255))
+        
+        # Apply the mask to the image
+        img_masked = cv2.bitwise_and(img_resized, mask)
+    
+        results = model.predict(img_masked, stream=True, imgsz=640)
 
+        frame_results = []
         for r in results:
             boxes = r.boxes
             for box in boxes:
-                x1, y1, x2, y2 = box.xyxy[0]
-                x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
-                cv2.rectangle(img_resized, (x1, y1), (x2, y2), (255, 0, 255), 3)
-
-                cls = int(box.cls[0])
-                conf = math.ceil(box.conf[0] * 100) / 100
-
-                text_size = cv2.getTextSize(f'#{classes[cls]} {conf}', cv2.FONT_HERSHEY_SIMPLEX, 0.9, 2)[0]
-                cv2.rectangle(img_resized, (x1, y1 - text_size[1] - 5), (x1 + text_size[0], y1), (255, 0, 255), -1)
-                cv2.putText(img_resized, f'#{classes[cls]} {conf}', (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 255, 255), 2, cv2.LINE_AA)
-
-        fps_counter += 1
-        if time.time() - fps_start_time >= 1:
-            fps = fps_counter / (time.time() - fps_start_time)
-            fps_counter = 0
-            fps_start_time = time.time()
-
-        cv2.putText(img_resized, f'FPS: {int(fps)}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
-        cv2.putText(img_resized, f'Time: {time.strftime("%H:%M:%S")}', (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
-
-        ret, jpeg = cv2.imencode('.jpg', img_resized)
-        frame_bytes = jpeg.tobytes()
-
-        yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
+                x1, y1, x2, y2 = map(int, box.xyxy[0])
+                cx, cy = (x1 + x2) // 2, (y1 + y2) // 2
+                if cv2.pointPolygonTest(np.array(area, np.int32), (cx, cy), False) > 0:
+                    cls = int(box.cls[0])
+                    conf = math.ceil(box.conf[0] * 100) / 100
+                    frame_results.append({
+                        'class': classes[cls],
+                        'confidence': conf,
+                        'bbox': [x1, y1, x2, y2]
+                    })
+        results_list.append(frame_results)
+        frame_counter += 1
+    end_time = time.time()
+    
+    # Calculate total time taken
+    total_time = end_time - start_time
 
     cap.release()
+    print("Total time taken to process the video:", total_time, "seconds")
+    average_fps = frame_counter / (time.time() - start_time)
+    response_data = {
+        'average_fps': average_fps,
+        'detection_results': results_list
+    }
+    return JsonResponse(response_data, safe=False)
+from django.shortcuts import render
 
-
-from django.http import StreamingHttpResponse
-
-def video_stream(request):
-    response = StreamingHttpResponse(generate_frames(), content_type='multipart/x-mixed-replace; boundary=frame')
-    return response
+def vehicle_detection_page(request):
+    return render(request, 'vehicle_detection.html')
