@@ -1,6 +1,3 @@
-Khai K/ssdg
-Khai K/FlowSync
-Khai K/FlowApp/static/ssdg
-__pycache__/
-GUI
-Backend
+__pycache__
+Khai K/FlowApp/node_modules
+flenv

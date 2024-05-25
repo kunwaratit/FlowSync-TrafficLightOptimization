@@ -65,7 +65,11 @@ from django.shortcuts import render
 
 def vehicle_detection_page(request):
     return render(request, 'vehicle_detection.html')
-from django.shortcuts import render
+# from django.shortcuts import render
 
 def next_page_view(request):
     return render(request, 'next_page.html')
+# from django.shortcuts import render
+
+def index(request):
+	return render(request, 'index.html')
