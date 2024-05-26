@@ -14,7 +14,6 @@ pip install -r requirements.txt
 
 
 ### Our Contributors
-<a href="https://github.com/kunwaratit">
-  <img src="https://contrib.rocks/image?repo=mfts/papermark" />
+<a href="https://github.com/kunwaratit/Revolution-Bytes/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=kunwaratit/Revolution-Bytes" />
 </a>
-[<img src="https://github.com/{{ kunwaratit }}.png" width="60px;"/><br /><sub><ahref="https://github.com/{{ kunwaratit }}">{{ kunwaratit }}</a></sub>](https://github.com/{{ kunwaratit }}/{{ repository }}
