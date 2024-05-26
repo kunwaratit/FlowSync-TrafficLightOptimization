@@ -1,14 +1,12 @@
 # FlowSync-TrafficLightOptimization
-
-# steps
-1.clone the repo
-2.
+# Steps 
 ### Clone the repo
+    https://github.com/kunwaratit/FlowSync-TrafficLightOptimization.git
 ### Create the environment
     pip install virtualenv
     python -m venv myenv
 ### Activate environment
-  myenv/Scripts/activate
+    myenv/Scripts/activate
 ### Install all dependencies
     pip install -r requirements.txt
 
