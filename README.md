@@ -4,7 +4,7 @@ Addressing those problems and issues FlowSync has aimed to manage the traffic by
 
 # Steps 
 ### Clone the repo
-    https://github.com/kunwaratit/FlowSync-TrafficLightOptimization.git
+    git@github.com:kunwaratit/FlowSync-TrafficLightOptimization.git
 ### Create the environment
     pip install virtualenv
     python -m venv myenv
