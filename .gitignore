@@ -1,6 +1,9 @@
-__pycache__
-Khai K/FlowApp/node_modules
-flenv
+node_modules
 
+# cacheFiles
+CACHE
+__pycache__
 .DS_Store
 
+#add your environment here
+flenv
