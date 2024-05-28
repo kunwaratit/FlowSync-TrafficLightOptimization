@@ -1,3 +1,6 @@
+from django.shortcuts import render
+
+# Create your views here.
 import cv2
 import time
 from ultralytics import YOLO
@@ -61,7 +64,6 @@ def detect_objects(request):
         'detection_results': results_list
     }
     return JsonResponse(response_data, safe=False)
-from django.shortcuts import render
 
 def vehicle_detection_page(request):
     return render(request, 'vehicle_detection.html')

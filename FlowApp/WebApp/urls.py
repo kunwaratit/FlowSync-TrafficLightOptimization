@@ -15,19 +15,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import include, path
-# from .views import detect_objects, vehicle_detection_page,next_page_view,home_page,about_page
+from django.urls import path
+from .views import detect_objects, vehicle_detection_page,next_page_view,home_page,about_page
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('',include('WebApp.urls'))
-    
     
     # paxi change garamla milyo vaney aahile lai yeii rakham
-    # path('', home_page, name='home_page'),
-    # path('vehicle_detection_page/', vehicle_detection_page, name='vehicle_detection_page'), 
-    # path('next_page/', next_page_view, name='next_page'),
-    # path('detect_objects/', detect_objects, name='detect_objects'), 
+    path('', home_page, name='home_page'),
+    path('vehicle_detection_page/', vehicle_detection_page, name='vehicle_detection_page'), 
+    path('next_page/', next_page_view, name='next_page'),
+    path('detect_objects/', detect_objects, name='detect_objects'), 
     
     
 ]

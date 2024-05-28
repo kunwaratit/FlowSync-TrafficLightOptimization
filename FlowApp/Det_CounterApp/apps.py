@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class DectCounterappConfig(AppConfig):
+class DetCounterappConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'Dect_CounterApp'
+    name = 'Det_CounterApp'
