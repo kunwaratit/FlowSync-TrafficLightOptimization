@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'compressor',
     # restframeworks
     'rest_framework',
+    'rest_framework_simplejwt',
     
     # apps we created
     'Det_CounterApp',
