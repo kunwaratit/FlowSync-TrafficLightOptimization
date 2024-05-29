@@ -14,13 +14,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
 # from .views import detect_objects, vehicle_detection_page,next_page_view,home_page,about_page
-
+# from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('WebApp.urls'))
+    path('',include('WebApp.urls')),
+    # path('api/',include('registration.urls'))
     
     
     # paxi change garamla milyo vaney aahile lai yeii rakham
@@ -29,5 +31,5 @@ urlpatterns = [
     # path('next_page/', next_page_view, name='next_page'),
     # path('detect_objects/', detect_objects, name='detect_objects'), 
     
-    
-]
+] 
+# ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
