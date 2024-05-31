@@ -22,7 +22,7 @@ from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('WebApp.urls')),
-    path('api/',include('registration.urls'))
+    path('api/user/',include('registration.urls'))
     
     
     # paxi change garamla milyo vaney aahile lai yeii rakham
