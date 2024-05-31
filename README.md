@@ -12,7 +12,10 @@ Addressing those problems and issues FlowSync has aimed to manage the traffic by
     myenv/Scripts/activate
 ### Install all dependencies
     pip install -r requirements.txt
+<hr>
 
+### FlowApp  ## main application
+###  thunder-client collection 
 
 ### Our Contributors
 <a href="https://github.com/kunwaratit/Revolution-Bytes/graphs/contributors">
