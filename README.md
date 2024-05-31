@@ -14,9 +14,10 @@ Addressing those problems and issues FlowSync has aimed to manage the traffic by
     pip install -r requirements.txt
 <hr>
 
-### FlowApp  ## main application
-###  thunder-client collection 
-
+### FlowApp => main application
+### ESP32 => ESP32 code
+###  thunder-collection_Flowsync => Thunderclient file
+## kxa
 ### Our Contributors
 <a href="https://github.com/kunwaratit/Revolution-Bytes/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=kunwaratit/Revolution-Bytes" />
