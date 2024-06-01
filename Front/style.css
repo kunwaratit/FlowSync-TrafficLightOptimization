@@ -233,7 +233,7 @@ ul{
     /* background-color: var(--supporting-color); */
     width: 20rem;
     height: auto;
-    border-radius: 40%;
+    /* border-radius: 40%; */
     transition: all 0.3s linear;
 }
 
@@ -488,7 +488,7 @@ footer *{
     
 }
 
-.img_1 img{
+.img_11 img{
     height: auto;
     width: 100%;
 
