@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import Nav from "../NavBar/Nav";
-import Footer from "../Footer/Footer";
-import HomeContent from "../Body/HomeContent/HomeContent";
-import Skill from "../Body/Skills/Skills";
+import Nav from "../support/NavBar/Nav.jsx";
+import Footer from "../support/Footer/Footer.jsx";
+// import HomeContent from "../support/Body/HomeContent/HomeContent.jsx";
+// import Skill from "../../portfolio/Body/Skills/Skills.jsx";
 import "./static/main.css";
-import Contact from "../Body/Contact/Contact";
+import Contact from "../support/Body/Contact/Contact.jsx";
 
-import Blogs from "../Body/Blog/blog.jsx";
+// import Blogs from "../../portfolio/Body/Blog/blog.jsx";
 
-import Menu from "../Body/Database/databaseApi";
-import Projects from "../Body/Projects/Projects";
+import Menu from "../support/Body/Database/databaseApi.js";
+// import Projects from "../../portfolio/Body/Projects/Projects.jsx";
 function Main() {
   const [MenuData, setMenuData] = useState(Menu);
   console.log(MenuData);
@@ -24,13 +24,8 @@ function Main() {
         </Routes>
  */}
 
-      <HomeContent MenuData={MenuData} />
+      {/* <HomeContent MenuData={MenuData} /> */}
       <div class="bodyContainer">
-        <Skill MenuData={MenuData} />
-        <br />
-        <Projects />
-        <br />
-        <Blogs />
         <Contact MenuData={MenuData} />
       </div>
       <Footer />
