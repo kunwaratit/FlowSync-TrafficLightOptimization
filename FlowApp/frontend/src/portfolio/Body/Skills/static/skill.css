@@ -1,0 +1,138 @@
+.skillPage {
+    padding-top: 40px;
+}
+
+.SEE {
+    display: flex;
+
+}
+
+
+.skills {
+    display: flex;
+}
+
+.aboutimg {
+    height: 250px;
+    border: 1px solid white;
+
+
+}
+
+.about {
+    color: lightskyblue;
+}
+
+.about h5 {
+    letter-spacing: 1;
+    word-spacing: 1;
+}
+
+.about h2 {
+    text-decoration: underline;
+    color: #2c88c1;
+}
+
+.skillul li {
+    font-size: 12px;
+}
+
+.skillback {
+    /* background-color: #faf375bf; */
+    background: linear-gradient(0deg, #fff760c9, #fff760c9, #ebead69c, #fff760c9, #faf375bf);
+    width: 100%;
+    /* border: 5px solid; */
+    border: 0.1px solid #00ffffad;
+    border-radius: 5px;
+    /* color: #00ffff; */
+
+    height: 8px;
+}
+
+.skill {
+    /* padding: 3px; */
+    padding-left: 15px;
+    background: linear-gradient(0deg, #003cffb5, #003cffb5, #9cbeff, #003cffb5, #003cffb5);
+
+    border-radius: 5px;
+    border-left: 0.2px solid aqua;
+    height: 8px;
+}
+
+
+
+.php {
+    width: 100%;
+}
+
+.py {
+    width: 5%;
+
+}
+
+.javascript {
+    width: 70%;
+}
+
+.skillShow {
+    display: flex;
+    background: linear-gradient(172deg, #5e3c0e61, #022222);
+    border-radius: 30px;
+    /* height: 70%; */
+    padding: 20px;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    font-weight: 600;
+
+}
+
+.skillShow li {
+    /* border-bottom: 2px solid goldenrod; */
+    /* background: linear-gradient(259deg, #00000061, #000000); */
+    list-style-type: none;
+
+    padding: 4px;
+}
+
+.SEE li {
+    font-size: 14px;
+}
+
+.SEE li:hover {
+    color: gold;
+    border-bottom: 2px solid rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .SEE li {
+
+        font-size: 12px;
+    }
+}
+
+.AboutMeright {
+
+    width: 40%;
+    padding: 0px 10px 0px 0px;
+
+}
+
+.AboutMe {
+    /* display: flex; */
+    width: 60%;
+    padding: 0px 30px 0px 0px;
+}
+
+@media (max-width: 600px) {
+    .skillShow {
+        display: block;
+        /* width: 100%; */
+    }
+
+    .AboutMe,
+    .AboutMeright {
+        width: 100%;
+        padding: 0px;
+    }
+}
