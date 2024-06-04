@@ -6,8 +6,8 @@
 #include <BlynkSimpleEsp32.h>
 
 
-char ssid[] = "manjit@vianet";
-char pass[] = "manjit459011";
+char ssid[] = "NTFiber-A4E9";
+char pass[] = "omVF4hsE";
 
 
 char auth[] = "j5qFQfjs-6ZlD7JnBZafmPu7r63B6GZ6";
