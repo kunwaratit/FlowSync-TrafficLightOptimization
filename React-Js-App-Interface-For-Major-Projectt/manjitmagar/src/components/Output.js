@@ -8,7 +8,7 @@ const Output = () => {
   return (
     <section className="section-course">
       <div className="container">
-        <h2 className="section-common-heading">Output</h2>
+        <h2 className="section-common-heading">Output :</h2>
         <p className="section-common-subheading">
           FlowSync is an innovative traffic management system utilizing computer vision to dynamically adjust signals, reducing congestion and 
           improving efficiency in Nepal's urban areas. By automating traffic control, it minimizes manual labor, decreases fuel consumption, and enhances safety,
@@ -18,7 +18,7 @@ const Output = () => {
       <div className="img_11">
         <img src={img1} alt="Output Image 1" />
         <div className="container">
-          <h2 className="section-common-heading">Modes & Chart</h2>
+          <h2 className="section-common-heading">Modes & Chart :</h2>
           <p className="section-common-subheading">
             It presents users with real-time data visualization and control options through intuitive modes 
             and interactive charts. It enables monitoring traffic density, analyzing historical data, and adjusting signal timings, 
@@ -27,7 +27,7 @@ const Output = () => {
         </div>
         <img src={img2} alt="Output Image 2" />
         <div className="container">
-          <h2 className="section-common-heading">Problem</h2>
+          <h2 className="section-common-heading">Problem :</h2>
           <p className="section-common-subheading">
             FlowSync project highlights the challenges and issues faced in traditional traffic management systems, particularly in Nepal's urban areas. 
             It addresses key concerns such as traffic congestion, manual traffic control, fuel consumption, carbon emissions, and air pollution. 
