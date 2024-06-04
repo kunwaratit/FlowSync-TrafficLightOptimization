@@ -1,9 +1,24 @@
+import mainlogo from './images/mainlogo.png';
+
 import React from 'react';
 
 const Navbar = () => {
   return (
+    
     <header className="section-navbar">
       <div className="container">
+
+      <div className="navbar-brand">
+          <a href="#">
+            <img
+              src={mainlogo}
+              height="100%"
+              width="auto"
+              alt="Portfolio Logo"
+            />
+          </a>
+        </div>
+
         <nav className="navbar">
           <ul>
             <li className="nav-item">

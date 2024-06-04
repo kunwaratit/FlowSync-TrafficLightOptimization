@@ -38,6 +38,7 @@ p, li, a{
     font-weight: 400;
     color: var(--para-color);
     line-height: 1.5;
+    text-align: justify;
 
 }
 
@@ -104,7 +105,7 @@ ul{
 
 .section-navbar .container{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     padding: 1rem 5.4rem;
 }
@@ -143,6 +144,7 @@ ul{
 .section-navbar .container .navbar-brand img{
     max-width: 85px;
     max-height: 55px;
+    
 }
 
 
