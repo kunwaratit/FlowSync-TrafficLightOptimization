@@ -120,12 +120,24 @@ WSGI_APPLICATION = 'FlowApp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+     'default': {
+         'ENGINE': 'djongo',
+         'NAME': 'Flow',
+           'CLIENT': {
+            'host': 'mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',  # MongoDB server host
+            # 'port': 27017,  # MongoDB server port
+            }
+     }
+ }
+
 
 
 # Password validation
