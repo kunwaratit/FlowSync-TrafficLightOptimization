@@ -4,7 +4,7 @@ const About = () => {
   return (
     <section className="section-about" id="call-me-about">
       <div className="container">
-        <h2 className="section-common-heading">About Flow Sync</h2>
+        <h2 className="section-common-heading">About Flow Sync :</h2>
         <p className="section-common-subheading">
           FlowSync utilizes cutting-edge computer vision algorithms to analyze traffic patterns in real-time. Cameras installed 
           at intersections monitor traffic density and flow. This data is processed to dynamically adjust the traffic signals, 
