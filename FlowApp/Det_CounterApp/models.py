@@ -1,7 +1,7 @@
 from django.db import models
 
 class Detection(models.Model):
-    _id = models.CharField(max_length=255)
+    _id = models.CharField(max_length=255, primary_key=True)
     location_id = models.CharField(max_length=255)
     positions = models.JSONField()
 
