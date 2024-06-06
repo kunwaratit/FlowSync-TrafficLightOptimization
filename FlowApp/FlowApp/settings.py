@@ -51,7 +51,10 @@ INSTALLED_APPS = [
     'Det_CounterApp',
     'WebApp',
     'registration',
-    
+    'myapp',
+    # practice apps
+    'vh',
+   
 
 ]
 

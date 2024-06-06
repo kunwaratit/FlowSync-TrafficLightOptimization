@@ -11,4 +11,4 @@ class DetectionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Detection
-        fields = ['_id', 'location_id', 'positions']
+        fields = [ 'location_id', 'positions']

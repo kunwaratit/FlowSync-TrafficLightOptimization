@@ -23,8 +23,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('WebApp.urls')),
     path('api/user/',include('registration.urls')),
-    path('api/det/',include('Det_CounterApp.urls'))
-    
+    path('api/det/',include('Det_CounterApp.urls')),
+    path('api/vh/',include('vh.urls')),
+     path('myapp/', include('myapp.urls')),
     # paxi change garamla milyo vaney aahile lai yeii rakham
     # path('', home_page, name='home_page'),
     # path('vehicle_detection_page/', vehicle_detection_page, name='vehicle_detection_page'), 
