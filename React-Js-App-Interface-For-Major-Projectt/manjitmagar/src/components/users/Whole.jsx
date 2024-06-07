@@ -12,11 +12,11 @@ const Whole = () => {
         <Hero />
       </div>
       <div className="my-content">
-        <main>
+        {/* <main> */}
           <About />
           <Output />
           <Contact />
-        </main>
+        {/* </main> */}
       </div>
     </div>
   );

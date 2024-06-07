@@ -5,6 +5,7 @@ import Navbar from "./components/users/Navbar";
 import Footer from "./components/users/Footer";
 import "./style.css";
 import Random from "./components/users/Random_page";
+import Login from "./components/users/login";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
       <Route path="/" element={<Whole />} />
         <Route path="/home" element={<Whole />} />
         <Route path="/random" element={<Random />} />
+        <Route path="/login" element={<Login/>}/>
       </Routes>
       <Footer />
     </>
