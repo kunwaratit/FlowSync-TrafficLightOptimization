@@ -1,34 +1,53 @@
 import mainlogo from './images/mainlogo.png';
 // import Link from reactrou
-import React from 'react';
+import React,{ useEffect } from 'react';
 
+import {Link,useLocation} from 'react-router-dom';
 const Navbar = () => {
+
+  const location = useLocation();
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      window.scrollTo({
+        top: section.offsetTop,
+        behavior: "smooth"
+      });
+    }
+  };
+  useEffect(() => {
+    if (location.hash) {
+      const sectionId = location.hash.substring(1);
+      scrollToSection(sectionId);
+    }
+  }, [location]);
+
   return (
     
     <header className="section-navbar">
       <div className="container">
 
       <div className="navbar-brand">
-          <a href="#">
+          <Link to="">
             <img
               src={mainlogo}
               height="100%"
               width="auto"
               alt="Portfolio Logo"
             />
-          </a>
+          </Link>
         </div>
 
         <nav className="navbar">
           <ul>
             <li className="nav-item">
-              <a href="#call-me-home" className="nav-link">Home</a>
+              <Link to="/home#call-me-home" className="nav-link">Home</Link>
             </li>
             <li className="nav-item">
-              <a href="#call-me-about" className="nav-link">About</a>
+              <Link to="/home#call-me-about" className="nav-link">About</Link>
             </li>
             <li className="nav-item">
-              <a href="#section-contact--homepage" className="nav-link">Contact</a>
+              <Link to="/home#section-contact--homepage" className="nav-link">Contact</Link>
             </li>
           </ul>
         </nav>

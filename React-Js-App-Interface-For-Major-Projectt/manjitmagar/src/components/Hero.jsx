@@ -14,9 +14,7 @@ const Hero = () => {
               vision technology to dynamically adjust traffic signals, ensuring smoother 
               and more efficient traffic flow.
             </p>
-            {/* <div className="hero-btn">
-              <a href="#section-contact--homepage" className="btn btn-white">Contact US</a>
-            </div> */}
+           
           </div>
           <div className="section-hero--img">
             <figure>
