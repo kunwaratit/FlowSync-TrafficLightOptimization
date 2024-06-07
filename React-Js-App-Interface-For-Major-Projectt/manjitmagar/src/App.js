@@ -10,13 +10,20 @@ import './style.css';
 const App = () => {
   return (
     <div>
-      <Navbar />
+          <Navbar />
+          <div className='main'>
+      <Hero />  
+    </div>  
+     <div className='my-content'>
+     
       <main>
-        <Hero />
+      
         <About />
         <Output />
         <Contact />
+    
       </main>
+      </div>
       <Footer />
     </div>
   );

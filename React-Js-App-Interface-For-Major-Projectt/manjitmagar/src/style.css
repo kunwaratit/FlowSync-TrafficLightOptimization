@@ -5,8 +5,18 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Urbanist", sans-serif;
+    scroll-behavior: smooth;
+}
+.my-content{
+    background: rgb(255, 255, 255);
+    margin: 0 8%;
+    padding: 1% 5% 0;
 }
 
+body {
+    background-color: #efeeeec9;
+    /* min-width: 380px; */
+}
 html{
     font-size: 62.5%;
     scroll-behavior: smooth;
@@ -54,7 +64,7 @@ p, li, a{
     cursor: pointer;
     box-shadow: var(--btn-box-shadow);
 }
-main{
+.main{
     position: relative;
     background-image: linear-gradient(
         to top right,
@@ -495,5 +505,3 @@ footer *{
     width: 100%;
 
 }
-
-
