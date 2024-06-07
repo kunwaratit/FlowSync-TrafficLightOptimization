@@ -16,7 +16,7 @@ const Output = () => {
         </p>
       </div>
       <div className="img_11">
-        <img src={img1} alt="Output Image 1" />
+        <img src={img1} alt="Output" />
         <div className="container">
           <h2 className="section-common-heading">Modes & Chart :</h2>
           <p className="section-common-subheading">
@@ -25,7 +25,7 @@ const Output = () => {
             empowering users to optimize traffic flow efficiently.
           </p>
         </div>
-        <img src={img2} alt="Output Image 2" />
+        <img src={img2} alt="Output" />
         <div className="container">
           <h2 className="section-common-heading">Problem :</h2>
           <p className="section-common-subheading">
@@ -35,7 +35,7 @@ const Output = () => {
             idling. Additionally, manual traffic management poses risks to the safety of both motorists and pedestrians, especially in congested intersections.
           </p>
         </div>
-        <img src={img3} alt="Output Image 3" />
+        <img src={img3} alt="Output" />
       </div>
     </section>
   );
