@@ -1,5 +1,5 @@
 import React from 'react';
-import mainlogo from './images/trafficlight logo.png';
+import mainlogo from '../images/trafficlight logo.png';
 import ShapeDivider from './ShapeDivider'; 
 
 const Hero = () => {

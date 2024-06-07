@@ -1,4 +1,4 @@
-import mainlogo from './images/mainlogo.png';
+import mainlogo from '../images/mainlogo.png';
 // import Link from reactrou
 import React,{ useEffect } from 'react';
 
@@ -48,6 +48,15 @@ const Navbar = () => {
             </li>
             <li className="nav-item">
               <Link to="/home#section-contact--homepage" className="nav-link">Contact</Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/setting" className="nav-link">Setting</Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/login" className="nav-link">Login</Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/register" className="nav-link">Register</Link>
             </li>
           </ul>
         </nav>

@@ -1,4 +1,4 @@
-import contactus from "./images/contactus logo traffic police.png";
+import contactus from "../images/contactus logo traffic police.png";
 
 import React from "react";
 
