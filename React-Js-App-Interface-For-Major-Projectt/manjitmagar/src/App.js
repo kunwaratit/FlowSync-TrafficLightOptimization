@@ -1,23 +1,24 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
-import Whole from "./components/users/Whole";
-import Navbar from "./components/users/Navbar";
-import Footer from "./components/users/Footer";
+import { Route } from "react-router-dom";
 import "./style.css";
-import Random from "./components/users/Random_page";
-import Login from "./components/users/login";
+import Admin from "./components/admin/Admin";
+import { useAuth } from "./components/users/AuthContext";
 
+import MyUser from "./components/users/MyUser";
+import UserDash from "./components/users/Dashboard/UserDash";
+// import User from "./components/users/User";
 const App = () => {
+  const { isAuthenticated } = useAuth();
   return (
     <>
-      <Navbar />
-      <Routes>
-      <Route path="/" element={<Whole />} />
-        <Route path="/home" element={<Whole />} />
-        <Route path="/random" element={<Random />} />
-        <Route path="/login" element={<Login/>}/>
-      </Routes>
-      <Footer />
+      {!isAuthenticated && <MyUser />}
+
+      {!isAuthenticated && <UserDash />}
+
+      {/* <UserDash/> */}
+
+      {/* Redirect to login page if trying to access admin page without login */}
+      {/* {!isAuthenticated && <Route path="/admin" element={<Navigate to="/" replace />} />} */}
     </>
   );
 };

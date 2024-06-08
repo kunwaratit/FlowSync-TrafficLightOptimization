@@ -3,8 +3,9 @@ import mainlogo from '../images/mainlogo.png';
 import React,{ useEffect } from 'react';
 
 import {Link,useLocation} from 'react-router-dom';
-const Navbar = () => {
 
+const Navbar = () => {
+ 
   const location = useLocation();
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
@@ -22,11 +23,11 @@ const Navbar = () => {
     }
   }, [location]);
 
-  return (
-    
+  return (<>
+   
     <header className="section-navbar">
       <div className="container">
-
+    
       <div className="navbar-brand">
           <Link to="">
             <img
@@ -62,6 +63,7 @@ const Navbar = () => {
         </nav>
       </div>
     </header>
+    </>
   );
 };
 

@@ -1,0 +1,6 @@
+.content{
+    margin: 1%;
+    padding: 1%;
+    border:1px solid rgba(226, 15, 15, 0.833);
+    width:fit-content;
+}

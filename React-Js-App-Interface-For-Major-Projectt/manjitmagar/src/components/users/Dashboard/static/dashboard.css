@@ -1,0 +1,53 @@
+.dashboard{
+    display: flex;
+    justify-content: center;
+}
+/* Leftbar */
+.dashnav nav ul{
+    padding:10%;
+    /* align-items: center; */
+    background-color: rgb(230, 230, 230);
+    
+}
+/* .dashnav nav ul {
+    /* min-width:max-content; */
+
+/* }  */
+.dashnav nav ul li a:hover {
+    color:rgb(39, 218, 39)
+}
+.dashnav a{
+    /* text-align: justify; */
+    font-size: medium;
+}
+.dashnav nav ul{
+    height: 90vh;
+}
+
+/* userDash or right container */
+.dashleft{
+    width: 15vw;
+
+    /* overflow:scroll;  */
+}
+.dashright{
+width: 100%;
+}
+.left{
+    position: sticky;
+    top:0;
+    height: 5rem;
+}
+
+.rightcontainer{
+    margin:1%;
+    /* border: 1px dotted red; */
+    padding: 1%;
+}.dashcontainer{
+    margin-top: 1%;
+    border:1px solid rgba(188, 188, 188, 0.833);
+    display: flex;
+}
+.dasheader h1{
+    text-align: left;
+}

@@ -1,0 +1,21 @@
+.search{
+    border: 1px solid black;
+    width: 30%;
+    margin-left:25%; 
+    padding: 10px; 
+    margin-top: 5px; 
+}
+.InstalledList{
+    margin-top: 5px;
+    border: 1px  dotted rgb(202, 59, 59);
+}.installedInfo{
+    border: 1px solid black;
+    width: fit-content;
+    margin: 0.8%;
+    padding: 5px;
+}.manage-content{
+    border: none;
+    
+}.manage-content h3{
+    text-decoration: underline;
+}
