@@ -1,6 +1,7 @@
 import React from 'react';
 import mainlogo from './images/trafficlight logo.png';
 import ShapeDivider from './ShapeDivider'; 
+import RegistrationForm from './registration.jsx';
 
 const Hero = () => {
   return (
@@ -15,7 +16,7 @@ const Hero = () => {
               and more efficient traffic flow.
             </p>
             {/* <div className="hero-btn">
-              <a href="#section-contact--homepage" className="btn btn-white">Contact US</a>
+              <a href="./registration.jsx" className="btn btn-white">Contact US</a>
             </div> */}
           </div>
           <div className="section-hero--img">

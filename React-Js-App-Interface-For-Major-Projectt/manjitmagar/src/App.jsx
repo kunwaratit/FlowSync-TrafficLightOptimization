@@ -6,6 +6,7 @@ import Output from './components/Output';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import './style.css';
+import RegistrationForm from './components/registration';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <About />
         <Output />
         <Contact />
+        {/* <RegistrationForm /> */}
       </main>
       <Footer />
     </div>
