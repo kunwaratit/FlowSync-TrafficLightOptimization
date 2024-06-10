@@ -1,9 +1,15 @@
+.center-container input[type="text"]{
+    margin: auto;
+}
+
+
 .form-container {
     background-color: #ffffff;
     padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(22, 13, 1, 0.541);
     width: 350px;
+    margin: 20px;
 }
 
 form h2 {
@@ -36,6 +42,7 @@ form h2 {
 .phone-group {
     display: flex;
 }
+
 
 .phone-group input[type="text"] {
     width: 25%;

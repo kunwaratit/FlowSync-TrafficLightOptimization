@@ -1,4 +1,4 @@
-import mainlogo from '../images/mainlogo.png';
+import mainlogo from '../images/mainlogo1.png';
 // import Link from reactrou
 import React,{ useEffect } from 'react';
 

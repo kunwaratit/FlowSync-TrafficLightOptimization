@@ -4,9 +4,10 @@ import Navbar from "./Navbar";
 import Whole from "./Whole";
 import Random from "./Random_page";
 import Login from "./login";
-import Register from "./Register";
+// import Register from "./Register";
 import Footer from "./Footer"
 import { Route,Routes } from "react-router-dom";
+import RegistrationForm from "./registration";
 const MyUser = () => {
 //   const { isAuthenticated } = useAuth();
   return (
@@ -19,7 +20,7 @@ const MyUser = () => {
         <Route path="/home" element={<Whole />} />
         <Route path="/random" element={<Random />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/register" element={<RegistrationForm />} />
        </Routes>
      <Footer/>
     </>

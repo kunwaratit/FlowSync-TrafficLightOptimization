@@ -7,6 +7,12 @@
     font-family: "Urbanist", sans-serif;
     scroll-behavior: smooth;
 }
+.center-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+}
 .my-content{
     background: rgb(255, 255, 255);
     margin: 0 8%;
@@ -105,7 +111,7 @@ ul{
 
 .section-navbar {
     width: 100%;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 40px 1px;
     position: sticky; 
     top: 0; 
     left: 0; 
@@ -118,8 +124,11 @@ ul{
     justify-content: space-between;
     align-items: center;
     padding: 1rem 5.4rem;
+    padding-bottom: 2px;
 }
-
+.navbar-brand a{
+    line-height: 0;
+}
 .section-navbar .container ul{
     display: flex;
     gap: 3.2rem;
@@ -138,7 +147,7 @@ ul{
         bottom: -0.3rem;
         left: 0;
         width: 0%;
-        border-bottom: 0.2rem solid var(--main-color);
+        border-bottom: 0.2rem solid #10b251;
         transition: all 0.3s linear;
     }
 }
@@ -154,7 +163,7 @@ ul{
 .section-navbar .container .navbar-brand img{
     max-width: 85px;
     max-height: 55px;
-    
+    height: 35px;
 }
 
 
