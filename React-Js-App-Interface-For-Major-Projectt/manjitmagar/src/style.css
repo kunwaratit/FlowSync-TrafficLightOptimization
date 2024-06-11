@@ -7,6 +7,12 @@
     font-family: "Urbanist", sans-serif;
     scroll-behavior: smooth;
 }
+
+.navbar-brand a{
+    font-weight: 600;
+    font-size: 1.25rem;
+    letter-spacing: -0.025em;
+}
 .center-container{
     display: flex;
     justify-content: center;

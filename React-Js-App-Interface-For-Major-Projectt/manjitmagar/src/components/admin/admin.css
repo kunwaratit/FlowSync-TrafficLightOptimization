@@ -2,5 +2,12 @@
     margin: 1%;
     padding: 1%;
     border:1px solid rgba(226, 15, 15, 0.833);
-    width:fit-content;
+    /* width:fit-content; */
+    background: rgb(156 163 175);
+    border: 1px solid #c7c7c7;
+    border-radius: 6px;
+}
+.roadimg img{
+    height:150px;
+
 }

@@ -106,3 +106,5 @@ class DetectionAPIView(APIView):
                 return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         else:
             return Response({"error": "Please provide a location_id in the request query parameters."}, status=status.HTTP_400_BAD_REQUEST)
+
+

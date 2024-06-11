@@ -22,6 +22,11 @@
 }
 .dashnav nav ul{
     height: 90vh;
+    background: #ced1d5;
+    box-shadow: 2px 5px 5px #919191;
+    border-radius: 0px 0 5px 0px;
+}.dashnav nav ul a{
+    color: #20356c !important;
 }
 
 /* userDash or right container */
@@ -43,10 +48,16 @@ width: 100%;
     margin:1%;
     /* border: 1px dotted red; */
     padding: 1%;
+
+
+    background: #eaeaea;
+    box-shadow: 2px 2px 5px #cccccc;
+    border-radius: 5px;
+    border: 1px solid #cdcccc78;
 }.dashcontainer{
     margin-top: 1%;
     border:1px solid rgba(188, 188, 188, 0.833);
-    display: flex;
+    /* display: flex; */
 }
 .dasheader h1{
     text-align: left;

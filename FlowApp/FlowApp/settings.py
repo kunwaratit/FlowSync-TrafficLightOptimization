@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     
     # apps we created
     'Det_CounterApp',
-    'WebApp',
+    # 'WebApp',
     'registration',
     'myapp',
     # practice apps

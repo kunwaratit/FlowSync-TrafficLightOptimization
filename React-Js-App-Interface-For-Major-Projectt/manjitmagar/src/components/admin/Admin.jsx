@@ -1,5 +1,6 @@
 import React from "react";
 import './admin.css'
+import road from '../images/image.png'
 const Admin = () => {
   return (
     <>
@@ -10,8 +11,8 @@ const Admin = () => {
         <hr />
         <div className="dashcontainer">
             <div className="content">
-              <div>
-                <img src="" alt="xaina picture nai" srcset="" />
+              <div className="roadimg">
+                <img src={road} alt="xaina picture nai" srcset="" />
               </div>
               hello
               </div> 

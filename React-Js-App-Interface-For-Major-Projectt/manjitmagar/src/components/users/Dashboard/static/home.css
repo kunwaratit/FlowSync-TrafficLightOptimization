@@ -10,12 +10,24 @@
     border: 1px  dotted rgb(202, 59, 59);
 }.installedInfo{
     border: 1px solid black;
-    width: fit-content;
+    /* width: fit-content; */
     margin: 0.8%;
     padding: 5px;
+
+    display: flex;
+    background: rgb(156 163 175 / 36%);
+    border: 1px solid #c7c7c7;
+    border-radius: 6px;
 }.manage-content{
     border: none;
+    display: block;
     
 }.manage-content h3{
     text-decoration: underline;
+}.card{
+    /* display:flex; */
+    background: aliceblue;
+    padding: 5px;
+    /* border: 1px solid; */
+    border-radius: 5px;
 }

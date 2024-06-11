@@ -31,7 +31,7 @@ const Login = () => {
         localStorage.setItem('message', msg);
 
         login(); // Call login to update the authentication state
-        navigate('/admin');
+        navigate('/d-home');
       }
     })
     .catch(error => {

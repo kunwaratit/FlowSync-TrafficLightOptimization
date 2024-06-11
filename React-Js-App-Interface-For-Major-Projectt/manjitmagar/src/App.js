@@ -6,6 +6,7 @@ import { useAuth } from "./components/users/AuthContext";
 
 import MyUser from "./components/users/MyUser";
 import UserDash from "./components/users/Dashboard/UserDash";
+import RegistrationForm from "./components/users/registration";
 // import User from "./components/users/User";
 const App = () => {
   const { isAuthenticated } = useAuth();
@@ -13,8 +14,8 @@ const App = () => {
     <>
       {!isAuthenticated && <MyUser />}
 
-      {!isAuthenticated && <UserDash />}
-
+      {isAuthenticated && <UserDash />}
+      
       {/* <UserDash/> */}
 
       {/* Redirect to login page if trying to access admin page without login */}
