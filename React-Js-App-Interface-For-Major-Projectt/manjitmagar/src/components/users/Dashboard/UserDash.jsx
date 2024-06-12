@@ -5,6 +5,7 @@ import Admin from "../../admin/Admin";
 import LeftBar from "./LeftBar";
 import DashRoutes from "./DashRoutes";
 import './static/dashboard.css'
+import VehicleCountTable from "./location";
 const UserDash = () => {
   return (
     <>
@@ -17,6 +18,7 @@ const UserDash = () => {
         <div className="dashright">
           <div className="rightcontainer">
             <DashRoutes />
+            <VehicleCountTable />
           </div>
           {/* <Admin/> */}
         </div>

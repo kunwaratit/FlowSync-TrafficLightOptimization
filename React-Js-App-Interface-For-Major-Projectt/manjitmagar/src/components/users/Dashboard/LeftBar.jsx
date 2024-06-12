@@ -22,7 +22,7 @@ return(<>
                 <Link to='/setting'>SYS-Setting</Link>    
                 </li>
                 <li>
-                <Link to='/dash'>Contact</Link>    
+                <Link to='/contact'>Contact</Link>    
                 </li>
                 <li>
                 <Link to='/help'>?help</Link>    
