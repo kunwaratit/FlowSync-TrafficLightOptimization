@@ -1,82 +1,99 @@
-.center-container input[type="text"]{
-    margin: auto;
-}
-
-
-.form-container {
-    background-color: #ffffff;
+.center-container {
+    margin-top: 0px;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+  }
+  
+  .form-container {
+    width: 400px;
+    margin: 18vh auto;
     padding: 20px;
+    background-color: #fff;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(22, 13, 1, 0.541);
-    width: 350px;
-    margin: 20px;
-}
-
-form h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #00796b;
-}
-
-.form-group {
+  }
+  
+  .form-group {
     margin-bottom: 15px;
+  }
+  
+ 
+  
+  .error-message {
+    color: #ff0000;
+    font-size: small;
+    /* margin-top: 5px; */
+  }
+  
+  .success-message {
+    color: #008000;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  
+  .error {
+    border-color: #ff0000;
+  }
+  
+  .phone-group {
+    display: flex;
+  }
+  
+  .phone-group input {
+    flex: 1;
+    margin-right: 5px;
+  }
+  
+  .phone-group input.error {
+    border-color: #ff0000;
+  }
+  
+  @media (max-width: 480px) {
+    .form-container {
+      width: 90%;
+    }
+  }
+  .btn {
+    background-color: #2b9374;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+
+  .btn:hover {
+    background-color: #1d644f;
+  }
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #6b0c0c;
+    border-radius: 4px;
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    color: #00796b;
+.heading{
+    text-align: center;
+    font-size: large;
+    color: #2b9374;
 }
 
-.form-group input,
-.form-group select {
+#phone, 
+#password,
+#confirm-password,
+#district,
+#email,
+#chowk{
+    
     width: 100%;
     padding: 10px;
-    box-sizing: border-box;
-    border: 1px solid #b2dfdb;
-    border-radius: 6px;
-    background-color: #e0f2f1;
-    color: #004d40;
+    margin-bottom: 15px;
+    border: 1px solid #2b9374;
+    border-radius: 4px;
 }
 
-.phone-group {
-    display: flex;
-}
-
-
-.phone-group input[type="text"] {
-    width: 25%;
-    margin-right: 5px;
-}
-
-.phone-group input[type="tel"] {
-    width: 75%;
-}
-
-.form-group input:focus,
-.form-group select:focus {
-    outline: none;
-    border-color: #00796b;
-    background-color: #b2dfdb;
-}
-
-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #00796b;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-button:hover {
-    background-color: #004d40;
-}
-
-.error-message {
-    color: red;
-    margin-bottom: 10px;
-    display: none;
-}
