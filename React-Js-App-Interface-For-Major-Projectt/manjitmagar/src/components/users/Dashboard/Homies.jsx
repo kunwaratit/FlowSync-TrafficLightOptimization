@@ -2,6 +2,7 @@ import React from "react";
 import "./static/dashboard.css";
 import "./static/home.css";
 import road from "../../images/image.png";
+import VehicleCountTable from "./location";
 
 const Homies = () => {
   return (
@@ -29,7 +30,7 @@ const Homies = () => {
             <p>asdasd</p>
             asdasd
           </div>
-        </div>
+        </div><VehicleCountTable />
       </div>
     </>
   );

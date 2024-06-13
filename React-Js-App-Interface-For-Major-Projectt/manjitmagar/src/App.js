@@ -14,7 +14,7 @@ const App = () => {
     <>
       {!isAuthenticated && <MyUser />}
 
-      {!isAuthenticated && <UserDash />}
+      {isAuthenticated && <UserDash />}
       
       {/* <UserDash/> */}
 

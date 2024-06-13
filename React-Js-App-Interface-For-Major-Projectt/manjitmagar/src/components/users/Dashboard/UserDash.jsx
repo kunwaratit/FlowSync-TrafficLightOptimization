@@ -18,7 +18,7 @@ const UserDash = () => {
         <div className="dashright">
           <div className="rightcontainer">
             <DashRoutes />
-            <VehicleCountTable />
+            
           </div>
           {/* <Admin/> */}
         </div>
