@@ -12,19 +12,19 @@ const Admin = () => {
         <div className="dashcontainer">
             <div className="content">
               <div className="roadimg">
-                <img src={road} alt="xaina picture nai" srcset="" />
+                <img src={road} alt="xaina picture nai"  />
               </div>
               hello
               </div> 
               <div className="content">
               <div>
-                <img src="" alt="xaina picture nai" srcset="" />
+                <img src="" alt="xaina picture nai"  />
               </div>
               hello
               </div> 
               <div className="content">
               <div>
-                <img src="" alt="xaina picture nai" srcset="" />
+                <img src="" alt="xaina picture nai"  />
               </div>
               hello
               </div> 

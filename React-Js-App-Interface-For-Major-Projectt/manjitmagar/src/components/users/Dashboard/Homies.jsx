@@ -19,7 +19,7 @@ const Homies = () => {
              
               <div className="roadimg">
                 <p>Satdobato</p>
-                <img src={road} alt="xaina picture nai" srcset="" />
+                <img src={road} alt="xaina picture nai"  />
               </div>
              
             </div>
