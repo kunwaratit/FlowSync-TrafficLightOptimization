@@ -51,7 +51,7 @@ const Navbar = () => {
               <Link to="/home#section-contact--homepage" className="nav-link">Contact</Link>
             </li>
             <li className="nav-item">
-              <Link to="/setting" className="nav-link">Setting</Link>
+              <Link to="/check-status" className="nav-link">Check Status</Link>
             </li>
             <li className="nav-item">
               <Link to="/login" className="nav-link">Login</Link>

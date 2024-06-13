@@ -44,7 +44,7 @@ class LoginApi(APIView):
                 token=get_tokens_for_user(user)
                 return Response({'token':token,'msg':'Login successful'},status=status.HTTP_201_CREATED)
             else:
-                return Response({'errors':{'non_field_errors':['email or password is not valid']}}
+                return Response({'errors':{'non_field_errors':['Invalid Email or password']}}
                                 ,status=status.HTTP_400_BAD_REQUEST)
                 
 

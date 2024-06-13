@@ -8,6 +8,7 @@ import Login from "./login";
 import Footer from "./Footer"
 import { Route,Routes } from "react-router-dom";
 import RegistrationForm from "./registration";
+import Homies from "./Dashboard/Homies";
 const MyUser = () => {
 //   const { isAuthenticated } = useAuth();
   return (
@@ -21,6 +22,7 @@ const MyUser = () => {
         <Route path="/random" element={<Random />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<RegistrationForm />} />
+        {/* <Route path="/check-status" element={<Homies />} /> */}
        </Routes>
      <Footer/>
     </>

@@ -10,53 +10,63 @@ const Login = () => {
     email: "",
     password: ""
   });
-  const [error, setError] = useState('');
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+    general: ""
+  });
   const navigate = useNavigate(); 
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    setError('');
+    setErrors({ ...errors, general: "" }); 
 
-    axios.post('http://127.0.0.1:8000/api/user/login/', formData, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(response => {
-      console.log(response.data); // Log the response data to see its structure
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/api/user/login/', formData, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
 
       const { token: { access }, msg } = response.data;
-      if (access) {
-        localStorage.setItem('authToken', access);
-        localStorage.setItem('message', msg);
+      localStorage.setItem('authToken', access);
+      localStorage.setItem('message', msg);
 
-        login(); // Call login to update the authentication state
-        navigate('/d-home');
-      }
-    })
-    .catch(error => {
-      console.error(error);
-      if (error.response && error.response.data && error.response.data.detail) {
-        setError(error.response.data.detail);
+      login(); 
+      navigate('/d-home'); 
+
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.errors) {
+        const { errors: apiErrors } = error.response.data;
+
+        setErrors({
+          email: apiErrors.email ? apiErrors.email[0] : "",
+          password: apiErrors.password ? apiErrors.password[0] : "",
+          general: apiErrors.non_field_errors ? apiErrors.non_field_errors[0] : "Invalid Credintals Please try again."
+        });
       } else {
-        setError("Invalid credentials! Try again.");
+        setErrors({ ...errors, general: "Network error. Please try again later." });
       }
-    });
+    }
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    setErrors({ ...errors, [name]: "" }); 
   };
 
   return (
     <div className="login-container">
       <h1>Login</h1>
-      {error && <div className="error-message" style={{ color: 'red' }}> {error}</div>}
       <form className="login-form" onSubmit={handleLogin}>
+        {errors.general && <div className="error-messages" style={{ color: 'red' }}>{errors.general}</div>}
+        <div className="error-messages" style={{ color: 'red' }}>{errors.email}</div>
         <input type="text" name="email" placeholder="User Email" value={formData.email} onChange={handleChange} />
+        <div className="error-messages" style={{ color: 'red' }}>{errors.password}</div>
         <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} />
         <button type="submit">Login</button>
+       
       </form>
       <div className="links">
         <Link to="/register">Sign up</Link> | <Link to="/forgot">Forgot password?</Link>

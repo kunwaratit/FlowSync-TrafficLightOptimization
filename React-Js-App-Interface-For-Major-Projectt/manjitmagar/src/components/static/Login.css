@@ -16,19 +16,25 @@ body {
 
 h1 {
     text-align: center;
-    color: #002147;
+    color: #2b9374;
+    font-size: xx-large;
 }
 
 .login-form {
     margin-top: 30px;
+}.login-form button{
+    background-color: #2b9374;
+}.login-form button:hover{
+    background-color: #1d644f;
 }
 
 input[type="text"],
 input[type="password"] {
-    width: 92%;
+    
+    width: 100%;
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid #041574;
+    border: 1px solid #2b9374;
     border-radius: 4px;
 }
 
@@ -64,7 +70,7 @@ button:hover {
 @media (max-width: 768px) {
     .login-container {
         width: 80%;
-        max-width: 400px;
+        max-width: 300px;
     }
 }
 
@@ -74,4 +80,10 @@ button:hover {
         width: 90%;
         max-width: 300px;
     }
+}
+.error-messages{
+    /* text-align: center; */
+    font-size: small;
+}.links a {
+    font-size: small;
 }
