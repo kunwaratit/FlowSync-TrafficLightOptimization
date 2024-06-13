@@ -20,9 +20,9 @@ const MyUser = () => {
         <Route path="/" element={<Whole />} />
         <Route path="/home" element={<Whole />} />
         <Route path="/random" element={<Random />} />
-        <Route path="/login" element={<Login />} />
+        <Route exact path="/login" element={<Login />} />
         <Route path="/register" element={<RegistrationForm />} />
-        {/* <Route path="/check-status" element={<Homies />} /> */}
+        <Route path="/check-status" element={<Homies />} />
        </Routes>
      <Footer/>
     </>
