@@ -26,7 +26,12 @@
     background: #8fbc8f8c;
     
 }
-
+.dasnav .active,.active li,.active a{
+    color: #00684a !important;
+    font-weight: 600;
+    text-decoration-line: underline;
+    background: #8fbc8f8c;
+}
 
 .dashnav nav ul{
     height: 99vh;

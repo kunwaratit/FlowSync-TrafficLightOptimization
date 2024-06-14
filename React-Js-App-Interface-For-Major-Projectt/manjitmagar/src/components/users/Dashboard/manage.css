@@ -13,17 +13,18 @@
     color: white;
     padding: 10px;
     text-align: center;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 
 .dasheader h1 {
     margin: 0;
+    text-decoration: underline;
 }
 
 hr {
     border: none;
     border-top: 1px solid #ccc;
-    margin: 20px 0;
+    margin: 5px 0;
 }
 
 .manage_cont {
@@ -50,11 +51,11 @@ hr {
 #master-key {
     padding: 10px;
     margin: 10px 0;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     border-radius: 5px;
 }
 
-button {
+/* button {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -63,11 +64,11 @@ button {
     cursor: pointer;
     font-size: 16px;
     margin-top: 20px;
-}
+} */
 
-button:hover {
+/* button:hover {
     background-color: #0056b3;
-}
+} */
 
 #content-container {
     text-align: center;
@@ -94,6 +95,6 @@ button:hover {
     font-size: 15px
     
 }
-.download{
+/* .download{
     background-color: #28e932;
-}
+} */

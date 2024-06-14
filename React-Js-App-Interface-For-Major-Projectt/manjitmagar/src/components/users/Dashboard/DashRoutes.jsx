@@ -16,7 +16,7 @@ const DashRoutes=()=>{
         <Route path='/manage' element={<Manage/>}  />
         <Route path='/setting' element={<Setting/>}  />
         <Route path='/contact' element={<Contact/>}  />
-        <Route path='/help' element={<Help/>}  />
+        <Route path='/help' element={<Help/>} />
     </Routes>
     </>)
 }

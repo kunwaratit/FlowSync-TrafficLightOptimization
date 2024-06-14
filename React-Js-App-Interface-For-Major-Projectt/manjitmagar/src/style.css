@@ -20,9 +20,9 @@
     align-self: center;
 }
 .my-content{
-    background: rgb(255, 255, 255);
+    /* background: rgb(255, 255, 255); */
     margin: 0 8%;
-    padding: 1% 5% 0;
+    /* padding: 1% 5% 0; */
 }
 
 body {
@@ -48,7 +48,9 @@ html{
     --btn-box-shadow:rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     --footer-bg-color:#040d12;
 }
-
+.active{
+border-bottom: 1px solid green;
+}
 h1,h2,h3,
 h4,h5,h6{
     font-family: "Poppins", sans-serif;

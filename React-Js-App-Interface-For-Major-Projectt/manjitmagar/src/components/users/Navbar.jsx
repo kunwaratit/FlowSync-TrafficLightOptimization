@@ -1,69 +1,68 @@
-import mainlogo from '../images/mainlogo1.png';
-// import Link from reactrou
-import React,{ useEffect } from 'react';
-
-import {Link,useLocation} from 'react-router-dom';
+import mainlogo from "../images/mainlogo1.png";
+import React, { useEffect } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 
 const Navbar = () => {
- 
   const location = useLocation();
-  const scrollToSection = (sectionId) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      window.scrollTo({
-        top: section.offsetTop,
-        behavior: "smooth"
-      });
-    }
-  };
+
+  // Scroll to section based on hash in URL
   useEffect(() => {
-    if (location.hash) {
-      const sectionId = location.hash.substring(1);
-      scrollToSection(sectionId);
+    const { hash } = location;
+    if (hash) {
+      const sectionId = hash.substring(1);
+      const section = document.getElementById(sectionId);
+      if (section) {
+        window.scrollTo({
+          top: section.offsetTop,
+          behavior: "smooth",
+        });
+      }
     }
   }, [location]);
 
-  return (<>
-   
+  return (
     <header className="section-navbar">
       <div className="container">
-    
-      <div className="navbar-brand">
-          <Link to="">
+        <div className="navbar-brand">
+          <NavLink to="/home">
             <img
               src={mainlogo}
               height="100%"
               width="auto"
               alt="Portfolio Logo"
             />
-          </Link>
+          </NavLink>
         </div>
-
         <nav className="navbar">
           <ul>
-            <li className="nav-item" >
-              <Link to="/home#call-me-home" className="nav-link active">Home</Link>
+            <li className="nav-item">
+              <NavLink to="/home">Home</NavLink>
             </li>
             <li className="nav-item">
-              <Link to="/home#call-me-about" className="nav-link">About</Link>
+              <NavLink to="/home#call-me-about">About</NavLink>
             </li>
             <li className="nav-item">
-              <Link to="/home#section-contact--homepage" className="nav-link">Contact</Link>
+              <NavLink to="/home#section-contact--homepage">Contact</NavLink>
             </li>
             <li className="nav-item">
-              <Link to="/check-status" className="nav-link">Check Status</Link>
+              <NavLink to="/check-status">
+                Check Status
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link to="/login#" className="nav-link">Login</Link>
+              <NavLink  to="/login">
+                Login
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link to="/register" className="nav-link">Register</Link>
+              <NavLink  to="/register">
+                Register
+              </NavLink>
             </li>
           </ul>
         </nav>
       </div>
     </header>
-    </>
   );
 };
 

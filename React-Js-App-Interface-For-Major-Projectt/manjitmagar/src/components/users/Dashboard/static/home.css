@@ -3,8 +3,11 @@
     margin-left: 25%; 
 }
 .InstalledList{
+    
     margin-top: 5px;
-    border: 1px  dotted rgb(202, 59, 59);
+    border: 1px solid rgb(217 217 217);
+    background: white;
+    border-radius: 5px;
 }.installedInfo{
     border: 1px solid black;
     /* width: fit-content; */

@@ -3,15 +3,19 @@ import "./static/dashboard.css";
 import "./static/home.css";
 import road from "../../images/image.png";
 import { data } from "./data";
+import VehicleCountTable from "./location";
+
 const Homies = () => {
   const [search, setSearch] = useState("");
+  
 
   console.log(search);
   return (
     <>
-      {/* <div className="my-content"> */}
+      <div className="my-content">
         <div className="dasheader">
-          <h1>Home</h1>
+          <h1>Check Status</h1>
+          <p>This is the section to check the status of the traffic in current scenario.</p>
         </div>
         <hr />
         <div className="homeContainer">
@@ -50,7 +54,7 @@ const Homies = () => {
                 </div>
               ))}
 
-            <div className="installedInfo">
+            {/* <div className="installedInfo">
               <div className="card">
                 <div className="roadimg">
                   <p>Gwarko</p>
@@ -67,16 +71,12 @@ const Homies = () => {
                 </div>
               </div>
               <div className="info">asbdjasdkasd</div>
-            </div>
-            <div className="installedInfo">
-              Gwarko
-              <p>asdasd</p>
-              asdasd
-            </div>
+            </div> */}
+          
           </div>
-          {/* <VehicleCountTable /> */}
+          <VehicleCountTable />
         </div>
-      {/* </div> */}
+      </div>
     </>
   );
 };

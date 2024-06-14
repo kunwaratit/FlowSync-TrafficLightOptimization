@@ -6,7 +6,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    /* height: 100vh; */
 }
 
 .container_container {
@@ -33,19 +33,21 @@ h2 {
     display: block;
     margin-bottom: 5px;
     color: #666;
+}.form-group textarea{
+    width: 100%;
 }
 
-.form-group input,
-.form-group textarea {
-    width: 100%;
+/* .form-group input, */
+/* .form-group textarea {
+    
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
     box-sizing: border-box;
     font-size: 14px;
-}
+} */
 
-.form-group button {
+/* .form-group button {
     width: 100%;
     padding: 10px;
     border: none;
@@ -54,8 +56,8 @@ h2 {
     color: white;
     font-size: 16px;
     cursor: pointer;
-}
+} */
 
-.form-group button:hover {
+/* .form-group button:hover {
     background-color: #4cae4c;
-}
+} */
