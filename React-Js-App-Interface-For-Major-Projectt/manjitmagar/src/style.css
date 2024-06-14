@@ -35,7 +35,8 @@ html{
 }
 
 :root{
-    --main-color:#0062ff;
+    /* --main-color:#0062ff; */
+    --main-color:#2b9374;
     --supporting-color:#ebf3fe;
     --font-color:#424242;
     --bg-color:#f7fcff;
@@ -43,7 +44,7 @@ html{
     --hero-heading-color:#003b99;
     --white-color:#ffffff;
     --para-color:#504e4d;
-    --bnt-hover-bg-color:#003b99;
+    --bnt-hover-bg-color:#1d644f;
     --btn-box-shadow:rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     --footer-bg-color:#040d12;
 }

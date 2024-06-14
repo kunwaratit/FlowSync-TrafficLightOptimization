@@ -7,7 +7,7 @@ export const data=[{
     "email": "mjaukovic0@netvibes.com",
     "gender": "Female"
   }, {
-    'location_id':'Satdobato',
+    'location_id':'kalanki',
     "id": 2,
     "first_name": "Roz",
     "last_name": "Geare",

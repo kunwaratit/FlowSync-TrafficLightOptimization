@@ -4,7 +4,7 @@
 }
 /* Leftbar */
 .dashnav nav ul{
-    padding:10%;
+    /* padding:10%; */
     /* align-items: center; */
     background-color: rgb(230, 230, 230);
     
@@ -13,30 +13,41 @@
     /* min-width:max-content; */
 
 /* }  */
-.dashnav nav ul li a:hover {
-    color:rgb(39, 218, 39)
-}
-.dashnav a{
-    /* text-align: justify; */
+.dashnav nav ul a li{
+    color: black;
     font-size: medium;
+    padding: 6px 16px;
+
 }
+.dashnav nav ul a li:hover{
+    color: #00684a;
+    font-weight: 600;
+    text-decoration-line: underline;
+    background: #8fbc8f8c;
+    
+}
+
+
 .dashnav nav ul{
-    height: 90vh;
+    height: 99vh;
     background: #ced1d5;
     box-shadow: 2px 5px 5px #919191;
     border-radius: 0px 0 5px 0px;
 }.dashnav nav ul a{
-    color: #20356c !important;
+    color: black;
+    font-size: smaller;
+    font-weight: 400;
 }
 
 /* userDash or right container */
 .dashleft{
-    width: 15vw;
+    width: 14%;
+    min-width: 133px;
 
     /* overflow:scroll;  */
 }
 .dashright{
-width: 100%;
+width:86%;
 }
 .left{
     position: sticky;
