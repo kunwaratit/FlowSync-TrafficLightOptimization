@@ -47,7 +47,7 @@
     right: 0;
     padding: 4px;
     margin: 3px;
-    background: green;
+    background: red;
     color: aliceblue;
     font-size: small;
     font-weight: bolder;
@@ -59,7 +59,7 @@
     border-radius: 5px;
     border: 1px solid #3cb23c;
 }.search-bar:focus{
-    background-color: #c5f6c5;
+    background-color: #f0f5f0;
     color: black;
     border: 2px solid #64da64;
 }
