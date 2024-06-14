@@ -464,7 +464,7 @@ ul{
 
 footer{
     background-color: var(--footer-bg-color);
-    padding-top: 15rem;
+    /* padding-top: 15rem; */
 }
 
 footer .grid{
