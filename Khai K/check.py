@@ -60,7 +60,7 @@ def process_frames(cap, model, area, display_width, display_height):
 
 if __name__ == "__main__":
     # Open webcam capture
-    cap = cv2.VideoCapture('ssdg/a3.mp4')  # Specify the RTSP URL for your IP camera
+    cap = cv2.VideoCapture('./videos/a3.mp4')  # Specify the RTSP URL for your IP camera
 
     # Initialize YOLO model
     model = YOLO('best.pt')

@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./static/dashboard.css";
 const LeftBar = () => {
+        
   return (
     <>
       <div className="dashnav">
@@ -11,7 +12,7 @@ const LeftBar = () => {
               <div className="admin-info"></div>
             </li>
             <NavLink activeClassName="active" to="/dash">
-              <li></li>
+              <li>DashBoard</li>
             </NavLink>
             <NavLink activeClassName="active" to="/d-home">
               <li>Home</li>
@@ -33,6 +34,10 @@ const LeftBar = () => {
             <NavLink activeClassName="active" to="/help">
               {" "}
               <li>?help </li>
+            </NavLink>
+            <NavLink activeClassName="active" to="/logout">
+              {" "}
+              <li>Logout</li>
             </NavLink>
           </ul>
         </nav>

@@ -8,6 +8,7 @@ import Manage from "./Manage";
 import Setting from "./Setting";
 import Contact from "./Contact";
 import Help from "./Help";
+import Logout from "./Logout";
 const DashRoutes=()=>{
     return(<>
     <Routes>
@@ -17,6 +18,7 @@ const DashRoutes=()=>{
         <Route path='/setting' element={<Setting/>}  />
         <Route path='/contact' element={<Contact/>}  />
         <Route path='/help' element={<Help/>} />
+        <Route path='/logout' element={<Logout/>} />
     </Routes>
     </>)
 }

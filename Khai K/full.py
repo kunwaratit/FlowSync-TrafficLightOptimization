@@ -9,7 +9,7 @@ import numpy as np
 import os
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 # Open webcam capture
-cap = cv2.VideoCapture('ssdg/a3.mp4')  # Specify the RTSP URL for your IP camera
+cap = cv2.VideoCapture('./videos/a3.mp4')  # Specify the RTSP URL for your IP camera
 
 model = YOLO('best.pt')
 classes = ['car', 'motorbike', 'truck', 'bus', 'Emergency']

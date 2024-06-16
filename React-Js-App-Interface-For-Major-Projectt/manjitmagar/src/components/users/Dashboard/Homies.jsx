@@ -4,9 +4,10 @@ import "./static/home.css";
 import road from "../../images/image.png";
 import { data } from "./data";
 import VehicleCountTable from "./location";
-
+import { useAuth } from "../AuthContext";
 const Homies = () => {
   const [search, setSearch] = useState("");
+  const { isAuthenticated } = useAuth();
   
 
   console.log(search);
@@ -49,7 +50,8 @@ const Homies = () => {
                   <div className="info">
                     <span>
                       <strong>Note: </strong>The Junction Looks {item.situation}
-                    </span>
+                      
+                    </span><br /><p>{item.content}</p>
                   </div>
                 </div>
               ))}
@@ -74,7 +76,7 @@ const Homies = () => {
             </div> */}
           
           </div>
-          <VehicleCountTable />
+          {isAuthenticated && <VehicleCountTable />}
         </div>
       </div>
     </>
