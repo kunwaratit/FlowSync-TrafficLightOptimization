@@ -8,6 +8,11 @@ from multiprocessing import Process, Queue
 from ultralytics import YOLO
 from myMind import area as masking_area
 import supervision as sv 
+from pymongo import MongoClient
+client = MongoClient('mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+db = client['Flow']
+collection = db['vehicle_count']
+
 
 def process_video(video_source, output_queue,area):
    
@@ -114,7 +119,13 @@ def process_video(video_source, output_queue,area):
             json_filename = f'database/{video_source.split("/")[-1].split(".")[0]}_total_vehicles_count.json'
             with open(json_filename, 'w') as json_file:
                 json.dump(data, json_file, indent=4)
-
+            # Store in MongoDB
+            collection.update_one(
+                {"video_source": video_source},
+                {"$set": {"total_vehicles": len(unique_tracker_ids), "timestamp": time.time()}},
+                upsert=True
+            )
+            
         if cv2.waitKey(1) == 27:  # Use waitKey(1) for real-time processing
             break
 
