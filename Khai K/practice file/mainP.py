@@ -11,7 +11,7 @@ from area import mouse_callback
 # cudnn.deterministic = True
 
 # Open the video file
-cap = cv2.VideoCapture('ssdg/do.mp4')  # Use your video source
+cap = cv2.VideoCapture('../videos/do.mp4')  # Use your video source
 
 
 model = YOLO('best.pt')
@@ -37,8 +37,8 @@ tracker=Tracker()
 
 
 # Create a window
-cv2.namedWindow("Image")
-cv2.setMouseCallback("Image", mouse_callback)
+# cv2.namedWindow("Image")
+# cv2.setMouseCallback("Image", mouse_callback)
 vh_ile={}
 counter=[]
 while True:
