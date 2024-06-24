@@ -71,7 +71,9 @@ def insert_document(location_id):
         'location_id': location_id,
         'last_info': last_info_data,
         'live_info': live_info_data,
-        'applied_info': 'applied_info',
+        'modes_applied': {
+            'modes': 'auto'
+        },
         'set_timer': random.randint(1, 3),
         "timestamp": datetime.datetime.now().isoformat(),
     }
@@ -276,5 +278,3 @@ def working_main():
     except Exception as e:
         logger.error(f"Error in working_main: {str(e)}")
         
-
-    
