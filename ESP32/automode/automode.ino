@@ -5,10 +5,8 @@
 #include <WiFi.h>
 #include <BlynkSimpleEsp32.h>
 
-
 char ssid[] = "NTFiber-A4E9";
 char pass[] = "omVF4hsE";
-
 
 char auth[] = "j5qFQfjs-6ZlD7JnBZafmPu7r63B6GZ6";
 
@@ -27,7 +25,6 @@ void setup()
 
   Blynk.begin(auth, ssid, pass);
 
-
   pinMode(red1, OUTPUT);
   pinMode(yellow1, OUTPUT);
   pinMode(green1, OUTPUT);
@@ -41,34 +38,39 @@ BLYNK_WRITE(V1)
 {
   int buttonState = param.asInt(); // Getting the state of the button
 
-  
-  if (buttonState == 1) {
+  if (buttonState == 1)
+  {
     // Turning on all LEDs
     digitalWrite(red1, HIGH);
-    digitalWrite(green2, HIGH);
-    digitalWrite(yellow1, LOW);
     digitalWrite(green1, LOW);
+    digitalWrite(yellow1, LOW);
+
     digitalWrite(red2, LOW);
+    digitalWrite(green2, HIGH);
     digitalWrite(yellow2, LOW);
+
     delay(2000);
 
     digitalWrite(yellow1, HIGH);
-    digitalWrite(yellow2, HIGH);
     digitalWrite(red1, LOW);
     digitalWrite(green1, LOW);
+
     digitalWrite(red2, LOW);
     digitalWrite(green2, LOW);
+    digitalWrite(yellow2, HIGH);
     delay(5000);
 
     digitalWrite(green1, HIGH);
-    digitalWrite(red2, HIGH);
     digitalWrite(red1, LOW);
     digitalWrite(yellow1, LOW);
+    
+    digitalWrite(red2, HIGH);
     digitalWrite(yellow2, LOW);
     digitalWrite(green2, LOW);
     delay(2000);
-
-  } else {
+  }
+  else
+  {
     // Turning off all LEDs
     digitalWrite(red1, LOW);
     digitalWrite(yellow1, LOW);
@@ -78,11 +80,13 @@ BLYNK_WRITE(V1)
     digitalWrite(green2, LOW);
   }
 }
-
-BLYNK_WRITE(V2){
+// night mode
+BLYNK_WRITE(V2)
+{
   int buttonState = param.asInt(); // Getting the state of the button
 
-  if(buttonState ==1){
+  if (buttonState == 1)
+  {
     digitalWrite(yellow1, HIGH);
     digitalWrite(yellow2, HIGH);
     digitalWrite(red1, LOW);
@@ -90,20 +94,23 @@ BLYNK_WRITE(V2){
     digitalWrite(green2, LOW);
     digitalWrite(red2, LOW);
   }
-  else{
-    digitalWrite(red1,LOW);
-    digitalWrite(red2,LOW);
-    digitalWrite(green1,LOW);
-    digitalWrite(green2,LOW);
-    digitalWrite(yellow1,LOW);
-    digitalWrite(yellow2,LOW);
+  else
+  {
+    digitalWrite(red1, LOW);
+    digitalWrite(red2, LOW);
+    digitalWrite(green1, LOW);
+    digitalWrite(green2, LOW);
+    digitalWrite(yellow1, LOW);
+    digitalWrite(yellow2, LOW);
   }
 }
-
-BLYNK_WRITE(V3){
+// emergency
+BLYNK_WRITE(V3)
+{
   int buttonState = param.asInt(); // Getting the state of the button
 
-  if(buttonState ==1){
+  if (buttonState == 1)
+  {
     digitalWrite(red1, HIGH);
     digitalWrite(red2, HIGH);
     digitalWrite(yellow1, LOW);
@@ -111,13 +118,14 @@ BLYNK_WRITE(V3){
     digitalWrite(green2, LOW);
     digitalWrite(yellow2, LOW);
   }
-   else{
-    digitalWrite(red1,LOW);
-    digitalWrite(red2,LOW);
-    digitalWrite(green1,LOW);
-    digitalWrite(green2,LOW);
-    digitalWrite(yellow1,LOW);
-    digitalWrite(yellow2,LOW);
+  else
+  {
+    digitalWrite(red1, LOW);
+    digitalWrite(red2, LOW);
+    digitalWrite(green1, LOW);
+    digitalWrite(green2, LOW);
+    digitalWrite(yellow1, LOW);
+    digitalWrite(yellow2, LOW);
   }
 }
 

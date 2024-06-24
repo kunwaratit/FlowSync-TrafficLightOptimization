@@ -17,12 +17,14 @@ const int red2 = 18;
 const int yellow2 = 19;
 const int green2 = 21;
 
-const int yellow3 = 22; // Additional set of LEDs
-const int red3 = 23;
-const int green3 = 25;
-const int red4 = 26;
-const int yellow4 = 27;
-const int green4 = 32;
+unsigned long previousMillis1 = 0;
+unsigned long previousMillis2 = 0;
+const long interval1 = 2000; // Interval for the first part
+const long interval2 = 5000; // Interval for the second part
+
+int state1 = 0;
+int state2 = 0;
+bool isButtonPressed = false;
 
 void setup() {
   Serial.begin(9600);
@@ -34,175 +36,74 @@ void setup() {
   pinMode(red2, OUTPUT);
   pinMode(yellow2, OUTPUT);
   pinMode(green2, OUTPUT);
-  
-  pinMode(red3, OUTPUT);
-  pinMode(yellow3, OUTPUT);
-  pinMode(green3, OUTPUT);
-  pinMode(red4, OUTPUT);
-  pinMode(yellow4, OUTPUT);
-  pinMode(green4, OUTPUT);
 }
 
 // This function will be called every time the button widget is toggled in the app
 BLYNK_WRITE(V1) {
   int buttonState = param.asInt(); // Getting the state of the button
-  
-  if (buttonState == 1) {
-    // Sequence for the first set of LEDs
-    digitalWrite(red1, HIGH);
-    digitalWrite(green2, HIGH);
-    digitalWrite(yellow1, LOW);
-    digitalWrite(green1, LOW);
-    digitalWrite(red2, LOW);
-    digitalWrite(yellow2, LOW);
-    delay(2000);
-
-    digitalWrite(yellow1, HIGH);
-    digitalWrite(yellow2, HIGH);
-    digitalWrite(red1, LOW);
-    digitalWrite(green1, LOW);
-    digitalWrite(red2, LOW);
-    digitalWrite(green2, LOW);
-    delay(5000);
-
-    digitalWrite(green1, HIGH);
-    digitalWrite(red2, HIGH);
-    digitalWrite(red1, LOW);
-    digitalWrite(yellow1, LOW);
-    digitalWrite(yellow2, LOW);
-    digitalWrite(green2, LOW);
-    delay(2000);
-  } else {
-    // Turning off all LEDs in the first set
-    digitalWrite(red1, LOW);
-    digitalWrite(yellow1, LOW);
-    digitalWrite(green1, LOW);
-    digitalWrite(red2, LOW);
-    digitalWrite(yellow2, LOW);
-    digitalWrite(green2, LOW);
-  }
-}
-
-BLYNK_WRITE(V2) {
-  int buttonState = param.asInt(); // Getting the state of the button
-
-  if (buttonState == 1) {
-    digitalWrite(yellow1, HIGH);
-    digitalWrite(yellow2, HIGH);
-    digitalWrite(red1, LOW);
-    digitalWrite(green1, LOW);
-    digitalWrite(green2, LOW);
-    digitalWrite(red2, LOW);
-  } else {
-    digitalWrite(red1, LOW);
-    digitalWrite(red2, LOW);
-    digitalWrite(green1, LOW);
-    digitalWrite(green2, LOW);
-    digitalWrite(yellow1, LOW);
-    digitalWrite(yellow2, LOW);
-  }
-}
-
-BLYNK_WRITE(V3) {
-  int buttonState = param.asInt(); // Getting the state of the button
-
-  if (buttonState == 1) {
-    digitalWrite(red1, HIGH);
-    digitalWrite(red2, HIGH);
-    digitalWrite(yellow1, LOW);
-    digitalWrite(green1, LOW);
-    digitalWrite(green2, LOW);
-    digitalWrite(yellow2, LOW);
-  } else {
-    digitalWrite(red1, LOW);
-    digitalWrite(red2, LOW);
-    digitalWrite(green1, LOW);
-    digitalWrite(green2, LOW);
-    digitalWrite(yellow1, LOW);
-    digitalWrite(yellow2, LOW);
-  }
-}
-
-// This function will be called every time the button widget is toggled in the app for the second set of LEDs
-BLYNK_WRITE(V4) {
-  int buttonState = param.asInt(); // Getting the state of the button
-
-  if (buttonState == 1) {
-    // Sequence for the second set of LEDs
-    digitalWrite(red3, HIGH);
-    digitalWrite(green4, HIGH);
-    digitalWrite(yellow3, LOW);
-    digitalWrite(green3, LOW);
-    digitalWrite(red4, LOW);
-    digitalWrite(yellow4, LOW);
-    delay(2000);
-
-    digitalWrite(yellow3, HIGH);
-    digitalWrite(yellow4, HIGH);
-    digitalWrite(red3, LOW);
-    digitalWrite(green3, LOW);
-    digitalWrite(red4, LOW);
-    digitalWrite(green4, LOW);
-    delay(5000);
-
-    digitalWrite(green3, HIGH);
-    digitalWrite(red4, HIGH);
-    digitalWrite(red3, LOW);
-    digitalWrite(yellow3, LOW);
-    digitalWrite(yellow4, LOW);
-    digitalWrite(green4, LOW);
-    delay(2000);
-  } else {
-    // Turning off all LEDs in the second set
-    digitalWrite(red3, LOW);
-    digitalWrite(yellow3, LOW);
-    digitalWrite(green3, LOW);
-    digitalWrite(red4, LOW);
-    digitalWrite(yellow4, LOW);
-    digitalWrite(green4, LOW);
-  }
-}
-
-BLYNK_WRITE(V5) {
-  int buttonState = param.asInt(); // Getting the state of the button
-
-  if (buttonState == 1) {
-    digitalWrite(yellow3, HIGH);
-    digitalWrite(yellow4, HIGH);
-    digitalWrite(red3, LOW);
-    digitalWrite(green3, LOW);
-    digitalWrite(green4, LOW);
-    digitalWrite(red4, LOW);
-  } else {
-    digitalWrite(red3, LOW);
-    digitalWrite(red4, LOW);
-    digitalWrite(green3, LOW);
-    digitalWrite(green4, LOW);
-    digitalWrite(yellow3, LOW);
-    digitalWrite(yellow4, LOW);
-  }
-}
-
-BLYNK_WRITE(V6) {
-  int buttonState = param.asInt(); // Getting the state of the button
-
-  if (buttonState == 1) {
-    digitalWrite(red3, HIGH);
-    digitalWrite(red4, HIGH);
-    digitalWrite(yellow3, LOW);
-    digitalWrite(green3, LOW);
-    digitalWrite(green4, LOW);
-    digitalWrite(yellow4, LOW);
-  } else {
-    digitalWrite(red3, LOW);
-    digitalWrite(red4, LOW);
-    digitalWrite(green3, LOW);
-    digitalWrite(green4, LOW);
-    digitalWrite(yellow3, LOW);
-    digitalWrite(yellow4, LOW);
-  }
+  isButtonPressed = (buttonState == 1);
 }
 
 void loop() {
   Blynk.run();
+
+  if (isButtonPressed) {
+    unsigned long currentMillis = millis();
+
+    // Program for red1 and green1
+    if (currentMillis - previousMillis1 >= interval1) {
+      previousMillis1 = currentMillis;
+      state1 = (state1 + 1) % 3;
+
+      switch (state1) {
+        case 0:
+          digitalWrite(red1, HIGH);
+          digitalWrite(green1, LOW);
+          digitalWrite(yellow1, LOW);
+          break;
+        case 1:
+          digitalWrite(yellow1, HIGH);
+          digitalWrite(red1, LOW);
+          digitalWrite(green1, LOW);
+          break;
+        case 2:
+          digitalWrite(green1, HIGH);
+          digitalWrite(red1, LOW);
+          digitalWrite(yellow1, LOW);
+          break;
+      }
+    }
+
+    // Program for green2 and red2
+    if (currentMillis - previousMillis2 >= interval2) {
+      previousMillis2 = currentMillis;
+      state2 = (state2 + 1) % 3;
+
+      switch (state2) {
+        case 0:
+          digitalWrite(green2, HIGH);
+          digitalWrite(red2, LOW);
+          digitalWrite(yellow2, LOW);
+          break;
+        case 1:
+          digitalWrite(yellow2, HIGH);
+          digitalWrite(green2, LOW);
+          digitalWrite(red2, LOW);
+          break;
+        case 2:
+          digitalWrite(red2, HIGH);
+          digitalWrite(green2, LOW);
+          digitalWrite(yellow2, LOW);
+          break;
+      }
+    }
+  } else {
+    // Turning off all LEDs when the button is not pressed
+    digitalWrite(red1, LOW);
+    digitalWrite(yellow1, LOW);
+    digitalWrite(green1, LOW);
+    digitalWrite(red2, LOW);
+    digitalWrite(yellow2, LOW);
+    digitalWrite(green2, LOW);
+  }
 }
