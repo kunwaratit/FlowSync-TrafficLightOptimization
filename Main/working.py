@@ -69,12 +69,48 @@ def insert_document(location_id):
     # Insert a document into vehicle_count collection
     document = {
         'location_id': location_id,
-        'last_info': last_info_data,
+        # 'last_info': last_info_data,
         'live_info': live_info_data,
-        'modes_applied': {
-            'modes': 'auto'
+        'traffic_info':{
+            "cam_A": {
+                "total_vehicles": 6,
+                "vehicles": {
+                    "bikes": 0,
+                    "buses": 0,
+                    "cars": 6
+                }
+            },
+            "cam_B": {
+                "total_vehicles": 7,
+                "vehicles": {
+                    "bikes": 0,
+                    "buses": 0,
+                    "cars": 7
+                }
+            },
+            "cam_C": {
+                "total_vehicles": 11,
+                "vehicles": {
+                    "bikes": 2,
+                    "buses": 2,
+                    "cars": 7
+                }
+            },
+            "cam_D": {
+                "total_vehicles": 34,
+                "vehicles": {
+                    "bikes": 5,
+                    "buses": 0,
+                    "cars": 29
+                }
+            }
         },
-        'set_timer': random.randint(1, 3),
+        'modes_applied': {
+            'modes': 'auto',
+            'set_timer': random.randint(1, 3),
+        },
+        "light_flag":0,
+        
         "timestamp": datetime.datetime.now().isoformat(),
     }
     vehicle_count_collection.insert_one(document)
@@ -87,12 +123,13 @@ def find_recent_set_timer(location_id):
     )
 
     if recent_document:
-        set_timer_value = recent_document.get('set_timer')
+        set_timer_value = recent_document.get('modes_applied', {}).get('set_timer')
         print(f"Recent set_timer value for location_id {location_id}: {set_timer_value}")
         return set_timer_value
     else:
-        print(f"No document found with location_id {location_id}")
-        return None
+        set_timer_value = 10
+        print(f"Recent set_timer value for location_id {location_id}: {set_timer_value}")
+        return set_timer_value
 
 # Function to insert document after waiting for specified seconds
 def insert_after_seconds(seconds, location_id):
