@@ -52,27 +52,44 @@ def get_traffic_info(location_id):
         traffic_info_data = "live_details"
 
     return traffic_info_data
-
+def timing_allocation(avg_vehicles):
+    
+    
+    
+        return random.randint(1,3)
 def insert_document(location_id,flag):
     # Retrieve last_info and live_info based on location_id
     last_info_data = get_last_info(location_id)
     traffic_info = get_traffic_info(location_id)
     # time >2 min vaye
         # flag=0
-    flag = last_info_data['light_flag']
-    if flag==0:
+    # print(last_info_data)
+    last_traffic_info = last_info_data['traffic_info']
+    last_flag = last_info_data['light_flag']
+    allocated_time=0
+    # print(last_traffic_info)
+    # print(f"ve {last_traffic_info['incoming']['cam_B']['total_vehicles']}")
+    if last_flag==0:
         # camCD
-        avg_vehicles=22
-        updated_flag=1
         
-    if flag ==1:
+        camC_vehicle=last_traffic_info['incoming']['cam_C']['total_vehicles']
+        camD_vehicle=last_traffic_info['incoming']['cam_D']['total_vehicles']
+        avg_vehicles=(camC_vehicle+camD_vehicle)/2
+        allocated_time=timing_allocation(avg_vehicles)
+        new_flag=1
+        
+    if last_flag ==1:
         # camAB
-        updated_flag=0
-    print(f'------------------------------------------------------------{updated_flag}')
-    def timing_allocation():
-        pass
-    allocated_time=timing_allocation()
-    allocated_time
+        camA_vehicle=last_traffic_info['incoming']['cam_A']['total_vehicles']
+        camB_vehicle=last_traffic_info['incoming']['cam_B']['total_vehicles']
+        avg_vehicles=(camA_vehicle+camB_vehicle)/2
+        allocated_time=timing_allocation(avg_vehicles)
+        
+        new_flag=0
+    print(f'------------------------------------------------------------{new_flag}')
+   
+    
+    
     # last_info_data ko flag 0 or flag nai axina vane wala condn pani:
     #     light_flag= 1
     # last_info_data ko incoming total vehicle of camA ,incoming total of camB ko avg
@@ -88,14 +105,12 @@ def insert_document(location_id,flag):
     # Insert a document into vehicle_count collection
     document = {
         'location_id': location_id,
-        # 'last_info': last_info_data,
-        # 'live_info': live_info_data,
         'traffic_info':traffic_info,
         'modes_applied': {
             'modes': 'auto',
-            'set_timer': random.randint(1, 3),
+            'set_timer': allocated_time,
         },
-        "light_flag":updated_flag,
+        "light_flag":new_flag,
         "timestamp": datetime.datetime.now().isoformat(),
     }
     vehicle_count_collection.insert_one(document)
