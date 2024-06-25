@@ -2,7 +2,7 @@ import json
 import cv2
 import time
 import numpy as np
-from collections import defaultdict, namedtuple
+from collections import namedtuple
 from multiprocessing import Process, Queue
 from ultralytics import YOLO
 from myMind import mind 
@@ -30,29 +30,31 @@ def get_last_info(location_id):
     )
 
     if last_recent_document:
-        last_info_data = last_recent_document.get('traffic_info', {})
+        last_info_data = last_recent_document.get('live_info', {})
     else:
         last_info_data = "last_details"
 
     return last_info_data
 
-def get_traffic_info(location_id):
+def get_live_info(location_id):
     # Find document in live_count by location_id for live_info
     new_doc = live_count_collection.find_one({
         'location_id': location_id
     })
 
     if new_doc:
-        traffic_info_data = new_doc.get('traffic_info', {})
+        live_info_data = {
+            'positions': new_doc.get('positions', {})
+        }
     else:
-        traffic_info_data = "live_details"
+        live_info_data = "live_details"
 
-    return traffic_info_data
+    return live_info_data
 
 def insert_document(location_id,light_flag):
     # Retrieve last_info and live_info based on location_id
     last_info_data = get_last_info(location_id)
-    traffic_info = get_traffic_info(location_id)
+    live_info_data = get_live_info(location_id)
 
     # last_info_data ko flag 0 or flag nai axina vane wala condn pani:
     #     light_flag= 1
@@ -71,8 +73,41 @@ def insert_document(location_id,light_flag):
     document = {
         'location_id': location_id,
         # 'last_info': last_info_data,
-        # 'live_info': live_info_data,
-        'traffic_info':traffic_info,
+        'live_info': live_info_data,
+        'traffic_info':{
+            "cam_A": {
+                "total_vehicles": 6,
+                "vehicles": {
+                    "bikes": 0,
+                    "buses": 0,
+                    "cars": 6
+                }
+            },
+            "cam_B": {
+                "total_vehicles": 7,
+                "vehicles": {
+                    "bikes": 0,
+                    "buses": 0,
+                    "cars": 7
+                }
+            },
+            "cam_C": {
+                "total_vehicles": 11,
+                "vehicles": {
+                    "bikes": 2,
+                    "buses": 2,
+                    "cars": 7
+                }
+            },
+            "cam_D": {
+                "total_vehicles": 34,
+                "vehicles": {
+                    "bikes": 5,
+                    "buses": 0,
+                    "cars": 29
+                }
+            }
+        },
         'modes_applied': {
             'modes': 'auto',
             'set_timer': random.randint(1, 3),
@@ -143,12 +178,7 @@ def process_video(video_source, camera_id, output_queue, area):
 
     unique_tracker_ids = set()
     counted_tracker_ids = {"cars": set(), "bikes": set(),'buses':set()}
-    frame_miss_count = defaultdict(int)
-    left_ids = {
-        "cars": set(),
-        "bikes": set(),
-        "buses": set()
-    }
+
     while True:
         ret, img = cap.read()
         if not ret:
@@ -166,9 +196,7 @@ def process_video(video_source, camera_id, output_queue, area):
         confidences = []
         class_ids = []
         tracker_ids = []
-        current_frame_tracker_ids = set()
 
-        
         for r in results:
             boxes = r.boxes
             for box in boxes:
@@ -188,9 +216,8 @@ def process_video(video_source, camera_id, output_queue, area):
             detections = Detection(xyxy=current_frame_boxes, mask=None, confidence=confidences, class_id=class_ids, tracker_id=tracker_ids)
             tracked_detections = byte_tracker.update_with_detections(detections=detections)
             tracker_ids = [det[4] for det in tracked_detections]
-            current_frame_tracker_ids.update(tracker_ids)
             unique_tracker_ids.update(tracker_ids)
-            
+
             labels = [
                 f"#{tracker_id} {model.model.names[class_id]} {confidence:.2f}"
                 for _, _, confidence, class_id, tracker_id in tracked_detections
@@ -221,48 +248,22 @@ def process_video(video_source, camera_id, output_queue, area):
                     counted_tracker_ids["bikes"].add(tracker_id)
                 elif class_id == 3 and tracker_id not in counted_tracker_ids["buses"]:  # Assuming class_id 1 is bike
                     counted_tracker_ids["buses"].add(tracker_id)
-            # Update the frame miss count and handle tracker IDs
-            to_remove = []
-            for tracker_id in unique_tracker_ids:
-                if tracker_id not in current_frame_tracker_ids:
-                    frame_miss_count[tracker_id] += 1
-                else:
-                    frame_miss_count[tracker_id] = 0
-
-                if frame_miss_count[tracker_id] > 15:
-                    to_remove.append(tracker_id)
-
-            for tracker_id in to_remove:
-                for vehicle_type, trackers in counted_tracker_ids.items():
-                    if tracker_id in trackers:
-                        left_ids[vehicle_type].add(tracker_id)
-                        trackers.remove(tracker_id)
-                        break
-                unique_tracker_ids.remove(tracker_id)
-
-
-            # data = {
-            #     "total_vehicles": len(unique_tracker_ids)
-            # }
-            # json_filename = f'database/{video_source.split("/")[-1].split(".")[0]}_total_vehicles_count.json'
-            # with open(json_filename, 'w') as json_file:
-            #     json.dump(data, json_file, indent=4)
+            data = {
+                "total_vehicles": len(unique_tracker_ids)
+            }
+            json_filename = f'database/{video_source.split("/")[-1].split(".")[0]}_total_vehicles_count.json'
+            with open(json_filename, 'w') as json_file:
+                json.dump(data, json_file, indent=4)
 
             collection_live.update_one(
                 {"video_source": 'all'},
                 {"$set": {
                     "location_id": "81",  
-                    f"traffic_info.incoming.{camera_id}.vehicles.cars": len(counted_tracker_ids["cars"]),
-                    f"traffic_info.incoming.{camera_id}.vehicles.bikes": len(counted_tracker_ids["bikes"]),
-                    f"traffic_info.incoming.{camera_id}.vehicles.buses": len(counted_tracker_ids["buses"]),
+                    f"positions.{camera_id}.vehicles.cars": len(counted_tracker_ids["cars"]),
+                    f"positions.{camera_id}.vehicles.bikes": len(counted_tracker_ids["bikes"]),
+                    f"positions.{camera_id}.vehicles.buses": len(counted_tracker_ids["buses"]),
                     "timestamp": datetime.datetime.now().isoformat(),
-                    f"traffic_info.incoming.{camera_id}.total_vehicles": len(unique_tracker_ids),
-                   
-                    f"traffic_info.outgoing.{camera_id}.vehicles.cars": len(left_ids["cars"]),
-                    f"traffic_info.outgoing.{camera_id}.vehicles.bikes": len(left_ids["bikes"]),
-                    f"traffic_info.outgoing.{camera_id}.vehicles.buses": len(left_ids["buses"]),
-                    f"traffic_info.outgoing.{camera_id}.total_vehicles": sum(len(left_ids[vehicle_type]) for vehicle_type in left_ids)
-               
+                    f"positions.{camera_id}.total_vehicles": len(unique_tracker_ids)
                 }},
                 upsert=True
             )
