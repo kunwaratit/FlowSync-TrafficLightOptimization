@@ -13,8 +13,8 @@ import logging
 import random
 
 logger = logging.getLogger(__name__)
-# client = MongoClient('mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
-client=MongoClient('mongodb://localhost:27017/')
+client = MongoClient('mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+# client=MongoClient('mongodb://localhost:27017/')
 db = client['Flow']
 collection = db['vehicle_count']
 collection_live = db['live_count']
@@ -31,10 +31,14 @@ def get_last_info(location_id):
 
     if last_recent_document:
         last_info_data = last_recent_document.get('traffic_info', {})
+        flag = last_recent_document.get('light_flag', None)
     else:
         last_info_data = "last_details"
 
-    return last_info_data
+    return {
+        "traffic_info": last_info_data,
+        "light_flag": flag
+    }
 
 def get_traffic_info(location_id):
     # Find document in live_count by location_id for live_info
@@ -49,11 +53,26 @@ def get_traffic_info(location_id):
 
     return traffic_info_data
 
-def insert_document(location_id,light_flag):
+def insert_document(location_id,flag):
     # Retrieve last_info and live_info based on location_id
     last_info_data = get_last_info(location_id)
     traffic_info = get_traffic_info(location_id)
-
+    # time >2 min vaye
+        # flag=0
+    flag = last_info_data['light_flag']
+    if flag==0:
+        # camCD
+        avg_vehicles=22
+        updated_flag=1
+        
+    if flag ==1:
+        # camAB
+        updated_flag=0
+    print(f'------------------------------------------------------------{updated_flag}')
+    def timing_allocation():
+        pass
+    allocated_time=timing_allocation()
+    allocated_time
     # last_info_data ko flag 0 or flag nai axina vane wala condn pani:
     #     light_flag= 1
     # last_info_data ko incoming total vehicle of camA ,incoming total of camB ko avg
@@ -66,7 +85,6 @@ def insert_document(location_id,light_flag):
         #
     #  allocated_time=12
     
-    
     # Insert a document into vehicle_count collection
     document = {
         'location_id': location_id,
@@ -77,8 +95,7 @@ def insert_document(location_id,light_flag):
             'modes': 'auto',
             'set_timer': random.randint(1, 3),
         },
-        "light_flag":light_flag,
-        
+        "light_flag":updated_flag,
         "timestamp": datetime.datetime.now().isoformat(),
     }
     vehicle_count_collection.insert_one(document)
