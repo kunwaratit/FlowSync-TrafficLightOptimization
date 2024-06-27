@@ -10,6 +10,7 @@ import { Route, Routes } from "react-router-dom";
 import RegistrationForm from "./registration";
 import Homies from "./Dashboard/Homies";
 import Invalid from "./Invalid";
+import District from "./district";
 const MyUser = () => {
   //   const { isAuthenticated } = useAuth();
   return (
@@ -26,6 +27,7 @@ const MyUser = () => {
           <Route path="/check-status" element={<Homies />} />
         {/* </div> */}
         <Route path="*" element={<Invalid />} />
+        <Route path="/a" element={<District />} />
       </Routes>
       <Footer />
     </>

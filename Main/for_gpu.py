@@ -13,8 +13,8 @@ import logging
 import random
 
 logger = logging.getLogger(__name__)
-# client = MongoClient('mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
-client=MongoClient('mongodb://localhost:27017/')
+client = MongoClient('mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+# client=MongoClient('mongodb://localhost:27017/')
 db = client['Flow']
 collection = db['vehicle_count']
 collection_live = db['live_count']
@@ -23,9 +23,10 @@ vehicle_count_collection = db['vehicle_count']
 live_count_collection = db['live_count']
 
 def get_last_info(location_id):
+    # Find most recent vehicle_count document for last_info with the same location_id
     last_recent_document = vehicle_count_collection.find_one(
-        {'location_id': location_id}, 
-        sort=[('timestamp', -1)]  
+        {'location_id': location_id},  # Ensure to fetch from the same location_id
+        sort=[('timestamp', -1)]  # Get the most recent document based on timestamp
     )
 
     if last_recent_document:
@@ -39,7 +40,7 @@ def get_last_info(location_id):
     }
 
 def get_traffic_info(location_id):
-   
+    # Find document in live_count by location_id for live_info
     new_doc = live_count_collection.find_one({
         'location_id': location_id
     })
@@ -56,7 +57,7 @@ def timing_allocation(avg_vehicles):
     
         return random.randint(1,3)
 def insert_document(location_id,flag):
-    
+    # Retrieve last_info and live_info based on location_id
     last_info_data = get_last_info(location_id)
     traffic_info = get_traffic_info(location_id)
     # time >2 min vaye
@@ -114,10 +115,10 @@ def insert_document(location_id,flag):
     vehicle_count_collection.insert_one(document)
 
 def find_recent_set_timer(location_id):
-  
+    # Find the most recent document with the specified location_id
     recent_document = vehicle_count_collection.find_one(
         {'location_id': location_id},
-        sort=[('timestamp', -1)]  
+        sort=[('timestamp', -1)]  # Sort by timestamp descending to get the most recent document first
     )
 
     if recent_document:
@@ -140,7 +141,7 @@ def creation_main():
         logger.info("Creation main process started.")
         light_flag=0
         while True:
-            location_id = '81'  
+            location_id = '81'  # Replace with your specific location_id
             set_timer_value = find_recent_set_timer(location_id)
             if set_timer_value is not None:
                 insert_after_seconds(set_timer_value, location_id,light_flag)
@@ -245,13 +246,13 @@ def process_video(video_source, camera_id, output_queue, area):
             for det in tracked_detections:
                 tracker_id = det[4]
                 class_id = det[3]
-                if class_id == 0 and tracker_id not in counted_tracker_ids["cars"]:  
+                if class_id == 0 and tracker_id not in counted_tracker_ids["cars"]:  # Assuming class_id 0 is car
                     counted_tracker_ids["cars"].add(tracker_id)
-                elif class_id == 1 and tracker_id not in counted_tracker_ids["bikes"]:  
+                elif class_id == 1 and tracker_id not in counted_tracker_ids["bikes"]:  # Assuming class_id 1 is bike
                     counted_tracker_ids["bikes"].add(tracker_id)
-                elif class_id == 3 and tracker_id not in counted_tracker_ids["buses"]: 
+                elif class_id == 3 and tracker_id not in counted_tracker_ids["buses"]:  # Assuming class_id 1 is bike
                     counted_tracker_ids["buses"].add(tracker_id)
-           
+            # Update the frame miss count and handle tracker IDs
             to_remove = []
             for tracker_id in unique_tracker_ids:
                 if tracker_id not in current_frame_tracker_ids:
@@ -269,6 +270,14 @@ def process_video(video_source, camera_id, output_queue, area):
                         trackers.remove(tracker_id)
                         break
                 unique_tracker_ids.remove(tracker_id)
+
+
+            # data = {
+            #     "total_vehicles": len(unique_tracker_ids)
+            # }
+            # json_filename = f'database/{video_source.split("/")[-1].split(".")[0]}_total_vehicles_count.json'
+            # with open(json_filename, 'w') as json_file:
+            #     json.dump(data, json_file, indent=4)
 
             collection_live.update_one(
                 {"video_source": 'all'},

@@ -1,8 +1,18 @@
-# myapp/views.py
-from rest_framework import generics
-from .models import Book
-from .serializers import BookSerializer
+# In your Django app views.py
+from django.http import JsonResponse
+from pymongo import MongoClient
 
-class BookListCreate(generics.ListCreateAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
+def get_districts(request):
+    # Connect to MongoDB
+    client = MongoClient('mongodb://localhost:27017/')
+    db = client['Flow']
+    collection = db['districts']  # Replace with your MongoDB collection name
+
+    # Query all districts from MongoDB
+    districts = list(collection.find({}, {'_id': 0}))  # Exclude _id field if not needed
+
+    # Close MongoDB connection
+    client.close()
+
+    # Return districts as JSON response
+    return JsonResponse(districts, safe=False)

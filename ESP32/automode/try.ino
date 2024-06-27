@@ -2,11 +2,11 @@
 #define BLYNK_TEMPLATE_ID "TMPL6lpYtL5DG"
 #define BLYNK_TEMPLATE_NAME "Check"
 
-// #include <WiFi.h>
+#include <WiFi.h>
 #include <BlynkSimpleEsp32.h>
 
-char ssid[] = "NTFiber-A4E9";
-char pass[] = "omVF4hsE";
+char ssid[] = "manjit@vianet";
+char pass[] = "manjit459011";
 
 char auth[] = "j5qFQfjs-6ZlD7JnBZafmPu7r63B6GZ6";
 
@@ -34,6 +34,11 @@ void setup()
 }
 
 // This function will be called every time the button widget is toggled in the app
+
+
+void loop()
+{
+Blynk.run();
 BLYNK_WRITE(V1)
 {
   int buttonState = param.asInt(); // Getting the state of the button
@@ -129,7 +134,5 @@ BLYNK_WRITE(V3)
   }
 }
 
-void loop()
-{
-  Blynk.run();
+
 }
