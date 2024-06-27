@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import provincesData from "./provincesData"; // Import provincesData from separate file
 import "./registration.css";
 
 const RegistrationForm = () => {
@@ -9,6 +10,8 @@ const RegistrationForm = () => {
     confirmPassword: "",
     district: "",
     chowk: "",
+    selectedProvince: "", // State for selected province
+    selectedDistrict: "", // State for selected district
   });
 
   const [errors, setErrors] = useState({});
@@ -21,7 +24,6 @@ const RegistrationForm = () => {
       [name]: value,
     });
 
-    
     if (errors[name]) {
       setErrors({
         ...errors,
@@ -30,14 +32,29 @@ const RegistrationForm = () => {
     }
   };
 
+  const handleProvinceChange = (e) => {
+    const selectedProvince = e.target.value;
+    setFormData({
+      ...formData,
+      selectedProvince,
+      district: "", // Reset district when province changes
+    });
+  };
+
+  const handleDistrictChange = (e) => {
+    const selectedDistrict = e.target.value;
+    setFormData({
+      ...formData,
+      selectedDistrict,
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    
     let errors = {};
     let formIsValid = true;
 
-    
     if (!formData.email) {
       errors.email = "Email is required";
       formIsValid = false;
@@ -46,7 +63,6 @@ const RegistrationForm = () => {
       formIsValid = false;
     }
 
-    
     if (!formData.phone) {
       errors.phone = "Phone number is required";
       formIsValid = false;
@@ -55,16 +71,19 @@ const RegistrationForm = () => {
       formIsValid = false;
     }
 
-    
     if (!formData.password) {
       errors.password = "Password is required";
       formIsValid = false;
-    } else if (!/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}/.test(formData.password)) {
-      errors.password = "Password must contain at least one uppercase letter, one lowercase letter, one numeric digit, and one special character";
+    } else if (
+      !/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}/.test(
+        formData.password
+      )
+    ) {
+      errors.password =
+        "Password must contain at least one uppercase letter, one lowercase letter, one numeric digit, and one special character";
       formIsValid = false;
     }
 
-    
     if (!formData.confirmPassword) {
       errors.confirmPassword = "Confirm Password is required";
       formIsValid = false;
@@ -73,27 +92,22 @@ const RegistrationForm = () => {
       formIsValid = false;
     }
 
-   
     if (!formData.district) {
       errors.district = "District is required";
       formIsValid = false;
     }
 
-    
     if (!formData.chowk) {
       errors.chowk = "Chowk name is required";
       formIsValid = false;
     }
 
-    
     setErrors(errors);
 
-    
     if (formIsValid) {
-      
-      setTimeout(() => {  
+      setTimeout(() => {
         setSuccessMessage("Form submitted successfully!");
-        
+
         setFormData({
           email: "",
           phone: "",
@@ -101,10 +115,12 @@ const RegistrationForm = () => {
           confirmPassword: "",
           district: "",
           chowk: "",
+          selectedProvince: "",
+          selectedDistrict: "",
         });
-        
+
         setErrors({});
-      }, 1000); 
+      }, 1000);
     }
   };
 
@@ -122,9 +138,12 @@ const RegistrationForm = () => {
               value={formData.email}
               onChange={handleChange}
               className={`form-control ${errors.email ? "error" : ""}`}
+              placeholder="user@example.com"
               required
             />
-            {errors.email && <div className="error-message">{errors.email}</div>}
+            {errors.email && (
+              <div className="error-message">{errors.email}</div>
+            )}
           </div>
           <div className="form-group">
             <label htmlFor="phone">Phone Number</label>
@@ -136,11 +155,13 @@ const RegistrationForm = () => {
                 value={formData.phone}
                 onChange={handleChange}
                 className={`form-control ${errors.phone ? "error" : ""}`}
-                placeholder="Mobile number (e.g., 9876543210)"
+                placeholder="98********"
                 required
               />
             </div>
-            {errors.phone && <div className="error-message">{errors.phone}</div>}
+            {errors.phone && (
+              <div className="error-message">{errors.phone}</div>
+            )}
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
@@ -151,7 +172,7 @@ const RegistrationForm = () => {
               value={formData.password}
               onChange={handleChange}
               className={`form-control ${errors.password ? "error" : ""}`}
-              placeholder="Password (min. 8 characters, at least one uppercase, one lowercase, one digit, one special character)"
+              placeholder="Password"
               required
             />
             {errors.password && (
@@ -166,7 +187,9 @@ const RegistrationForm = () => {
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleChange}
-              className={`form-control ${errors.confirmPassword ? "error" : ""}`}
+              className={`form-control ${
+                errors.confirmPassword ? "error" : ""
+              }`}
               placeholder="Confirm Password"
               required
             />
@@ -175,22 +198,56 @@ const RegistrationForm = () => {
             )}
           </div>
           <div className="form-group">
-            <label htmlFor="district">District</label>
+            <label htmlFor="selectedProvince">Province</label>
             <select
-              id="district"
-              name="district"
-              value={formData.district}
-              onChange={handleChange}
-              className={`form-control ${errors.district ? "error" : ""}`}
+              id="selectedProvince"
+              name="selectedProvince"
+              value={formData.selectedProvince}
+              onChange={handleProvinceChange}
+              className={`form-control ${
+                errors.selectedProvince ? "error" : ""
+              }`}
+              required
+            >
+              <option value="">Select Province</option>
+              {provincesData.map((province, index) => (
+                <option key={index} value={province.province}>
+                  {province.province}
+                </option>
+              ))}
+            </select>
+            {errors.selectedProvince && (
+              <div className="error-message">
+                {errors.selectedProvince}
+              </div>
+            )}
+          </div>
+          <div className="form-group">
+            <label htmlFor="selectedDistrict">District</label>
+            <select
+              id="selectedDistrict"
+              name="selectedDistrict"
+              value={formData.selectedDistrict}
+              onChange={handleDistrictChange}
+              className={`form-control ${
+                errors.selectedDistrict ? "error" : ""
+              }`}
               required
             >
               <option value="">Select District</option>
-              <option value="Kathmandu">Kathmandu</option>
-              <option value="Lalitpur">Lalitpur</option>
-              <option value="Bhaktapur">Bhaktapur</option>
+              {formData.selectedProvince &&
+                provincesData
+                  .find((prov) => prov.province === formData.selectedProvince)
+                  .districts.map((district, index) => (
+                    <option key={index} value={district}>
+                      {district}
+                    </option>
+                  ))}
             </select>
-            {errors.district && (
-              <div className="error-message">{errors.district}</div>
+            {errors.selectedDistrict && (
+              <div className="error-message">
+                {errors.selectedDistrict}
+              </div>
             )}
           </div>
           <div className="form-group">
@@ -205,10 +262,16 @@ const RegistrationForm = () => {
               placeholder="Chowk Name (e.g., Durbar Chowk)"
               required
             />
-            {errors.chowk && <div className="error-message">{errors.chowk}</div>}
+            {errors.chowk && (
+              <div className="error-message">{errors.chowk}</div>
+            )}
           </div>
-          <button type="submit" className="btn btn-primary">Register</button>
-          {successMessage && <div className="success-message">{successMessage}</div>}
+          <button type="submit" className="btn btn-primary">
+            Register
+          </button>
+          {successMessage && (
+            <div className="success-message">{successMessage}</div>
+          )}
         </form>
       </div>
     </div>
