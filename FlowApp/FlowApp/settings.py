@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'myapp',
     # practice apps
     'vh',
+    'g'
    
 
 ]
