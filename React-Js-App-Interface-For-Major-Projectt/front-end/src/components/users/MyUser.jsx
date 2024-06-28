@@ -10,6 +10,7 @@ import { Route, Routes } from "react-router-dom";
 import RegistrationForm from "./registration";
 import Homies from "./Dashboard/Homies";
 import Invalid from "./Invalid";
+import ContactForm from "./Dashboard/Contact";
 
 const MyUser = () => {
   //   const { isAuthenticated } = useAuth();
@@ -25,6 +26,7 @@ const MyUser = () => {
         <Route path="/register" element={<RegistrationForm />} />
         {/* <div > */}
           <Route path="/check-status" element={<Homies />} />
+          <Route path="ContactForm" element={<ContactForm/>} />
         {/* </div> */}
         <Route path="*" element={<Invalid />} />
         

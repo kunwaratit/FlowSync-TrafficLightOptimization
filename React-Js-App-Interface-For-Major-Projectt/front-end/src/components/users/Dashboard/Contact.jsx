@@ -1,6 +1,6 @@
 import React from "react";
 import './ContactForm.css';
-const Contact=()=>{
+const ContactForm=()=>{
     return(<>
         <div className="dasheader">
             <h1>Contact</h1>
@@ -8,8 +8,8 @@ const Contact=()=>{
         <hr />
         <div className="contact_cont">
         <div className="container_container">
-            <h2>Contact Me</h2>
-            <form action="#" method="post">
+            <h2>Contact US</h2>
+            <form action="mailto:sagar.191535@ncit.edu.np" method="post">
                 <div className="form-group">
                     <label htmlFor="name">Name:</label>
                     <input type="text" id="name" name="name" required />
@@ -34,4 +34,4 @@ const Contact=()=>{
         </div>
     </>)
 }
-export default Contact;
+export default ContactForm;

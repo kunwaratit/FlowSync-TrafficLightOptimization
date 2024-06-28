@@ -1,5 +1,5 @@
 import contactus from "../images/contactus logo traffic police.png";
-
+import ContactForm from "./Dashboard/Contact";
 import React from "react";
 
 const Contact = () => {
@@ -13,7 +13,7 @@ const Contact = () => {
             <h2 className="contact-tittle">Let's Be in Touch</h2>
             <p>Contact us for more Details</p>
             <div className="btn">
-              <a href="contact.html">
+              <a href="ContactForm">
                 Write Us
                 <i className="fa-solid fa-arrow-circle-right"></i>
               </a>
