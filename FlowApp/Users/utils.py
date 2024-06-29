@@ -3,21 +3,29 @@
 from pymongo import MongoClient
 from passlib.hash import django_pbkdf2_sha256 as handler
 from datetime import datetime
-# MongoDB connection (assuming it's running locally on default port)
 client = MongoClient('mongodb://localhost:27017/')
 db = client['Flow']
 users_collection = db['users']
 users_collection.create_index([('email', 1)], unique=True)
+import random
+
+def generate_intersection_id(intersection):
+    # Generate a random 3-digit number
+    random_number = random.randint(100, 999)
+    return f"{intersection}_{random_number}"
 
 def register_user_to_mongodb(email, password, phone_number,district,intersection):
     try:
         hashed_password = handler.hash(password)
+        intersection_id = generate_intersection_id(intersection)
+        
         user_data = {
             'email': email,
             'phone_number': phone_number,
             'password': hashed_password,
             'district':district,
             'intersection':intersection,
+            'location_id': intersection_id,
             'is_active': True,
             'is_admin': False,
             'is_user': True,

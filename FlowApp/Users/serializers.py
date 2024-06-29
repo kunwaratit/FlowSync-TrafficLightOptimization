@@ -28,5 +28,4 @@ class UserRegisterSerializer(serializers.Serializer):
         
         user_id = register_user_to_mongodb(email, password, phone_number,district,intersection)
 
-        # Assuming you want to return the user_id and a success message
         return {'user_id': user_id, 'msg': 'Registration successful'}

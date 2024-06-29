@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'myapp',
     # practice apps
     'vh',
-    'g',
+    'Users',
 #    'AI_Detection_App'
 'background_tasks'
 
@@ -141,6 +141,7 @@ DATABASES = {
          'ENGINE': 'djongo',
          'NAME': 'Flow',
            'CLIENT': {
+            #    'host': 'mongodb://localhost:27017/'
             'host': 'mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',  # MongoDB server host
             # 'port': 27017,  # MongoDB server port
             }

@@ -26,7 +26,7 @@ urlpatterns = [
     path('api/det/',include('Det_CounterApp.urls')),
     path('api/vh/',include('vh.urls')),
      path('myapp/', include('myapp.urls')),
-     path('g/',include('g.urls')),
+     path('user/',include('Users.urls')),
     # paxi change garamla milyo vaney aahile lai yeii rakham
     # path('', home_page, name='home_page'),
     # path('vehicle_detection_page/', vehicle_detection_page, name='vehicle_detection_page'), 
