@@ -5,7 +5,7 @@ from passlib.hash import django_pbkdf2_sha256 as handler
 from datetime import datetime
 client = MongoClient('mongodb://localhost:27017/')
 db = client['Flow']
-users_collection = db['users']
+users_collection = db['registration_users']
 users_collection.create_index([('email', 1)], unique=True)
 import random
 
@@ -42,3 +42,13 @@ def register_user_to_mongodb(email, password, phone_number,district,intersection
         else:
             raise e
   
+  
+def authenticate_user(email, password):
+    try:
+        user = users_collection.find_one({'email': email})
+        if user and handler.verify(password, user['password']):
+            return user
+        return None
+    except Exception as e:
+     
+        return None
