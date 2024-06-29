@@ -34,7 +34,7 @@ const Homies = () => {
           <div className="InstalledList">
             {data
               .filter((item) => {
-                return search.toLowerCase() == ""
+                return search.toLowerCase() === ""
                   ? item
                   : item.location_id.toLowerCase().includes(search);
               })
