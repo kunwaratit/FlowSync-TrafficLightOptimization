@@ -54,8 +54,9 @@ INSTALLED_APPS = [
     'myapp',
     # practice apps
     'vh',
-    'g'
-   
+    'g',
+#    'AI_Detection_App'
+'background_tasks'
 
 ]
 
@@ -189,3 +190,15 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL='registration.User'
+
+# settings.py
+
+# settings.py
+
+CELERY_BROKER_URL = 'amqp://localhost'  # Default RabbitMQ URL
+CELERY_RESULT_BACKEND = 'rpc://'  # RPC is suitable for use with RabbitMQ
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+

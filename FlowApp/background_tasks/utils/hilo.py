@@ -1,5 +1,5 @@
 # hilo.py
-from multiprocess import main
+from .multiprocess import main
 
 if __name__ == "__main__":
     main()

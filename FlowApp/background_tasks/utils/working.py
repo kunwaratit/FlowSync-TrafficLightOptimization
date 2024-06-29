@@ -6,7 +6,7 @@ import numpy as np
 from collections import defaultdict, namedtuple
 from multiprocessing import Process, Queue
 from ultralytics import YOLO
-from myMind import mind
+from .myMind import mind
 import supervision as sv
 from pymongo import MongoClient
 import datetime

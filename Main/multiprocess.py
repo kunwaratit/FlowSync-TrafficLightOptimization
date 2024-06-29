@@ -1,4 +1,4 @@
-# working.py
+# multiprocess.py
 import logging
 from working import working_main, creation_main
 from multiprocessing import Process, Queue
