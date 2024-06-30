@@ -121,6 +121,55 @@ BLYNK_WRITE(V1) {
   }
 }
 
+BLYNK_WRITE(V2)
+{
+  int buttonState = param.asInt(); // Getting the state of the button
+
+  if (buttonState == 1)
+  {
+    digitalWrite(yellow1, HIGH);
+    digitalWrite(yellow2, HIGH);
+    digitalWrite(red1, LOW);
+    digitalWrite(green1, LOW);
+    digitalWrite(green2, LOW);
+    digitalWrite(red2, LOW);
+  }
+  else
+  {
+    digitalWrite(red1, LOW);
+    digitalWrite(red2, LOW);
+    digitalWrite(green1, LOW);
+    digitalWrite(green2, LOW);
+    digitalWrite(yellow1, LOW);
+    digitalWrite(yellow2, LOW);
+  }
+}
+// emergency
+BLYNK_WRITE(V3)
+{
+  int buttonState = param.asInt(); // Getting the state of the button
+
+  if (buttonState == 1)
+  {
+    digitalWrite(red1, HIGH);
+    digitalWrite(red2, HIGH);
+    digitalWrite(yellow1, LOW);
+    digitalWrite(green1, LOW);
+    digitalWrite(green2, LOW);
+    digitalWrite(yellow2, LOW);
+  }
+  else
+  {
+    digitalWrite(red1, LOW);
+    digitalWrite(red2, LOW);
+    digitalWrite(green1, LOW);
+    digitalWrite(green2, LOW);
+    digitalWrite(yellow1, LOW);
+    digitalWrite(yellow2, LOW);
+  }
+}
+
+
 void loop() {
   Blynk.run();
 }
