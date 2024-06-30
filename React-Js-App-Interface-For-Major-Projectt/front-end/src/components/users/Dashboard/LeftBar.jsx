@@ -21,7 +21,7 @@ const LeftBar = () => {
               <div className="admin-info"></div>
             </li>
             <NavLink activeClassName="active" to="/dash">
-              <li><RiDashboardHorizontalFill className="icon" />DashBoard</li>
+              <li><RiDashboardHorizontalFill className="icon" />Dashboard</li>
             </NavLink>
             <NavLink activeClassName="active" to="/d-home">
               <li><AiOutlineFileSearch  className="icon"/>
@@ -43,7 +43,7 @@ const LeftBar = () => {
 
             <NavLink activeClassName="active" to="/help">
               {" "}
-              <li><IoMdHelp  className="icon" />help </li>
+              <li><IoMdHelp  className="icon" />Help </li>
             </NavLink>
             <NavLink activeClassName="active" to="/logout">
               {" "}
