@@ -15,8 +15,8 @@ const App = () => {
   return (
     <>
       {!isAuthenticated && <MyUser />}
-      {!isAuthenticated && <UserDash />}
-      
+      {isAuthenticated && <UserDash />}
+
       {/* <UserDash/> */}
 
       {/* Redirect to login page if trying to access admin page without login */}

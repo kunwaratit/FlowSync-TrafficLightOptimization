@@ -25,7 +25,7 @@ def register_user_to_mongodb(email, password, phone_number,district,intersection
             'district':district,
             'intersection':intersection,
             'location_id': intersection_id,
-            'is_active': True,
+            'is_active': False,
             'is_admin': False,
             'is_user': True,
             'created_at': datetime.utcnow(),

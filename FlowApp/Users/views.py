@@ -7,13 +7,7 @@ from Users.serializers import LoginApiSerializer, UserRegisterSerializer
 from Users.utils import authenticate_user
 from Users.renderers import UserRenderer 
 from rest_framework_simplejwt.tokens import RefreshToken
-# def get_tokens_for_user(user):
-#     refresh = RefreshToken.for_user(user)
 
-#     return {
-#         'refresh': str(refresh),
-#         'access': str(refresh.access_token),
-#     }
 class UserRegisterApi(APIView):
     renderer_classes = [UserRenderer]  
 

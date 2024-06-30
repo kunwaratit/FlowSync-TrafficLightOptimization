@@ -1,7 +1,7 @@
 import mainlogo from "../images/mainlogo1.png";
 import React, { useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-
+import { ImHome3 } from "react-icons/im";
 const Navbar = () => {
   const location = useLocation();
 
@@ -36,7 +36,7 @@ const Navbar = () => {
         <nav className="navbar">
           <ul>
             <li className="nav-item">
-              <NavLink to="/home">Home</NavLink>
+              <NavLink to="/home"> Home</NavLink>
             </li>
             <li className="nav-item">
               <NavLink to="/home#call-me-about">About</NavLink>

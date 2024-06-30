@@ -1,6 +1,7 @@
 import React from "react";
 import './admin.css'
 import road from '../images/image.png'
+
 const Admin = () => {
   return (
     <>
@@ -11,23 +12,10 @@ const Admin = () => {
         <hr />
         <div className="dashcontainer">
             <div className="content">
-              <div className="roadimg">
-                <img src={road} alt="xaina picture nai"  />
-              </div>
-              hello
+            
+              
               </div> 
-              <div className="content">
-              <div>
-                <img src="" alt="xaina picture nai"  />
-              </div>
-              hello
-              </div> 
-              <div className="content">
-              <div>
-                <img src="" alt="xaina picture nai"  />
-              </div>
-              hello
-              </div> 
+
               
       
       </div>
