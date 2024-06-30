@@ -4,4 +4,4 @@ brew services start mongodb/brew/mongodb-community
 python3 -m venv venv
 source venv/bin/activate
 pip install Flask pymongo
-<h3>3. Run app.py</h3>
+<h3>3. Run app.py located inside Rest API folder</h3>
