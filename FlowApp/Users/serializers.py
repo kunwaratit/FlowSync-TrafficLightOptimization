@@ -29,7 +29,6 @@ class UserRegisterSerializer(serializers.Serializer):
         user_id = register_user_to_mongodb(email, password, phone_number,district,intersection)
 
         return {'user_id': user_id, 'msg': 'Registration successful'}
-# serializers.py
 
 from rest_framework import serializers
 

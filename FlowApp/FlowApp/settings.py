@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'vh',
     'Users',
 #    'AI_Detection_App'
-'background_tasks'
+# 'background_tasks'
 
 ]
 
@@ -136,17 +136,26 @@ CORS_ALLOW_ALL_ORIGINS = True
 #     }
 # }
 
+import pymongo
+from pymongo.errors import ConnectionFailure
+
+try:
+    pymongo.MongoClient('mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0').admin.command('ismaster')
+    cluster_host = 'mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+    print('cluster is used')
+except ConnectionFailure:
+    cluster_host = 'mongodb://localhost:27017/'
+    print('local database is used')
 DATABASES = {
-     'default': {
-         'ENGINE': 'djongo',
-         'NAME': 'Flow',
-           'CLIENT': {
-            #    'host': 'mongodb://localhost:27017/'
-            'host': 'mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',  # MongoDB server host
-            # 'port': 27017,  # MongoDB server port
-            }
-     }
- }
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': 'Flow',
+        'CLIENT': {
+            'host': cluster_host,
+        }
+    }
+}
+
 
 
 

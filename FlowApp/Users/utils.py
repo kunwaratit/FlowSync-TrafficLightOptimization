@@ -10,7 +10,6 @@ users_collection.create_index([('email', 1)], unique=True)
 import random
 
 def generate_intersection_id(intersection):
-    # Generate a random 3-digit number
     random_number = random.randint(100, 999)
     return f"{intersection}_{random_number}"
 

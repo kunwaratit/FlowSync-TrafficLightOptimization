@@ -38,7 +38,7 @@ const Login = () => {
         msg,
       } = response.data;
       localStorage.setItem("authToken", access);
-      localStorage.setItem("authenticated", "true"); // Set authenticated flag
+      localStorage.setItem("authenticated", "true"); 
       localStorage.setItem("message", msg);
 
       login();

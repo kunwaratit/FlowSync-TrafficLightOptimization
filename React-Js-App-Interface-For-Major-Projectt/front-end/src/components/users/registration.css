@@ -46,7 +46,7 @@
     margin-right: 5px;
   }
   
-  .phone-group input.error {
+  .form-group input.error {
     border-color: #ff0000;
   }
   
