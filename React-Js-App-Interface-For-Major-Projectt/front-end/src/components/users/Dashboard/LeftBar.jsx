@@ -8,6 +8,8 @@ import { IoSettings } from "react-icons/io5";
 import { GrContact } from "react-icons/gr";
 import { IoMdHelp } from "react-icons/io";
 import { BiLogOutCircle } from "react-icons/bi";
+import { TbAdjustmentsCog } from "react-icons/tb";
+import { AiOutlineFileSearch } from "react-icons/ai";
 const LeftBar = () => {
         
   return (
@@ -22,11 +24,12 @@ const LeftBar = () => {
               <li><RiDashboardHorizontalFill className="icon" />DashBoard</li>
             </NavLink>
             <NavLink activeClassName="active" to="/d-home">
-              <li><AiFillHome className="icon"/>Home</li>
+              <li><AiOutlineFileSearch  className="icon"/>
+              Check Status</li>
             </NavLink>
 
             <NavLink activeClassName="active" to="/manage">
-              <li><MdManageAccounts  className="icon" />Manage</li>
+              <li><TbAdjustmentsCog  className="icon" />Manage</li>
             </NavLink>
 
             <NavLink activeClassName="active" to="/setting">
