@@ -70,10 +70,6 @@ width:86%;
     box-shadow: 2px 2px 5px #cccccc;
     border-radius: 5px;
     border: 1px solid #cdcccc78;
-}.dashcontainer{
-    margin-top: 1%;
-    border:1px solid rgba(188, 188, 188, 0.833);
-    /* display: flex; */
 }
 .dasheader h1{
     text-align: left;

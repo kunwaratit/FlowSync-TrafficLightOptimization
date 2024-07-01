@@ -1,11 +1,9 @@
 import mainlogo from "../images/mainlogo1.png";
 import React, { useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { ImHome3 } from "react-icons/im";
 const Navbar = () => {
   const location = useLocation();
 
-  // Scroll to section based on hash in URL
   useEffect(() => {
     const { hash } = location;
     if (hash) {

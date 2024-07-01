@@ -10,6 +10,27 @@
 .roadimg img{
     height:150px;
 
-}.contentas{
+}.vehiclesPerHrchart,.vehiclesinfo{
+    margin: 1%;
     background-color: azure;
+    /* width:47%; */
+
+    width: 100%;  /* Set the width of the container to 80% of its parent */
+  height: 300px;
 }
+.Per-hour-Charts h1{
+    font-weight: lighter;
+  color: #0b2849ab!important;
+    
+
+}
+.dashcontainer{
+    background-color: #809f8d63;
+    margin-top: 1%;
+    border:1px solid rgba(188, 188, 188, 0.833);
+    /* display: flex; */
+}.Per-hour-Charts{
+    display: flex;
+}
+
+   
