@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* .custom-div {
+     @apply bg-blue-500 p-6 rounded-md; 
+} */
+.btn{
+    @apply bg-blue-500 text-center  p-3;
+}
