@@ -1,4 +1,3 @@
-# working.py
 import json
 import cv2
 import time
@@ -6,7 +5,6 @@ import numpy as np
 from collections import defaultdict, namedtuple
 from multiprocessing import Process, Queue
 from ultralytics import YOLO
-from myMind import mind
 import supervision as sv
 from pymongo import MongoClient
 import datetime
@@ -14,8 +12,8 @@ import logging
 import random
 
 logger = logging.getLogger(__name__)
-# client = MongoClient('mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
-client=MongoClient('mongodb://localhost:27017/')
+
+client = MongoClient('mongodb://localhost:27017/')
 db = client['Flow']
 collection = db['vehicle_count']
 collection_live = db['live_count']
@@ -26,7 +24,7 @@ live_count_collection = db['live_count']
 def get_last_info(location_id):
     last_recent_document = vehicle_count_collection.find_one(
         {'location_id': location_id}, 
-        sort=[('timestamp', -1)]  
+        sort=[('timestamp', -1)]
     )
 
     if last_recent_document:
@@ -34,14 +32,15 @@ def get_last_info(location_id):
         flag = last_recent_document.get('light_flag', None)
     else:
         last_info_data = "last_details"
+        flag = None
+
     return {
         "traffic_info": last_info_data,
         "light_flag": flag
     }
 
 def get_traffic_info(location_id):
-   
-    new_doc = live_count_collection.find_one({
+    new_doc = collection_live.find_one({
         'location_id': location_id
     })
 
@@ -51,110 +50,80 @@ def get_traffic_info(location_id):
         traffic_info_data = "live_details"
 
     return traffic_info_data
+
 def timing_allocation(avg_vehicles):
-    
-    
-    
-    return random.randint(1,3)
-def insert_document(location_id,flag):
-    
+    return random.randint(1, 3)
+
+def insert_document(location_id, flag):
     last_info_data = get_last_info(location_id)
     traffic_info = get_traffic_info(location_id)
-    # time >2 min vaye
-        # flag=0
-    # print(last_info_data)
     last_traffic_info = last_info_data['traffic_info']
     last_flag = last_info_data['light_flag']
     allocated_time=0
-    # print(last_traffic_info)
-    # print(f"ve {last_traffic_info['incoming']['cam_B']['total_vehicles']}")
-    if last_flag==0:
-        # camCD
-        
-        camC_vehicle=last_traffic_info['incoming']['cam_C']['total_vehicles']
-        camD_vehicle=last_traffic_info['incoming']['cam_D']['total_vehicles']
-        avg_vehicles=(camC_vehicle+camD_vehicle)/2
-        allocated_time=timing_allocation(avg_vehicles)
-        new_flag=1
-        
-    if last_flag ==1:
-        # camAB
-        camA_vehicle=last_traffic_info['incoming']['cam_A']['total_vehicles']
-        camB_vehicle=last_traffic_info['incoming']['cam_B']['total_vehicles']
-        avg_vehicles=(camA_vehicle+camB_vehicle)/2
-        allocated_time=timing_allocation(avg_vehicles)
-        
-        new_flag=0
+    if last_flag == 0:
+        camC_vehicle = last_traffic_info['incoming']['cam_C']['total_vehicles']
+        camD_vehicle = last_traffic_info['incoming']['cam_D']['total_vehicles']
+        avg_vehicles = (camC_vehicle + camD_vehicle) / 2
+        allocated_time = timing_allocation(avg_vehicles)
+        new_flag = 1
+    else:
+        camA_vehicle = last_traffic_info['incoming']['cam_A']['total_vehicles']
+        camB_vehicle = last_traffic_info['incoming']['cam_B']['total_vehicles']
+        avg_vehicles = (camA_vehicle + camB_vehicle) / 2
+        allocated_time = timing_allocation(avg_vehicles)
+        new_flag = 0
     print(f'------------------------------------------------------------{new_flag}')
-   
-    
-    
-    # last_info_data ko flag 0 or flag nai axina vane wala condn pani:
-    #     light_flag= 1
-    # last_info_data ko incoming total vehicle of camA ,incoming total of camB ko avg
-    #     avg_vehicle
-        #   
-    # last_info_data ko flag 1:
-    #     light_flag= 0
-    # last_info_data ko total vehicle of camc , total of camD ko avg
-    #     avg_vehicle
-        #
-    #  allocated_time=12
-    
-    # Insert a document into vehicle_count collection
+
     document = {
         'location_id': location_id,
-        'traffic_info':traffic_info,
+        'traffic_info': traffic_info,
         'modes_applied': {
             'modes': 'auto',
             'set_timer': allocated_time,
         },
-        "light_flag":new_flag,
+        "light_flag": new_flag,
         "timestamp": datetime.datetime.now().isoformat(),
     }
     vehicle_count_collection.insert_one(document)
 
 def find_recent_set_timer(location_id):
-  
     recent_document = vehicle_count_collection.find_one(
         {'location_id': location_id},
-        sort=[('timestamp', -1)]  
+        sort=[('timestamp', -1)]
     )
 
     if recent_document:
         set_timer_value = recent_document.get('modes_applied', {}).get('set_timer')
         print(f"Recent set_timer value for location_id {location_id}: {set_timer_value}")
-        return set_timer_value
+
     else:
         set_timer_value = 1
         print(f"Recent set_timer value for location_id {location_id}: {set_timer_value}")
-        return set_timer_value
 
-def insert_after_seconds(seconds, location_id,light_flag):
+    return set_timer_value
+
+def insert_after_seconds(seconds, location_id, light_flag):
     print(f"Waiting for {seconds} seconds for traffic light or inserting...")
+    
     time.sleep(seconds)
-    insert_document(location_id,light_flag)
+    insert_document(location_id, light_flag)
     print("Document inserted")
 
 def creation_main():
+    print("creation_main started")
     try:
         logger.info("Creation main process started.")
-        light_flag=0
+        light_flag = 0
         while True:
-            location_id = '81'  
+            location_id = '81'
             set_timer_value = find_recent_set_timer(location_id)
             if set_timer_value is not None:
-                insert_after_seconds(set_timer_value, location_id,light_flag)
+                insert_after_seconds(set_timer_value, location_id, light_flag)
             else:
                 pass
     except Exception as e:
         logger.error(f"Error in creation_main: {str(e)}")
 
-
-
-
-
-# working 
 def process_video(video_source, camera_id, output_queue, area):
     Detection = namedtuple('Detection', ['xyxy', 'mask', 'confidence', 'class_id', 'tracker_id'])
 
@@ -173,13 +142,14 @@ def process_video(video_source, camera_id, output_queue, area):
     zone_annotator = sv.PolygonZoneAnnotator(zone, color=sv.Color.red())
 
     unique_tracker_ids = set()
-    counted_tracker_ids = {"cars": set(), "bikes": set(),'buses':set()}
+    counted_tracker_ids = {"cars": set(), "bikes": set(), 'buses': set()}
     frame_miss_count = defaultdict(int)
     left_ids = {
         "cars": set(),
         "bikes": set(),
         "buses": set()
     }
+
     while True:
         ret, img = cap.read()
         if not ret:
@@ -199,13 +169,10 @@ def process_video(video_source, camera_id, output_queue, area):
         tracker_ids = []
         current_frame_tracker_ids = set()
 
-        
         for r in results:
             boxes = r.boxes
             for box in boxes:
                 x1, y1, x2, y2 = map(int, box.xyxy[0])
-                # cx, cy = (x1 + x2) // 2, (y1 + y2) // 2
-
                 current_frame_boxes.append([x1, y1, x2, y2])
                 confidences.append(box.conf.item())
                 class_ids.append(box.cls.item())
@@ -221,7 +188,7 @@ def process_video(video_source, camera_id, output_queue, area):
             tracker_ids = [det[4] for det in tracked_detections]
             current_frame_tracker_ids.update(tracker_ids)
             unique_tracker_ids.update(tracker_ids)
-            
+
             labels = [
                 f"#{tracker_id} {model.model.names[class_id]} {confidence:.2f}"
                 for _, _, confidence, class_id, tracker_id in tracked_detections
@@ -246,13 +213,13 @@ def process_video(video_source, camera_id, output_queue, area):
             for det in tracked_detections:
                 tracker_id = det[4]
                 class_id = det[3]
-                if class_id == 0 and tracker_id not in counted_tracker_ids["cars"]:  
+                if class_id == 0 and tracker_id not in counted_tracker_ids["cars"]:
                     counted_tracker_ids["cars"].add(tracker_id)
-                elif class_id == 1 and tracker_id not in counted_tracker_ids["bikes"]:  
+                elif class_id == 1 and tracker_id not in counted_tracker_ids["bikes"]:
                     counted_tracker_ids["bikes"].add(tracker_id)
-                elif class_id == 3 and tracker_id not in counted_tracker_ids["buses"]: 
+                elif class_id == 3 and tracker_id not in counted_tracker_ids["buses"]:
                     counted_tracker_ids["buses"].add(tracker_id)
-           
+
             to_remove = []
             for tracker_id in unique_tracker_ids:
                 if tracker_id not in current_frame_tracker_ids:
@@ -274,18 +241,16 @@ def process_video(video_source, camera_id, output_queue, area):
             collection_live.update_one(
                 {"video_source": 'all'},
                 {"$set": {
-                    "location_id": "81",  
+                    "location_id": "81",
                     f"traffic_info.incoming.{camera_id}.vehicles.cars": len(counted_tracker_ids["cars"]),
                     f"traffic_info.incoming.{camera_id}.vehicles.bikes": len(counted_tracker_ids["bikes"]),
                     f"traffic_info.incoming.{camera_id}.vehicles.buses": len(counted_tracker_ids["buses"]),
                     "timestamp": datetime.datetime.now().isoformat(),
                     f"traffic_info.incoming.{camera_id}.total_vehicles": len(unique_tracker_ids),
-                   
                     f"traffic_info.outgoing.{camera_id}.vehicles.cars": len(left_ids["cars"]),
                     f"traffic_info.outgoing.{camera_id}.vehicles.bikes": len(left_ids["bikes"]),
                     f"traffic_info.outgoing.{camera_id}.vehicles.buses": len(left_ids["buses"]),
                     f"traffic_info.outgoing.{camera_id}.total_vehicles": sum(len(left_ids[vehicle_type]) for vehicle_type in left_ids)
-               
                 }},
                 upsert=True
             )
@@ -301,7 +266,8 @@ def process_video(video_source, camera_id, output_queue, area):
     print(f"Total time taken to process {video_source}: {total_time} seconds")
     print(f"Total no of vehicles in {video_source}: {len(unique_tracker_ids)}")
 
-    output_queue.put((video_source, len(unique_tracker_ids)))
+    if output_queue:
+        output_queue.put((video_source, len(unique_tracker_ids)))
 
 def working_main():
     try:
@@ -309,9 +275,6 @@ def working_main():
         with open('VideoMaintainer.json', 'r') as f:
             video_sources = json.load(f)
 
-        my_mind = mind()
-        print(my_mind)
-        
         output_queue = Queue()
 
         processes = []
@@ -335,4 +298,14 @@ def working_main():
             print(f"{video_source}: {vehicle_count}")
     except Exception as e:
         logger.error(f"Error in working_main: {str(e)}")
-        
+
+def mind():
+    x = f'''
+It's holding my mind
+IT is what it is
+Competing with what I was yesterday
+'''
+    return x
+
+a = mind()
+print(a)

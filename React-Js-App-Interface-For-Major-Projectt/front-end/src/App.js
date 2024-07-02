@@ -2,7 +2,7 @@ import React from "react";
 import { Route } from "react-router-dom";
 import "./style.css";
 import Admin from "./components/admin/Admin";
-import { useAuth } from "./components/users/AuthContext";
+import { AuthProvider, useAuth } from "./components/users/AuthContext";
 
 import MyUser from "./components/users/MyUser";
 import UserDash from "./components/users/Dashboard/UserDash";
@@ -16,7 +16,6 @@ const App = () => {
     <>
       {!isAuthenticated && <MyUser />}
       {isAuthenticated && <UserDash />}
-
       {/* <UserDash/> */}
 
       {/* Redirect to login page if trying to access admin page without login */}
@@ -26,3 +25,21 @@ const App = () => {
 };
 
 export default App;
+
+
+
+
+// import React from 'react';
+// import VideoUpload from './components/users/VideoUP';
+
+// function App() {
+//     return (
+//         <div className="App">
+//             <h1>Video Upload</h1>
+//             <VideoUpload />
+//         </div>
+//     );
+// }
+
+// export default App;
+

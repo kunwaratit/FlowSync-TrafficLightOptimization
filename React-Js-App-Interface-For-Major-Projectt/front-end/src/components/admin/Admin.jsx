@@ -1,7 +1,9 @@
 import React from "react";
 import "./admin.css";
 import road from "../images/image.png";
+import { FaBusAlt,FaCar  } from "react-icons/fa";
 import { useState, useEffect } from "react";
+import { RiMotorbikeFill } from "react-icons/ri";
 import {
   LineChart,
   Line,
@@ -15,7 +17,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import data from "./data.json";
-
+import { GiTrafficLightsRed } from "react-icons/gi";
 const Admin = () => {
   const [chartData, setChartData] = useState([]);
 
@@ -24,39 +26,52 @@ const Admin = () => {
   }, []);
   const datas = [
     {
-      name: "Page A",
-      uv: 4000,
-      pv: 2400,
+      time: "1:00",
+      bus: 80,
+      car: 8,
+      mototbike: 100,
     },
     {
-      name: "Page B",
-      uv: 3000,
-      pv: 1398,
+      time: "1:30",
+      bus: 90,
+      car: 80,
+      mototbike: 10,
     },
     {
-      name: "Page C",
-      uv: 2000,
-      pv: 9800,
+      time: "2:00",
+      bus: 90,
+      car: 80,
+      mototbike: 10,
     },
     {
-      name: "Page D",
-      uv: 2780,
-      pv: 3908,
+      time: "3:00",
+      bus: 20,
+      car: 80,
+      mototbike: 10,
     },
     {
-      name: "Page E",
-      uv: 1890,
-      pv: 4800,
+      time: "4:00",
+      bus: 90,
+      car: 30,
+      mototbike: 10,
     },
     {
-      name: "Page F",
-      uv: 2390,
-      pv: 3800,
+      time: "9:00",
+      bus: 70,
+      car: 90,
+      mototbike: 100,
     },
     {
-      name: "Page G",
-      uv: 3490,
-      pv: 4300,
+      time: "5:00",
+      bus: 90,
+      car: 80,
+      mototbike: 10,
+    },
+    {
+      time: "6:00",
+      bus: 23,
+      car: 38,
+      mototbike: 18,
     },
   ];
 
@@ -66,16 +81,66 @@ const Admin = () => {
         <h1>DashBoard</h1>
       </div>
       <hr />
-      <div className="dashcontainer dasheader">
+      <div className="dashcontainer ">
         <h1>Per-hour-Charts </h1>
+        <div className="holdcontainer flex">
+          
+        <div className=" total-vehicles">
+          
+            <p>Total vehicles</p>
+            <h1>15</h1>
+          </div>
+          <GiTrafficLightsRed fill="white" size={120}  />
+
+        <div className="vehicle-info ">
+            <div className="holdcontainer veh">
+              <div className="vehhlogo"><FaBusAlt fill="white" size={56}/></div>
+              <div className="total-bus">
+                <p>Total Bus </p>
+                <h1>15</h1>
+              </div>
+              <div className="everyside">
+              <p>East:<span>5</span> </p>
+              <p>West :<span>5</span> </p>
+              <p>North :<span>5</span> </p>
+              <p>South :<span>5</span> </p>
+              </div>
+            </div>
+            <div className="holdcontainer veh">
+              <div className="vehhlogo"><FaCar fill="white" size={56}/></div>
+              <div className="total-bus">
+                <p>Total Car </p>
+                <h1>15</h1>
+              </div>
+              <div className="everyside">
+              <p>East:<span>5</span> </p>
+              <p>West :<span>5</span> </p>
+              <p>North :<span>5</span> </p>
+              <p>South :<span>5</span> </p>
+              </div>
+            </div>
+            
+            <div className="holdcontainer veh">
+              <div className="vehhlogo"><RiMotorbikeFill  fill="white" size={56}/></div>
+              <div className="total-bus">
+                <p>Total Bus </p>
+                <h1>15</h1>
+              </div>
+              <div className="everyside">
+              <p>East:<span>5</span> </p>
+              <p>West :<span>5</span> </p>
+              <p>North :<span>5</span> </p>
+              <p>South :<span>5</span> </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="Per-hour-Charts ">
           <div className="vehiclesPerHrchart">
-            {/* <div> */}
-            <h1>Number of Vehicles per Minute</h1>
+            <h1>Number of Vehicles </h1>
             <ResponsiveContainer width="100%" height="90%">
               <LineChart
-                // width={450}
-                // height={300}
                 data={chartData}
                 margin={{
                   top: 5,
@@ -100,31 +165,31 @@ const Admin = () => {
                     position: "insideLeft",
                   }}
                 />
-                <Tooltip />
+                <Tooltip cursor={{ stroke: "grey", strokeWidth: 2 }} />
                 <Legend />
                 <Line
-                  type="monotone"
+                  type=""
                   dataKey="vehicles"
                   stroke="#2b9374"
                   strokeWidth={3}
-                  activeDot={{ r: 8 }}
+                  activeDot={{ r: 7 }}
                 />
               </LineChart>
             </ResponsiveContainer>
-            {/* </div> */}
           </div>
 
           <div className="vehiclesinfo">
-            <h1>vehicles in last 1 hr</h1>
+            <h1>vehicles basis</h1>
             <ResponsiveContainer width="100%" height="90%">
               <BarChart data={datas}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
+                <XAxis dataKey="time" />
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="pv" fill="#8884d8" />
-                <Bar dataKey="uv" fill="#82ca9d" />
+                <Bar dataKey="bus" fill="#8884d8" />
+                <Bar dataKey="car" fill="#82ca9d" />
+                <Bar dataKey="mototbike" fill="red" />
               </BarChart>
             </ResponsiveContainer>
           </div>

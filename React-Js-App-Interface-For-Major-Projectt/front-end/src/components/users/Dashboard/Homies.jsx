@@ -27,7 +27,7 @@ const Homies = () => {
               name=""
               id=""
               className="search-bar"
-              placeholder="Type location ......"
+              placeholder="Search location ......"
               title="Search"
             />
           </div>

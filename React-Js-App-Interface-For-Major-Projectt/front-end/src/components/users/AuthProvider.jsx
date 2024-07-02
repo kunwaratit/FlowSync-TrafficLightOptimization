@@ -1,4 +1,3 @@
-// AuthProvider.js (or wherever you define your AuthProvider)
 import React, { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext();
@@ -7,12 +6,10 @@ export function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const login = () => {
-    // Implement your login logic here
     setIsAuthenticated(true);
   };
 
   const logout = () => {
-    // Implement your logout logic here
     setIsAuthenticated(false);
   };
 

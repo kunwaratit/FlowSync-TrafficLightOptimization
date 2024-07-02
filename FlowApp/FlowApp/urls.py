@@ -17,6 +17,7 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
+from django.conf.urls.static import static
 # from .views import detect_objects, vehicle_detection_page,next_page_view,home_page,about_page
 # from django.conf.urls.static import static
 urlpatterns = [
@@ -24,7 +25,7 @@ urlpatterns = [
     path('',include('WebApp.urls')),
     path('api/user/',include('registration.urls')),
     path('api/det/',include('Det_CounterApp.urls')),
-    path('api/vh/',include('vh.urls')),
+    path('api/',include('vh.urls')),
      path('myapp/', include('myapp.urls')),
      path('user/',include('Users.urls')),
     # paxi change garamla milyo vaney aahile lai yeii rakham
@@ -33,5 +34,5 @@ urlpatterns = [
     # path('next_page/', next_page_view, name='next_page'),
     # path('detect_objects/', detect_objects, name='detect_objects'), 
     
-] 
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

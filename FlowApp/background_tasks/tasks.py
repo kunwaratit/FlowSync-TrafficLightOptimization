@@ -1,6 +1,5 @@
-from celery import shared_task
-from .utils.multiprocess import main
-
-@shared_task
+import multiprocessing
+from .multiprocess import main
 def run_background_processes():
-    main()
+    process = multiprocessing.Process(target=main)
+    process.start()

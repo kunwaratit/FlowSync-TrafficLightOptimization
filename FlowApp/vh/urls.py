@@ -1,8 +1,6 @@
-# vehicles/urls.py
-
 from django.urls import path
-from .views import VehicleCountAPIView
+from .views import VideoUploadView
 
 urlpatterns = [
-    path('vehicle_counts/', VehicleCountAPIView.as_view(), name='vehicle_count_api'),
+    path('upload/', VideoUploadView.as_view(), name='video-upload'),
 ]
