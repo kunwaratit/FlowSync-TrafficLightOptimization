@@ -19,7 +19,7 @@ const MyUser = () => {
     <>
       {/* {isAuthenticated && <Navbar />} */}
 
-      <AuthProvider>
+      {/* <AuthProvider> */}
         <Navbar />
         <Routes>
           <Route path="/" element={<Whole />} />
@@ -33,7 +33,7 @@ const MyUser = () => {
         </Routes>
         <Footer />
         //{" "}
-      </AuthProvider>
+      {/* </AuthProvider> */}
     </>
   );
 };

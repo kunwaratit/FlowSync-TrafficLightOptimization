@@ -3,6 +3,7 @@ import "./admin.css";
 import road from "../images/image.png";
 import { FaBusAlt,FaCar  } from "react-icons/fa";
 import { useState, useEffect } from "react";
+import axios from 'axios';
 import { RiMotorbikeFill } from "react-icons/ri";
 import {
   LineChart,
@@ -16,13 +17,40 @@ import {
   Bar,
   ResponsiveContainer,
 } from "recharts";
-import data from "./data.json";
+import datae from "./data.json";
 import { GiTrafficLightsRed } from "react-icons/gi";
 const Admin = () => {
   const [chartData, setChartData] = useState([]);
+  const [totalVehicles, setTotalVehicles] = useState(0);
+  const [totalCars, setTotalCars] = useState(0);
+  const [totalBikes, setTotalBikes] = useState(0);
+  const [totalBuses, setTotalBuses] = useState(0);
 
   useEffect(() => {
-    setChartData(data);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/dash/fetch-data/");
+        const data = response.data;
+
+        // Update the state with the fetched data
+        setTotalVehicles(data.total_vehicles);
+        setTotalCars(data.total_cars);
+        setTotalBikes(data.total_bikes);
+        setTotalBuses(data.total_buses);
+        // Assuming your API returns chart data as well
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } setChartData(datae);
+    };
+
+    // Fetch data immediately when the component loads
+    fetchData();
+
+    // Fetch data every 2 seconds
+    const intervalId = setInterval(fetchData, 2000);
+
+    // Clear interval on component unmount
+    return () => clearInterval(intervalId);
   }, []);
   const datas = [
     {
@@ -84,53 +112,51 @@ const Admin = () => {
       <div className="dashcontainer ">
         <h1>Per-hour-Charts </h1>
         <div className="holdcontainer flex">
-          
-        <div className=" total-vehicles">
-          
+          <div className="total-vehicles">
             <p>Total vehicles</p>
-            <h1>15</h1>
+            <h1>{totalVehicles}</h1>
           </div>
-          <GiTrafficLightsRed fill="white" size={120}  />
+          <GiTrafficLightsRed fill="white" size={120} />
 
-        <div className="vehicle-info ">
+          <div className="vehicle-info ">
             <div className="holdcontainer veh">
-              <div className="vehhlogo"><FaBusAlt fill="white" size={56}/></div>
+              <div className="vehhlogo"><FaBusAlt fill="white" size={56} /></div>
               <div className="total-bus">
                 <p>Total Bus </p>
-                <h1>15</h1>
+                <h1>{totalBuses}</h1>
               </div>
               <div className="everyside">
-              <p>East:<span>5</span> </p>
-              <p>West :<span>5</span> </p>
-              <p>North :<span>5</span> </p>
-              <p>South :<span>5</span> </p>
+                <p>East:<span>5</span> </p>
+                <p>West :<span>5</span> </p>
+                <p>North :<span>5</span> </p>
+                <p>South :<span>5</span> </p>
               </div>
             </div>
             <div className="holdcontainer veh">
-              <div className="vehhlogo"><FaCar fill="white" size={56}/></div>
+              <div className="vehhlogo"><FaCar fill="white" size={56} /></div>
               <div className="total-bus">
                 <p>Total Car </p>
-                <h1>15</h1>
+                <h1>{totalCars}</h1>
               </div>
               <div className="everyside">
-              <p>East:<span>5</span> </p>
-              <p>West :<span>5</span> </p>
-              <p>North :<span>5</span> </p>
-              <p>South :<span>5</span> </p>
+                <p>East:<span>5</span> </p>
+                <p>West :<span>5</span> </p>
+                <p>North :<span>5</span> </p>
+                <p>South :<span>5</span> </p>
               </div>
             </div>
-            
+
             <div className="holdcontainer veh">
-              <div className="vehhlogo"><RiMotorbikeFill  fill="white" size={56}/></div>
+              <div className="vehhlogo"><RiMotorbikeFill fill="white" size={56} /></div>
               <div className="total-bus">
-                <p>Total Bus </p>
-                <h1>15</h1>
+                <p>Total Bikes </p>
+                <h1>{totalBikes}</h1>
               </div>
               <div className="everyside">
-              <p>East:<span>5</span> </p>
-              <p>West :<span>5</span> </p>
-              <p>North :<span>5</span> </p>
-              <p>South :<span>5</span> </p>
+                <p>East:<span>5</span> </p>
+                <p>West :<span>5</span> </p>
+                <p>North :<span>5</span> </p>
+                <p>South :<span>5</span> </p>
               </div>
             </div>
           </div>
