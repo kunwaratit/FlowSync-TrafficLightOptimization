@@ -57,7 +57,8 @@ INSTALLED_APPS = [
     'vh',
     'Users',
 #    'AI_Detection_App'
-'background_tasks',
+# 'background_tasks',
+'adminDash'
 #  'FlowApp.background_tasks.apps.BackgroundTasksConfig',
 ]
 MEDIA_URL = '/media/'

@@ -8,14 +8,17 @@ import MyUser from "./components/users/MyUser";
 import UserDash from "./components/users/Dashboard/UserDash";
 import RegistrationForm from "./components/users/registration";
 import { useEffect } from "react";
+import SysRoutes from "./components/users/Dashboard/system/sysroutes";
 // import User from "./components/users/User";
 const App = () => {
   const { isAuthenticated } = useAuth();
 
   return (
     <>
-      {!isAuthenticated && <MyUser />}
-      {isAuthenticated && <UserDash />}
+      {/* {!isAuthenticated && <MyUser />} */}
+      {/* {isAuthenticated && <UserDash />} */}
+      {!isAuthenticated && <SysRoutes />}
+
       {/* <UserDash/> */}
 
       {/* Redirect to login page if trying to access admin page without login */}
