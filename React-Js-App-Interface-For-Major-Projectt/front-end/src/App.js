@@ -15,9 +15,15 @@ const App = () => {
 
   return (
     <>
+<<<<<<< HEAD
       {!isAuthenticated && <MyUser />} 
       {isAuthenticated && <UserDash />}
       {!isAuthenticated && <SysRoutes />}
+=======
+      {!isAuthenticated && <MyUser />}
+      {isAuthenticated && <UserDash />}
+      {/* {!isAuthenticated && <SysRoutes />} */}
+>>>>>>> refs/remotes/origin/main
 
       <UserDash/>
 

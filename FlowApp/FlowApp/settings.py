@@ -15,6 +15,8 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+TIME_ZONE = 'Asia/Kathmandu'  # Adjust this to your actual time zone
+USE_TZ = True
 
 
 # Quick-start development settings - unsuitable for production
