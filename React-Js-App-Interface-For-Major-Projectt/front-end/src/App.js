@@ -15,14 +15,14 @@ const App = () => {
 
   return (
     <>
-      {/* {!isAuthenticated && <MyUser />} */}
-      {/* {isAuthenticated && <UserDash />} */}
+      {!isAuthenticated && <MyUser />} 
+      {isAuthenticated && <UserDash />}
       {!isAuthenticated && <SysRoutes />}
 
-      {/* <UserDash/> */}
+      <UserDash/>
 
       {/* Redirect to login page if trying to access admin page without login */}
-      {/* {!isAuthenticated && <Route path="/admin" element={<Navigate to="/" replace />} />} */}
+      {/* {/* {!isAuthenticated && <Route path="/admin" element={<Navigate to="/" replace />} />} */}
     </>
   );
 };
