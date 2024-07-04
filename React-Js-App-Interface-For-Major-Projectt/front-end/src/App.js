@@ -15,14 +15,20 @@ const App = () => {
 
   return (
     <>
+<<<<<<< HEAD
+      {!isAuthenticated && <MyUser />} 
+      {isAuthenticated && <UserDash />}
+      {!isAuthenticated && <SysRoutes />}
+=======
       {!isAuthenticated && <MyUser />}
       {isAuthenticated && <UserDash />}
       {/* {!isAuthenticated && <SysRoutes />} */}
+>>>>>>> refs/remotes/origin/main
 
-      {/* <UserDash/> */}
+      <UserDash/>
 
       {/* Redirect to login page if trying to access admin page without login */}
-      {/* {!isAuthenticated && <Route path="/admin" element={<Navigate to="/" replace />} />} */}
+      {/* {/* {!isAuthenticated && <Route path="/admin" element={<Navigate to="/" replace />} />} */}
     </>
   );
 };
