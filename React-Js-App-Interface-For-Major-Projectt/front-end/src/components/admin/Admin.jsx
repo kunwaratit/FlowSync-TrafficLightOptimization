@@ -1,10 +1,5 @@
-import React from "react";
-import "./admin.css";
-import road from "../images/image.png";
-import { FaBusAlt,FaCar  } from "react-icons/fa";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import { RiMotorbikeFill } from "react-icons/ri";
 import {
   LineChart,
   Line,
@@ -17,91 +12,122 @@ import {
   Bar,
   ResponsiveContainer,
 } from "recharts";
-import datae from "./data.json";
+import { FaBusAlt, FaCar } from "react-icons/fa";
+import { RiMotorbikeFill } from "react-icons/ri";
 import { GiTrafficLightsRed } from "react-icons/gi";
+import "./admin.css"; // Assuming you have styles in admin.css
+
 const Admin = () => {
-  const [chartData, setChartData] = useState([]);
+  const [time, setTime] = useState([]);
   const [totalVehicles, setTotalVehicles] = useState(0);
   const [totalCars, setTotalCars] = useState(0);
   const [totalBikes, setTotalBikes] = useState(0);
   const [totalBuses, setTotalBuses] = useState(0);
+  const [east, setEast] = useState({ cars: 0, bikes: 0, buses: 0 });
+  const [west, setWest] = useState({ cars: 0, bikes: 0, buses: 0 });
+  const [north, setNorth] = useState({ cars: 0, bikes: 0, buses: 0 });
+  const [south, setSouth] = useState({ cars: 0, bikes: 0, buses: 0 });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://127.0.0.1:8000/api/dash/fetch-data/");
-        const data = response.data;
+        const data = response.data.data; // Assuming your API response is structured as { data: [...] }
+        
+        // Aggregate totals for each time interval and calculate overall totals
+        const { aggregatedData, totalVehicles, totalCars, totalBikes, totalBuses, directions } = aggregateDataByTime(data);
 
-        // Update the state with the fetched data
-        setTotalVehicles(data.total_vehicles);
-        setTotalCars(data.total_cars);
-        setTotalBikes(data.total_bikes);
-        setTotalBuses(data.total_buses);
-        // Assuming your API returns chart data as well
+        // Update state with aggregated data and totals
+        setTime(aggregatedData);
+        setTotalVehicles(totalVehicles);
+        setTotalCars(totalCars);
+        setTotalBikes(totalBikes);
+        setTotalBuses(totalBuses);
+
+        // Update state with direction data
+        setEast(directions.east);
+        setWest(directions.west);
+        setNorth(directions.north);
+        setSouth(directions.south);
+
       } catch (error) {
         console.error("Error fetching data:", error);
-      } setChartData(datae);
+      }
     };
 
-    // Fetch data immediately when the component loads
-    fetchData();
+    fetchData(); // Initial fetch
 
-    // Fetch data every 2 seconds
-    const intervalId = setInterval(fetchData, 2000);
+    const intervalId = setInterval(fetchData, 2000); // Fetch data every 20 seconds
 
-    // Clear interval on component unmount
-    return () => clearInterval(intervalId);
+    return () => clearInterval(intervalId); // Clear interval on unmount
   }, []);
-  const datas = [
-    {
-      time: "1:00",
-      bus: 80,
-      car: 8,
-      mototbike: 100,
-    },
-    {
-      time: "1:30",
-      bus: 90,
-      car: 80,
-      mototbike: 10,
-    },
-    {
-      time: "2:00",
-      bus: 90,
-      car: 80,
-      mototbike: 10,
-    },
-    {
-      time: "3:00",
-      bus: 20,
-      car: 80,
-      mototbike: 10,
-    },
-    {
-      time: "4:00",
-      bus: 90,
-      car: 30,
-      mototbike: 10,
-    },
-    {
-      time: "9:00",
-      bus: 70,
-      car: 90,
-      mototbike: 100,
-    },
-    {
-      time: "5:00",
-      bus: 90,
-      car: 80,
-      mototbike: 10,
-    },
-    {
-      time: "6:00",
-      bus: 23,
-      car: 38,
-      mototbike: 18,
-    },
-  ];
+  
+  useEffect(() => {
+    console.log("Time state:", time);
+  }, [time]);
+
+  // Function to aggregate data by time and calculate totals
+  const aggregateDataByTime = (data) => {
+    const aggregatedData = {};
+    let totalVehicles = 0;
+    let totalCars = 0;
+    let totalBikes = 0;
+    let totalBuses = 0;
+    const directions = {
+      east: { cars: 0, bikes: 0, buses: 0 },
+      west: { cars: 0, bikes: 0, buses: 0 },
+      north: { cars: 0, bikes: 0, buses: 0 },
+      south: { cars: 0, bikes: 0, buses: 0 },
+    };
+
+    // Aggregate data by time
+    data.forEach(item => {
+      const timeKey = item.time;
+      if (aggregatedData[timeKey]) {
+        aggregatedData[timeKey].total_vehicles += item.total_vehicles;
+        aggregatedData[timeKey].total_cars += item.cars;
+        aggregatedData[timeKey].total_bikes += item.bikes;
+        aggregatedData[timeKey].total_buses += item.buses;
+      } else {
+        aggregatedData[timeKey] = {
+          time: timeKey,
+          total_vehicles: item.total_vehicles,
+          total_cars: item.cars,
+          total_bikes: item.bikes,
+          total_buses: item.buses,
+        };
+      }
+      // Update overall totals
+      totalVehicles += item.total_vehicles;
+      totalCars += item.cars;
+      totalBikes += item.bikes;
+      totalBuses += item.buses;
+
+      // Update direction totals
+      if (item.camera === 'cam_A') {
+        directions.east.cars += item.cars;
+        directions.east.bikes += item.bikes;
+        directions.east.buses += item.buses;
+      } else if (item.camera === 'cam_B') {
+        directions.west.cars += item.cars;
+        directions.west.bikes += item.bikes;
+        directions.west.buses += item.buses;
+      } else if (item.camera === 'cam_C') {
+        directions.north.cars += item.cars;
+        directions.north.bikes += item.bikes;
+        directions.north.buses += item.buses;
+      } else if (item.camera === 'cam_D') {
+        directions.south.cars += item.cars;
+        directions.south.bikes += item.bikes;
+        directions.south.buses += item.buses;
+      }
+    });
+
+    // Convert object to array for easier rendering in charts
+    const aggregatedArray = Object.values(aggregatedData);
+
+    return { aggregatedData: aggregatedArray, totalVehicles, totalCars, totalBikes, totalBuses, directions };
+  };
 
   return (
     <>
@@ -109,16 +135,18 @@ const Admin = () => {
         <h1>DashBoard</h1>
       </div>
       <hr />
-      <div className="dashcontainer ">
-        <h1>Per-hour-Charts </h1>
+      <div className="dashcontainer">
+        <h1>Current-hour-Charts</h1>
         <div className="holdcontainer flex">
+          {/* Total vehicles section */}
           <div className="total-vehicles">
             <p>Total vehicles</p>
             <h1>{totalVehicles}</h1>
           </div>
           <GiTrafficLightsRed fill="white" size={120} />
 
-          <div className="vehicle-info ">
+          {/* Vehicle info section */}
+          <div className="vehicle-info">
             <div className="holdcontainer veh">
               <div className="vehhlogo"><FaBusAlt fill="white" size={56} /></div>
               <div className="total-bus">
@@ -126,10 +154,10 @@ const Admin = () => {
                 <h1>{totalBuses}</h1>
               </div>
               <div className="everyside">
-                <p>East:<span>5</span> </p>
-                <p>West :<span>5</span> </p>
-                <p>North :<span>5</span> </p>
-                <p>South :<span>5</span> </p>
+                <p>East:<span>{east.buses}</span> </p>
+                <p>West :<span>{west.buses}</span> </p>
+                <p>North :<span>{north.buses}</span> </p>
+                <p>South :<span>{south.buses}</span> </p>
               </div>
             </div>
             <div className="holdcontainer veh">
@@ -139,13 +167,12 @@ const Admin = () => {
                 <h1>{totalCars}</h1>
               </div>
               <div className="everyside">
-                <p>East:<span>5</span> </p>
-                <p>West :<span>5</span> </p>
-                <p>North :<span>5</span> </p>
-                <p>South :<span>5</span> </p>
+                <p>East:<span>{east.cars}</span> </p>
+                <p>West :<span>{west.cars}</span> </p>
+                <p>North :<span>{north.cars}</span> </p>
+                <p>South :<span>{south.cars}</span> </p>
               </div>
             </div>
-
             <div className="holdcontainer veh">
               <div className="vehhlogo"><RiMotorbikeFill fill="white" size={56} /></div>
               <div className="total-bus">
@@ -153,36 +180,29 @@ const Admin = () => {
                 <h1>{totalBikes}</h1>
               </div>
               <div className="everyside">
-                <p>East:<span>5</span> </p>
-                <p>West :<span>5</span> </p>
-                <p>North :<span>5</span> </p>
-                <p>South :<span>5</span> </p>
+                <p>East:<span>{east.bikes}</span> </p>
+                <p>West :<span>{west.bikes}</span> </ p>
+                <p>North :<span>{north.bikes}</span> </ p>
+                <p>South :<span>{south.bikes}</span> </ p>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="Per-hour-Charts ">
+        {/* Per-hour charts */}
+        <div className="Per-hour-Charts">
+          {/* Line chart */}
           <div className="vehiclesPerHrchart">
-            <h1>Number of Vehicles </h1>
+            <h1>Number of Vehicles</h1>
             <ResponsiveContainer width="100%" height="90%">
               <LineChart
-                data={chartData}
-                margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5,
-                }}
+                data={time}
+                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis
                   dataKey="time"
-                  label={{
-                    value: "Time",
-                    position: "insideBottom",
-                    offset: -5,
-                  }}
+                  label={{ value: "Time", position: "insideBottom", offset: -5 }}
                 />
                 <YAxis
                   label={{
@@ -195,7 +215,7 @@ const Admin = () => {
                 <Legend />
                 <Line
                   type=""
-                  dataKey="vehicles"
+                  dataKey="total_vehicles"
                   stroke="#2b9374"
                   strokeWidth={3}
                   activeDot={{ r: 7 }}
@@ -204,18 +224,19 @@ const Admin = () => {
             </ResponsiveContainer>
           </div>
 
+          {/* Bar chart */}
           <div className="vehiclesinfo">
-            <h1>vehicles basis</h1>
+            <h1>Vehicles basis</h1>
             <ResponsiveContainer width="100%" height="90%">
-              <BarChart data={datas}>
+              <BarChart data={time}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="time" />
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="bus" fill="#8884d8" />
-                <Bar dataKey="car" fill="#82ca9d" />
-                <Bar dataKey="mototbike" fill="red" />
+                <Bar dataKey="total_buses" fill="#8884d8" />
+                <Bar dataKey="total_cars" fill="#82ca9d" />
+                <Bar dataKey="total_bikes" fill="red" />
               </BarChart>
             </ResponsiveContainer>
           </div>

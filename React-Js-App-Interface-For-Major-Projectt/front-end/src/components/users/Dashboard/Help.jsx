@@ -1,5 +1,5 @@
 import React from "react";
-import './static/help.css'
+import "./static/help.css";
 const Help = () => {
   return (
     <>
@@ -8,47 +8,38 @@ const Help = () => {
       </div>
       <hr />
       <div className="main_help_div">
-      <div className="help1 help">
-        <p><b>1.</b> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore eius saepe 
-        repellendus accusamus velit iusto quisquam veniam! Placeat repellat vitae 
-        mollitia ex officiis ea nulla aperiam praesentium nobis magnam illum cupiditate 
-        autem ab libero laboriosam blanditiis obcaecati quasi enim alias, minus doloremque
-         eos natus! Molestias quaerat eum laborum enim sed?</p>
-      </div>
+        <div className="help1 help">
+          <ol>
+            <li>
+              <span>Bad Results</span>
+              <ul>
+                <li>
+                  Go through the manage setting and observe the camera angle,
+                  and consult to the operator in case of the bad angle placement
+                  of the camera.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span>Bad detection</span>
+              <ul>
+                <li>
+                  Go through the manage setting and predict the video and
+                  observe the detection, and consult to operator in case of
+                  wrong detection and any other problem persists.
+                </li>
+              </ul>
+            </li>
+<li><span></span></li>
 
-      <div className="help2 help">
-      <p><b>2.</b> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore eius saepe 
-        repellendus accusamus velit iusto quisquam veniam! Placeat repellat vitae 
-        mollitia ex officiis ea nulla aperiam praesentium nobis magnam illum cupiditate 
-        autem ab libero laboriosam blanditiis obcaecati quasi enim alias, minus doloremque
-         eos natus! Molestias quaerat eum laborum enim sed?</p>
-      </div>
 
-      <div className="help3 help">
-      <p><b>3.</b> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore eius saepe 
-        repellendus accusamus velit iusto quisquam veniam! Placeat repellat vitae 
-        mollitia ex officiis ea nulla aperiam praesentium nobis magnam illum cupiditate 
-        autem ab libero laboriosam blanditiis obcaecati quasi enim alias, minus doloremque
-         eos natus! Molestias quaerat eum laborum enim sed?</p>
-      </div>
 
-      <div className="help4 help">
-      <p><b>4.</b> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore eius saepe 
-        repellendus accusamus velit iusto quisquam veniam! Placeat repellat vitae 
-        mollitia ex officiis ea nulla aperiam praesentium nobis magnam illum cupiditate 
-        autem ab libero laboriosam blanditiis obcaecati quasi enim alias, minus doloremque
-         eos natus! Molestias quaerat eum laborum enim sed?</p>
-      </div>
+          </ol>
 
-      <div className="help5 help">
-      <p><b>5.</b> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore eius saepe 
-        repellendus accusamus velit iusto quisquam veniam! Placeat repellat vitae 
-        mollitia ex officiis ea nulla aperiam praesentium nobis magnam illum cupiditate 
-        autem ab libero laboriosam blanditiis obcaecati quasi enim alias, minus doloremque
-         eos natus! Molestias quaerat eum laborum enim sed?</p>
-      </div>
-      </div>
+        </div>
 
+       
+      </div>
     </>
   );
 };

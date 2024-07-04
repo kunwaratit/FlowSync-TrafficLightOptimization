@@ -18,8 +18,14 @@ const Manage = () => {
     setSelectedCity(event.target.value);
   };
 
-  const handleDownload = () => {
-    alert(`Downloading data for ${selectedCity}`);
+  const handleCheckCameraAngle = () => {
+    alert(`Checking camera angle for ${selectedCity}`);
+    // Implement your logic here
+  };
+
+  const handlePredictDetection = () => {
+    alert(`Predicting detection for ${selectedCity}`);
+    // Implement your logic here
   };
 
   return (
@@ -30,14 +36,11 @@ const Manage = () => {
           This section manages the System. In this section you have to manage
           and observe the setting applied.The system setting applied can be
           observed in this section through the downloaded video. If there is any
-          problem in camera angle, detection ,counting with this we visualize
+          problem in camera angle, detection, counting with this we visualize
           the reason for exact problem we are facing in the system.
         </p>
       </div>
       <hr />
-      {/* <div className="homeContainer observe">
-        
-      </div> */}
       <div className="center">
         <div className="manage_cont">
           {!isAuthenticated ? (
@@ -45,7 +48,6 @@ const Manage = () => {
               <label htmlFor="user-key">
                 <p>Please enter the user key:</p>
               </label>
-              <p></p>
               <input
                 type="text"
                 id="user-key"
@@ -69,9 +71,14 @@ const Manage = () => {
                 <option value="city2">10 seconds</option>
                 <option value="city3">15 seconds</option>
               </select>
-              <button onClick={handleDownload} className="download">
-                Download
-              </button>
+              <div className="button-container">
+                <button onClick={handleCheckCameraAngle} className="check-camera">
+                  Check Camera Angle
+                </button>
+                <button onClick={handlePredictDetection} className="predict-detection">
+                  Predict Detection
+                </button>
+              </div>
             </div>
           )}
         </div>
