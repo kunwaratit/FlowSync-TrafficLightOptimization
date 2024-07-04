@@ -35,14 +35,15 @@ const Login = () => {
 
       const {
         token: { access },
-        msg,
+        msg,is_admin,
       } = response.data;
       localStorage.setItem("authToken", access);
       localStorage.setItem("authenticated", "true");
+      localStorage.setItem("is_admin", is_admin);
       localStorage.setItem("message", msg);
 
       login();
-      navigate("/dash"); // Navigate to /dash upon successful login using useNavigate hook
+      navigate("/dash"); 
     } catch (error) {
       if (error.response && error.response.data && error.response.data.errors) {
         const { errors: apiErrors } = error.response.data;

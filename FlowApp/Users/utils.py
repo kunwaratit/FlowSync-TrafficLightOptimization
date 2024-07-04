@@ -3,6 +3,8 @@
 from pymongo import MongoClient
 from passlib.hash import django_pbkdf2_sha256 as handler
 from datetime import datetime
+
+from utils.counter import get_next_sequence_value
 client = MongoClient('mongodb://localhost:27017/')
 db = client['Flow']
 users_collection = db['registration_users']
@@ -17,8 +19,10 @@ def register_user_to_mongodb(email, password, phone_number,district,intersection
     try:
         hashed_password = handler.hash(password)
         intersection_id = generate_intersection_id(intersection)
+        next_id = get_next_sequence_value('user_id_counter')  # Get next integer ID
         
         user_data = {
+            '_id': next_id,
             'email': email,
             'phone_number': phone_number,
             'password': hashed_password,
@@ -46,6 +50,7 @@ def authenticate_user(email, password):
     try:
         user = users_collection.find_one({'email': email})
         if user and handler.verify(password, user['password']):
+           
             return user
         return None
     except Exception as e:

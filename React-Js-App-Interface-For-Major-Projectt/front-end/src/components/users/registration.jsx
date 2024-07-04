@@ -74,7 +74,7 @@ const RegistrationForm = () => {
         } else {
           // Registration successful, handle accordingly
           console.log("Registration successful");
-          setSuccessMessage("Form submitted successfully!");
+          setSuccessMessage("Request submitted successfully!");
           setFormData({
             email: "",
             phone_number: "",

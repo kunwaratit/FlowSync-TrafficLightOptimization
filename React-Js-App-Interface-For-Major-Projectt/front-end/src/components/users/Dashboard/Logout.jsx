@@ -9,7 +9,7 @@ const Logout = () => {
     localStorage.removeItem('authToken');
     localStorage.removeItem('authenticated');
     localStorage.removeItem('message');
-
+    localStorage.removeItem('is_admin');
     logout();
     navigate('/home')
   };

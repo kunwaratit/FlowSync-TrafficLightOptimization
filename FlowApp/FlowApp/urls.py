@@ -28,7 +28,8 @@ urlpatterns = [
     path('api/',include('vh.urls')),
      path('myapp/', include('myapp.urls')),
      path('user/',include('Users.urls')),
-     path('api/dash/', include('adminDash.urls'))
+     path('api/dash/', include('adminDash.urls')),
+     path('api/',include('FetchApp.urls')),
     # paxi change garamla milyo vaney aahile lai yeii rakham
     # path('', home_page, name='home_page'),
     # path('vehicle_detection_page/', vehicle_detection_page, name='vehicle_detection_page'), 

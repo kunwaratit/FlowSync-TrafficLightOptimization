@@ -6,7 +6,9 @@ import LeftBar from "./LeftBar";
 import DashRoutes from "./DashRoutes";
 import './static/dashboard.css'
 import VehicleCountTable from "./location";
+import Check from "./check";
 const UserDash = () => {
+  const isAdmin = localStorage.getItem('is_admin') === 'true';
   return (
     <>
       <div className="dashboard">
@@ -17,10 +19,8 @@ const UserDash = () => {
         </div>
         <div className="dashright">
           <div className="rightcontainer">
-            <DashRoutes />
-            
+          {isAdmin ? <Check /> : <DashRoutes />}   
           </div>
-          {/* <Admin/> */}
         </div>
       </div>
     </>

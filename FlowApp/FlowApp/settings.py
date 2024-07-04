@@ -60,7 +60,8 @@ INSTALLED_APPS = [
     'Users',
 #    'AI_Detection_App'
 # 'background_tasks',
-'adminDash'
+'adminDash',
+'FetchApp'
 #  'FlowApp.background_tasks.apps.BackgroundTasksConfig',
 ]
 MEDIA_URL = '/media/'
@@ -86,6 +87,8 @@ REST_FRAMEWORK = {
     # 'DEFAULT_RENDERER_CLASSES':(
     #     'rest_framework.renderers.JSONRenderer',
     # )
+
+  
     
 }
 from datetime import timedelta
@@ -161,7 +164,10 @@ DATABASES = {
         }
     }
 }
-
+MONGODB_SETTINGS = {
+    'HOST': cluster_host,
+    'DB_NAME': 'Flow'
+}
 
 
 
