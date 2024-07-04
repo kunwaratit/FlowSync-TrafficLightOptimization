@@ -9,6 +9,7 @@ import ContactForm from "./Contact";
 import Help from "./Help";
 import Logout from "./Logout";
 import { AuthProvider } from "../AuthContext";
+import Whole from "../Whole";
 const DashRoutes = () => {
   return (
     <>
@@ -21,6 +22,8 @@ const DashRoutes = () => {
           <Route path="/contact" element={<ContactForm />} />
           <Route path="/help" element={<Help />} />
           <Route path="/logout" element={<Logout />} />
+          
+          {/* <Route path="*" element={<Whole/>} /> */}
         </Routes>
       {/* </AuthProvider> */}
     </>

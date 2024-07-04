@@ -1,9 +1,9 @@
 .manage_cont{
     font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
+    /* display: flex; */
+    /* flex-direction: column; */
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     /* height: 100vh; */
     background-color: #ffffff;
 }
@@ -26,19 +26,22 @@ hr {
     border-top: 1px solid #ccc;
     margin: 5px 0;
 }
+.manage-cont-hold{
+    width: 300px;
 
+}
 .manage_cont {
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 20px;
-    width: 300px;
+    /* width: 300px; */
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1); 
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* align-items: center; */
+    /* justify-content: center; */
 }
 
 #input-container {
@@ -84,11 +87,7 @@ hr {
     margin: 0 10px;
 }
 
-.center{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
 .cityy{
     padding: 14px;
     font-weight: 400;
@@ -98,3 +97,38 @@ hr {
 /* .download{
     background-color: #28e932;
 } */
+
+
+.operation-container{
+    display: flex;
+    justify-content: space-around;
+}.operation-container button{
+    width: auto;
+    margin: 2%;
+}.camera,.detection{ 
+    width: 50%;
+    border: 1px solid;
+    padding: 1%;
+    background-color: #cddfd7;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1); 
+    border-radius: 5px;
+
+
+}.camera{
+    margin: 0 2% 0% 0%;
+
+}
+.camera select,.detection select{
+    width: 100px;
+}
+.cameraImg,.detectionVid{
+    align-self: center;
+    height: 250px;
+    width: 250px;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1); 
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #ffffff;
+}

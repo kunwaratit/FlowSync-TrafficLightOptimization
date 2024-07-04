@@ -41,48 +41,74 @@ const Manage = () => {
         </p>
       </div>
       <hr />
-      <div className="center">
-        <div className="manage_cont">
-          {!isAuthenticated ? (
-            <div id="input-container">
-              <label htmlFor="user-key">
-                <p>Please enter the user key:</p>
-              </label>
-              <input
-                type="text"
-                id="user-key"
-                placeholder="Enter user key"
-                value={userKey}
-                onChange={(e) => setUserKey(e.target.value)}
-              />
-              <button onClick={validateKey}>Submit</button>
-            </div>
-          ) : (
-            <div id="form-container">
-              <label htmlFor="city" className="cityy">
-                Select Time:
-              </label>
-              <select
-                id="city"
-                value={selectedCity}
-                onChange={handleCityChange}
-              >
-                <option value="city1">5 seconds</option>
-                <option value="city2">10 seconds</option>
-                <option value="city3">15 seconds</option>
-              </select>
-              <div className="button-container">
-                <button onClick={handleCheckCameraAngle} className="check-camera">
-                  Check Camera Angle
-                </button>
-                <button onClick={handlePredictDetection} className="predict-detection">
-                  Predict Detection
-                </button>
+      {/* <div className="manage_cont"> */}
+      {!isAuthenticated ? (
+        <div className="center">
+          <div className="manage_cont">
+            <div className="manage-cont-hold">
+              <div id="input-container">
+                <label htmlFor="user-key">
+                  <p>Please enter the user key:</p>
+                </label>
+                <input
+                  type="text"
+                  id="user-key"
+                  placeholder="Enter user key"
+                  value={userKey}
+                  onChange={(e) => setUserKey(e.target.value)}
+                />
+                <button onClick={validateKey}>Submit</button>
               </div>
             </div>
-          )}
+          </div>
         </div>
-      </div>
+      ) : (
+        <div id="form-container">
+          <div className="operation-container">
+            <div className="camera">
+              <div>
+                <p>
+                  Choose the camera available below and check the condition of
+                  camera,it's angle, response to the intensity of light and to
+                  the different climatic condition.
+                  <div className="cameraImg"></div>
+                </p>
+              </div>
+              <select name="" id="">
+                <option value="">Cam_A</option>
+                <option value="">Cam_B</option>
+                <option value="">Cam_C</option>
+                <option value="">Cam_D</option>
+              </select>
+              <button onClick={handleCheckCameraAngle} className="check-camera">
+                Check Camera Angle
+              </button>
+            </div>
+            <div className="detection">
+              <div>
+                <p>
+                  Choose the camera available below to check the detection condition of the
+                  camera,its angle and response to the intensity of light
+                  different climatic condition.
+                </p>
+                <div className="cameraImg"></div>
+              </div><select name="" id="">
+                <option value="">Cam_A</option>
+                <option value="">Cam_B</option>
+                <option value="">Cam_C</option>
+                <option value="">Cam_D</option>
+              </select>
+              <button
+                onClick={handlePredictDetection}
+                className="predict-detection"
+              >
+                Predict Detection
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* </div> */}
     </>
   );
 };
