@@ -1,14 +1,9 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { useAuth } from "./components/users/AuthContext";
 import "./style.css";
-import Admin from "./components/admin/Admin";
-import { AuthProvider, useAuth } from "./components/users/AuthContext";
 
-import MyUser from "./components/users/MyUser";
 import UserDash from "./components/users/Dashboard/UserDash";
-import RegistrationForm from "./components/users/registration";
-import { useEffect } from "react";
-import SysRoutes from "./components/users/Dashboard/system/sysroutes";
+import MyUser from "./components/users/MyUser";
 // import User from "./components/users/User";
 const App = () => {
   const { isAuthenticated } = useAuth();

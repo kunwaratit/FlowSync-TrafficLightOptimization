@@ -22,7 +22,7 @@ const DashRoutes = () => {
           <Route path="/contact" element={<ContactForm />} />
           <Route path="/help" element={<Help />} />
           <Route path="/logout" element={<Logout />} />
-          
+
           {/* <Route path="*" element={<Whole/>} /> */}
         </Routes>
       {/* </AuthProvider> */}

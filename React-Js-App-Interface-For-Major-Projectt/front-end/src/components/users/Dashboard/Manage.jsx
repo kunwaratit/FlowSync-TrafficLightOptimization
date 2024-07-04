@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./manage.css"; // Import your CSS file
-
+import camX from "../../images/camX.png";
 const Manage = () => {
   const [userKey, setUserKey] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -71,7 +71,11 @@ const Manage = () => {
                   Choose the camera available below and check the condition of
                   camera,it's angle, response to the intensity of light and to
                   the different climatic condition.
-                  <div className="cameraImg"></div>
+                  <div className="cameraImg">
+                    <a href={camX} target="_blank">
+                      <img src={camX} alt="Camera" />
+                    </a>
+                  </div>
                 </p>
               </div>
               <select name="" id="">
@@ -87,12 +91,17 @@ const Manage = () => {
             <div className="detection">
               <div>
                 <p>
-                  Choose the camera available below to check the detection condition of the
-                  camera,its angle and response to the intensity of light
-                  different climatic condition.
+                  Choose the camera available below to check the detection
+                  condition of the camera,its angle and response to the
+                  intensity of light different climatic condition.
                 </p>
-                <div className="cameraImg"></div>
-              </div><select name="" id="">
+                <div className="detectionVid">
+                  <a href={camX} target="_blank">
+                    <img src={camX} alt="Camera" />
+                  </a>
+                </div>
+              </div>
+              <select name="" id="">
                 <option value="">Cam_A</option>
                 <option value="">Cam_B</option>
                 <option value="">Cam_C</option>

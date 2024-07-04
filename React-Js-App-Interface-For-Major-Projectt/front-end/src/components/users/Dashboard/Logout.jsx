@@ -1,18 +1,16 @@
 import React from 'react';
-import { useAuth } from '../AuthContext'; // Assuming you have an AuthContext for managing authentication
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../AuthContext'; // Assuming you have an AuthContext for managing authentication
 
 const Logout = () => {
-  const { logout } = useAuth(); // Assuming you have a logout function in your AuthContext
+  const { logout } = useAuth(); 
   const navigate = useNavigate();
   const handleLogout = () => {
-    // Clear authentication state and tokens from local storage
     localStorage.removeItem('authToken');
     localStorage.removeItem('authenticated');
     localStorage.removeItem('message');
 
-    // Call the logout function from AuthContext to clear any other authentication-related state
-    // logout();
+    logout();
     navigate('/home')
   };
 
