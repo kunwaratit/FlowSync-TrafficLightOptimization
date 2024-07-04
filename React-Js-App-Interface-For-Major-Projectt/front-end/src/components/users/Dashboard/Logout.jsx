@@ -12,7 +12,7 @@ const Logout = () => {
     localStorage.removeItem('message');
 
     // Call the logout function from AuthContext to clear any other authentication-related state
-    logout();
+    // logout();
     navigate('/home')
   };
 

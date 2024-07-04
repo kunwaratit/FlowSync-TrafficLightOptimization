@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "../static/Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "./AuthContext";
+import "../static/Login.css";
 
 const Login = () => {
   const { login } = useAuth();
@@ -16,7 +16,7 @@ const Login = () => {
     general: "",
   });
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Use useNavigate hook for navigation
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -38,11 +38,11 @@ const Login = () => {
         msg,
       } = response.data;
       localStorage.setItem("authToken", access);
-      localStorage.setItem("authenticated", "true"); 
+      localStorage.setItem("authenticated", "true");
       localStorage.setItem("message", msg);
 
       login();
-      navigate("/d-home");
+      navigate("/dash"); // Navigate to /dash upon successful login using useNavigate hook
     } catch (error) {
       if (error.response && error.response.data && error.response.data.errors) {
         const { errors: apiErrors } = error.response.data;
