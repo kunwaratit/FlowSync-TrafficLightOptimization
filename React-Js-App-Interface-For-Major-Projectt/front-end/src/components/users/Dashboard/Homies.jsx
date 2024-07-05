@@ -76,7 +76,8 @@ const Homies = () => {
             </div> */}
           
           </div>
-          {isAuthenticated && <VehicleCountTable />}
+          {/* {isAuthenticated && <VehicleCountTable />} */}
+          <VehicleCountTable />
         </div>
       </div>
     </>
