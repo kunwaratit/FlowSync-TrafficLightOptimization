@@ -5,6 +5,7 @@ CACHE
 __pycache__
 .DS_Store
 
+data/
 #add your environment here
 flenv
 myenv

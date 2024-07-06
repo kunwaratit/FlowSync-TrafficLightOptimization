@@ -1,0 +1,11 @@
+train: U:/F/FlowSync-TrafficLightOptimization/FlowApp/data/train/images
+val: U:/F/FlowSync-TrafficLightOptimization/FlowApp/data/valid/images
+
+
+nc: 5
+names:
+  - car
+  - motorbike
+  - truck
+  - bus
+  - Emergency

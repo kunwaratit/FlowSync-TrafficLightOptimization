@@ -48,7 +48,7 @@ def register_user_to_mongodb(email, password, phone_number,district,intersection
   
 def authenticate_user(email, password):
     try:
-        user = users_collection.find_one({'email': email})
+        user = users_collection.find_one({'email': email.lower()})
         if user and handler.verify(password, user['password']):
            
             return user

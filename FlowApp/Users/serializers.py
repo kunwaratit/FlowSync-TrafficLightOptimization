@@ -20,7 +20,7 @@ class UserRegisterSerializer(serializers.Serializer):
         return attrs
 
     def create(self, validated_data):
-        email = validated_data['email']
+        email = validated_data['email'].lower()
         password = validated_data['password']
         phone_number = validated_data['phone_number']
         district=validated_data['district']

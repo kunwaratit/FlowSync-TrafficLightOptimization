@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     
     
     # apps we created
-    'Det_CounterApp',
+    # 'Det_CounterApp',
     # 'WebApp',
     'registration',
     'myapp',
@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'vh',
     'Users',
 #    'AI_Detection_App'
-# 'background_tasks',
+'background_tasks',
 'adminDash',
 'FetchApp'
 #  'FlowApp.background_tasks.apps.BackgroundTasksConfig',
@@ -149,9 +149,13 @@ import pymongo
 from pymongo.errors import ConnectionFailure
 
 try:
-    pymongo.MongoClient('mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0').admin.command('ismaster')
-    cluster_host = 'mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
-    print('cluster is used')
+    pass
+    pymongo.MongoClient('mongodb://localhost:27017/').admin.command('ismaster')
+    cluster_host = 'mongodb://localhost:27017/'
+    print('local database is used')
+    # pymongo.MongoClient('mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0').admin.command('ismaster')
+    # cluster_host = 'mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+    # print('cluster is used')
 except ConnectionFailure:
     cluster_host = 'mongodb://localhost:27017/'
     print('local database is used')

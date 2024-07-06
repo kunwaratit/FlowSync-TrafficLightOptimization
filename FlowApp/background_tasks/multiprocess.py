@@ -2,12 +2,15 @@
 import logging
 from background_tasks.working import working_main, creation_main
 from multiprocessing import Process
-
+import torch
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
 def main():
     try:
+         # Check CUDA availability
+        # device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        # logger.info(f"Using device: {device}")
         processes = []
 
         p1 = Process(target=working_main)
