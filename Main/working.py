@@ -12,7 +12,7 @@ from pymongo import MongoClient
 import datetime
 import logging
 import random
-
+import torch
 logger = logging.getLogger(__name__)
 # client = MongoClient('mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
 client=MongoClient('mongodb://localhost:27017/')
@@ -33,7 +33,21 @@ def get_last_info(location_id):
         last_info_data = last_recent_document.get('traffic_info', {})
         flag = last_recent_document.get('light_flag', None)
     else:
-        last_info_data = "last_details"
+        last_info_data = {
+            'incoming': {
+                'cam_A': {'total_vehicles': 0, 'vehicles': {'cars': 0, 'bikes': 0, 'buses': 0}},
+                'cam_B': {'total_vehicles': 0, 'vehicles': {'cars': 0, 'bikes': 0, 'buses': 0}},
+                'cam_C': {'total_vehicles': 0, 'vehicles': {'cars': 0, 'bikes': 0, 'buses': 0}},
+                'cam_D': {'total_vehicles': 0, 'vehicles': {'cars': 0, 'bikes': 0, 'buses': 0}}
+            },
+            'outgoing': {
+                'cam_A': {'total_vehicles': 0, 'vehicles': {'cars': 0, 'bikes': 0, 'buses': 0}},
+                'cam_B': {'total_vehicles': 0, 'vehicles': {'cars': 0, 'bikes': 0, 'buses': 0}},
+                'cam_C': {'total_vehicles': 0, 'vehicles': {'cars': 0, 'bikes': 0, 'buses': 0}},
+                'cam_D': {'total_vehicles': 0, 'vehicles': {'cars': 0, 'bikes': 0, 'buses': 0}}
+            }
+        }
+        flag = 0
     return {
         "traffic_info": last_info_data,
         "light_flag": flag
@@ -52,12 +66,19 @@ def get_traffic_info(location_id):
 
     return traffic_info_data
 def timing_allocation(avg_vehicles):
+    if avg_vehicles==0:
+        return 5
+    elif avg_vehicles<=30 or avg_vehicles>=0:
+        return 15
+    elif avg_vehicles<=50 or avg_vehicles>=30:
+        return 30
+    elif avg_vehicles<=150 or avg_vehicles>100:
+        return 60
+    elif avg_vehicles>150:
+        return 120
     
-    
-    
-    return random.randint(1,3)
-def insert_document(location_id,flag):
-    
+    # return random.randint(1,3)
+def insert_document(location_id):
     last_info_data = get_last_info(location_id)
     traffic_info = get_traffic_info(location_id)
     # time >2 min vaye
@@ -130,21 +151,20 @@ def find_recent_set_timer(location_id):
         print(f"Recent set_timer value for location_id {location_id}: {set_timer_value}")
         return set_timer_value
 
-def insert_after_seconds(seconds, location_id,light_flag):
+def insert_after_seconds(seconds, location_id):
     print(f"Waiting for {seconds} seconds for traffic light or inserting...")
     time.sleep(seconds)
-    insert_document(location_id,light_flag)
+    insert_document(location_id)
     print("Document inserted")
 
 def creation_main():
     try:
         logger.info("Creation main process started.")
-        light_flag=0
         while True:
-            location_id = '81'  
+            location_id = 'Satdobato_984'  
             set_timer_value = find_recent_set_timer(location_id)
             if set_timer_value is not None:
-                insert_after_seconds(set_timer_value, location_id,light_flag)
+                insert_after_seconds(set_timer_value, location_id)
             else:
                 pass
     except Exception as e:
@@ -160,8 +180,13 @@ def process_video(video_source, camera_id, output_queue, area):
 
     cap = cv2.VideoCapture(video_source)
     model = YOLO('best.pt')
-    model = model.cpu()
-
+    if torch.cuda.is_available():
+        print("CUDA is available. GPU will be used for prediction.")
+        model.cuda() 
+    else:
+        print("CUDA is not available. Using CPU for prediction.")
+        model=model.cpu()
+        
     start_time = time.time()
     frame_count = 0
     fps = 0
@@ -180,12 +205,13 @@ def process_video(video_source, camera_id, output_queue, area):
         "bikes": set(),
         "buses": set()
     }
+   
     while True:
         ret, img = cap.read()
         if not ret:
             print(f"Video Ended: {video_source}")
             break
-
+        print('hell')
         img_resized = cv2.resize(img, (1024, 740))
         mask = np.zeros_like(img_resized, dtype=np.uint8)
         cv2.fillPoly(mask, [np.array(area, np.int32)], (255, 255, 255))
@@ -274,7 +300,7 @@ def process_video(video_source, camera_id, output_queue, area):
             collection_live.update_one(
                 {"video_source": 'all'},
                 {"$set": {
-                    "location_id": "81",  
+                    "location_id": "Satdobato_984",  
                     f"traffic_info.incoming.{camera_id}.vehicles.cars": len(counted_tracker_ids["cars"]),
                     f"traffic_info.incoming.{camera_id}.vehicles.bikes": len(counted_tracker_ids["bikes"]),
                     f"traffic_info.incoming.{camera_id}.vehicles.buses": len(counted_tracker_ids["buses"]),

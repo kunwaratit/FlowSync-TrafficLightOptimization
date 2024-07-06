@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'vh',
     'Users',
 #    'AI_Detection_App'
-'background_tasks',
+# 'background_tasks',
 'adminDash',
 'FetchApp'
 #  'FlowApp.background_tasks.apps.BackgroundTasksConfig',

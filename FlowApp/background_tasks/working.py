@@ -161,7 +161,6 @@ def process_video(video_source, camera_id, output_queue, area):
     #     model.cuda()  # Move model to CUDA device
     # else:
     #     print("CUDA is not available. Using CPU for prediction.")
-    #     model=model.cpu()
     model=model.cpu()
     
 
@@ -183,7 +182,7 @@ def process_video(video_source, camera_id, output_queue, area):
         "bikes": set(),
         "buses": set()
     }
-
+    countme=0
     while True:
         ret, img = cap.read()
         if not ret:
@@ -240,10 +239,11 @@ def process_video(video_source, camera_id, output_queue, area):
                 fps = frame_count / elapsed_time
                 start_time = time.time()
                 frame_count = 0
-
+            countme+=1
+            print('its me',video_source,countme)
             cv2.putText(frame, f"FPS: {fps:.1f}", (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
             cv2.imshow(f'Video Source: {video_source}', frame)
-            cv2.imshow(f'Masked Image: {video_source}', img_masked)
+            # cv2.imshow(f'Masked Image: {video_source}', img_masked)
 
             for det in tracked_detections:
                 tracker_id = det[4]
@@ -289,6 +289,7 @@ def process_video(video_source, camera_id, output_queue, area):
                 }},
                 upsert=True
             )
+            
 
         if cv2.waitKey(1) == 27:
             break
@@ -303,7 +304,13 @@ def process_video(video_source, camera_id, output_queue, area):
 
     if output_queue:
         output_queue.put((video_source, len(unique_tracker_ids)))
-
+def mind():
+    x = f'''
+It's holding my mind
+IT is what it is
+Competing with what I was yesterday
+'''
+    return x
 def working_main():
     try:
         a = mind()
@@ -335,13 +342,10 @@ def working_main():
             print(f"{video_source}: {vehicle_count}")
     except Exception as e:
         logger.error(f"Error in working_main: {str(e)}")
+    finally:
+        for p in processes:
+            p.terminate() 
 
-def mind():
-    x = f'''
-It's holding my mind
-IT is what it is
-Competing with what I was yesterday
-'''
-    return x
+
 
 
