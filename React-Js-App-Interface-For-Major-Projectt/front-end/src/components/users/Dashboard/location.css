@@ -1,40 +1,84 @@
-
-
-.vehicle-count-table {
-    width: 100%;
-    border-collapse: collapse;
+.content{
+    margin: 1%;
+    padding: 1%;
+    border:1px solid rgba(226, 15, 15, 0.833);
+    /* width:fit-content; */
+    background: rgb(156 163 175);
+    border: 1px solid #c7c7c7;
+    border-radius: 6px;
 }
+.roadimg img{
+    height:150px;
 
-.vehicle-count-table th, .vehicle-count-table td {
-    border: 1px solid #000000;
-    padding: 8px;
-    text-align: left;
+}.vehiclesPerHrchart,.vehiclesinfo{
+    margin: 1%;
+    background-color: azure;
+    /* width:47%; */
+
+    width: 100%;  /* Set the width of the container to 80% of its parent */
+  height: 300px;
 }
-
-.vehicle-count-table th {
-    background-color: #9cef96;
+.Per-hour-Charts h1{
+    font-weight: lighter;
+  color: #0b2849ab!important;
     
-    text-align: center;
-}
 
-.vehicle-count-table tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
 }
-
-.vehicle-count-table td{
+.dashcontainer{
+    background-color: #809f8d63;
+    margin-top: 1%;
+    border:1px solid rgba(188, 188, 188, 0.833);
+    /* display: flex; */
+}.Per-hour-Charts{
+    display: flex;
+}.vehicle-info{
+    /* display: flex; */
+   width: 50%;
     text-align: center;
+    /* justify-content: center; */
+}.holdcontainer{
+    background-color: #0a597b;
+    margin: 1%;
+    padding:2% 4%;
+    border:1px solid grey;
+    border-radius: 5px;
+    box-shadow: 2px 5px 5px #919191;
     
-}
-.tablerow_color{
-    background-color: #f2f2f2;
-    font-size: 20px;
-}
-.text{
-    font-size: 30px;
-}
-.centered-text{
+}.holdcontainer p,.holdcontainer span{
+    color:white;
+    font-size: x-large;
+    font-weight: bolder;
     text-align: center;
+}.total-vehicles{
+    text-align: center;
+    align-self: center;
+    /* width: 40%; */
 }
-.vechileCount{
-    background-color: #e8f2c1;
+.total-vehicles h1,.holdcontainer h1{
+    font-size: xxx-large;
+    color: whitesmoke;
+    /* display: block!important; */
+}.veh{
+    display: flex;
+    background-color: #00365273;
+    justify-content: space-between;
+}.dashcontainer .flex{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}.total-bus{
+    /* width: 60%; */
+}.everyside{
+   
+    /* width: 20%; */
+}
+.vehhlogo{
+    /* width: 20%; */
+}.everyside p,.everyside span{
+    font-size: small ;
+    font-weight: 200;
+    text-decoration: underline;
+    text-align: justify;
+}.vehicle-info h1{
+    font-size: x-large;
 }

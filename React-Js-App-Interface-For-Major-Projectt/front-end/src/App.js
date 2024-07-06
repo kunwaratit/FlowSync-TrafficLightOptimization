@@ -11,7 +11,7 @@ const App = () => {
   return (
     <>
       {!isAuthenticated && <MyUser />}
-      {isAuthenticated && <UserDash />}
+      {!isAuthenticated && <UserDash />}
       {/* {!isAuthenticated && <SysRoutes />} */}
     </>
   );
