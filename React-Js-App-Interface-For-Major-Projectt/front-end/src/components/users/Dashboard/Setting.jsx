@@ -46,7 +46,7 @@ const Setting = () => {
             </div>
           ) : (
             <div id="content-container">
-              <img src={settingpic} alt="Description of image" />
+              <img src={settingpic} alt="setting " />
               <div className="buttons">
                 <button className="edit">Edit</button>
                 <button className="save">Save</button>

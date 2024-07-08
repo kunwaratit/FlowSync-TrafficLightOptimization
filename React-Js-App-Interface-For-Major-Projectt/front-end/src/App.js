@@ -4,15 +4,17 @@ import "./style.css";
 
 import UserDash from "./components/users/Dashboard/UserDash";
 import MyUser from "./components/users/MyUser";
+import SysRoutes from "./components/users/Dashboard/system/sysroutes";
 // import User from "./components/users/User";
 const App = () => {
   const { isAuthenticated } = useAuth();
 
   return (
     <>
-      {!isAuthenticated && <MyUser />}
-      {!isAuthenticated && <UserDash />}
+      {/* {!isAuthenticated && <MyUser />}
+      {isAuthenticated && <UserDash />} */}
       {/* {!isAuthenticated && <SysRoutes />} */}
+      <SysRoutes />
     </>
   );
 };
