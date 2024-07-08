@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import CurrentLiveStatus,AdminDash
+from .views import  CurrentLiveStatus,HourStatus
 urlpatterns = [
     path('current-status/',CurrentLiveStatus.as_view(),name='current-status'),
-    path('admin-dash/', AdminDash.as_view(), name='fetch_data_api'),   
+    
+    path('hour-status/', HourStatus.as_view(), name='hour-status'),   
 ]

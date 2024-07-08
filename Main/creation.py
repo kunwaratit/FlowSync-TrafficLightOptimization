@@ -3,11 +3,14 @@ import datetime
 import time
 import random
 import logging
+
+from FlowApp.utils.mongodb import get_mongo_client
 logger = logging.getLogger(__name__)
 # Connect to MongoDB
-client = MongoClient('mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
-db = client['Flow']
+# client = MongoClient('mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+# db = client['Flow']
 
+db = get_mongo_client()
 # Define collections
 vehicle_count_collection = db['vehicle_count']
 live_count_collection = db['live_count']

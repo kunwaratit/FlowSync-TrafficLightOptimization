@@ -13,12 +13,11 @@ class CurrentLiveStatus(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        user_id = request.user.id
-
+        user_id = int(request.user.id)
+        print(user_id)
         # Assuming 'registration_users' collection has 'location_id' field
         users_collection = db['registration_users']
 
-        # Use aggregation pipeline with $lookup to fetch related data
         pipeline = [
             {'$match': {'_id': user_id}},
 
@@ -33,7 +32,7 @@ class CurrentLiveStatus(APIView):
                                    "traffic_info":1
                                   
                                   
-                                  }}  # Exclude _id field from vehicle_count documents
+                                  }}  
                 ],
                 'as': 'related_data'
             }},
@@ -47,7 +46,6 @@ class CurrentLiveStatus(APIView):
             }}
         ]
 
-        # Execute aggregation pipeline
         aggregation_result = list(users_collection.aggregate(pipeline))
 
         if aggregation_result:
@@ -55,14 +53,15 @@ class CurrentLiveStatus(APIView):
             return JsonResponse(response_data)
         else:
             return JsonResponse({'error': 'Related data not found'}, status=404)
-class AdminDash(APIView):
+
+class HourStatus(APIView):
     permission_classes = [IsAuthenticated]
     def get(self,request):
         try:
-            user_id = request.user.id 
+            user_id = int(request.user.id) 
             
             users_collection = db['registration_users']
-
+            
             # Retrieve user's location_id or adjust based on your user structure
             user_data = users_collection.find_one({'_id': user_id})
             if not user_data:
@@ -128,7 +127,16 @@ class AdminDash(APIView):
                         'buses': cam_data.get('vehicles', {}).get('buses', 0)
                     }
                     data.append(entry)
-
+            if not data:
+                default_entry = {
+                    'time': start_time_utc.strftime("%H:%M"),
+                    'camera': 'N/A',
+                    'total_vehicles': 0,
+                    'cars': 0,
+                    'bikes': 0,
+                    'buses': 0
+                }
+                data.append(default_entry)
             response_data = {
                 'time_range': {
                     'start': start_time_utc.strftime("%Y-%m-%d %H:%M:%S %z"),

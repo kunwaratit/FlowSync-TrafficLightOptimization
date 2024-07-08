@@ -1,12 +1,14 @@
 from pymongo import MongoClient
 
+from FlowApp.utils.mongodb import get_mongo_client
+
 # Connect to MongoDB
 # client=MongoClient('mongodb://localhost:27017/')  # Adjust the host and port if necessary
-client = MongoClient('mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+# client = MongoClient('mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
 
-# Create or connect to the database
-db = client['Flow']
-
+# # Create or connect to the database
+# db = client['Flow']
+db = get_mongo_client()
 # Create or connect to the collection
 collection = db['districts']
 

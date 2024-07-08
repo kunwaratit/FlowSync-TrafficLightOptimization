@@ -1,7 +1,9 @@
 from django.urls import path
-from .views import fetch_data_from_mongodb
+from .views import UserData,RegisterRequests
 
 urlpatterns = [
-    path('fetch-data/', fetch_data_from_mongodb, name='fetch_data_api'),
-    # Add more paths as needed
+    path('user-data/', UserData.as_view(), name='user-data'),
+    path('modify-user-data/<int:user_id>/', UserData.as_view(), name='modify-user-data'),
+    path('user-reg-requests/', RegisterRequests.as_view(), name='user-reg-requests'),
+    path('user-reg-requests/<int:user_id>/', RegisterRequests.as_view(), name='user-reg-requests'),
 ]

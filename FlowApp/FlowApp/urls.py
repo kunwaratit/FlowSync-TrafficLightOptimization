@@ -24,7 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('WebApp.urls')),
     path('api/user/',include('registration.urls')),
-    path('api/det/',include('Det_CounterApp.urls')),
     path('api/',include('vh.urls')),
      path('myapp/', include('myapp.urls')),
      path('user/',include('Users.urls')),

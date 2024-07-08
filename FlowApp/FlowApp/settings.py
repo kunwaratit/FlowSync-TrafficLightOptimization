@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
+from django.conf import settings
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -49,7 +51,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     
-    
     # apps we created
     # 'Det_CounterApp',
     # 'WebApp',
@@ -81,12 +82,23 @@ MIDDLEWARE = [
 
 REST_FRAMEWORK = {
     
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+  'DEFAULT_AUTHENTICATION_CLASSES': (
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+         'rest_framework_simplejwt.authentication.JWTStatelessUserAuthentication',
     ),
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ),
+
+  
+ 
     # 'DEFAULT_RENDERER_CLASSES':(
     #     'rest_framework.renderers.JSONRenderer',
     # )
+    #   'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.IsAuthenticated',
+    #     # Adjust permissions as needed
+    # ),
 
   
     
@@ -95,6 +107,8 @@ from datetime import timedelta
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+     "SIGNING_KEY": settings.SECRET_KEY,
+    "VERIFYING_KEY": "",
 }
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
@@ -148,17 +162,17 @@ CORS_ALLOW_ALL_ORIGINS = True
 import pymongo
 from pymongo.errors import ConnectionFailure
 
-try:
-    pass
-    pymongo.MongoClient('mongodb://localhost:27017/').admin.command('ismaster')
-    cluster_host = 'mongodb://localhost:27017/'
-    print('local database is used')
-    # pymongo.MongoClient('mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0').admin.command('ismaster')
-    # cluster_host = 'mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
-    # print('cluster is used')
-except ConnectionFailure:
-    cluster_host = 'mongodb://localhost:27017/'
-    print('local database is used')
+# try:
+    # pass
+pymongo.MongoClient('mongodb://localhost:27017/').admin.command('ismaster')
+cluster_host = 'mongodb://localhost:27017/'
+print('local database is used')
+# pymongo.MongoClient('mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0').admin.command('ismaster')
+# cluster_host = 'mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+# print('cluster is used')
+# except ConnectionFailure:
+#     cluster_host = 'mongodb://localhost:27017/'
+#     print('local database is used')
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',

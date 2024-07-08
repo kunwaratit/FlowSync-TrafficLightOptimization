@@ -6,6 +6,7 @@ import numpy as np
 from collections import defaultdict, namedtuple
 from multiprocessing import Process, Queue
 from ultralytics import YOLO
+from FlowApp.utils.mongodb import get_mongo_client
 from myMind import mind
 import supervision as sv
 from pymongo import MongoClient
@@ -13,10 +14,16 @@ import datetime
 import logging
 import random
 import torch
+import pytz
+from datetime import timedelta
+CamLocation='Satdobato_990'
+
 logger = logging.getLogger(__name__)
 # client = MongoClient('mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
-client=MongoClient('mongodb://localhost:27017/')
-db = client['Flow']
+# client=MongoClient('mongodb://localhost:27017/')
+# db = client['Flow']
+
+db = get_mongo_client()
 collection = db['vehicle_count']
 collection_live = db['live_count']
 
@@ -65,6 +72,7 @@ def get_traffic_info(location_id):
         traffic_info_data = "live_details"
 
     return traffic_info_data
+
 def timing_allocation(avg_vehicles):
     if avg_vehicles==0:
         return 5
@@ -87,10 +95,12 @@ def insert_document(location_id):
     last_traffic_info = last_info_data['traffic_info']
     last_flag = last_info_data['light_flag']
     allocated_time=0
+    
     # print(last_traffic_info)
     # print(f"ve {last_traffic_info['incoming']['cam_B']['total_vehicles']}")
     if last_flag==0:
         # camCD
+        print('im here')
         
         camC_vehicle=last_traffic_info['incoming']['cam_C']['total_vehicles']
         camD_vehicle=last_traffic_info['incoming']['cam_D']['total_vehicles']
@@ -134,6 +144,11 @@ def insert_document(location_id):
         "timestamp": datetime.datetime.now().isoformat(),
     }
     vehicle_count_collection.insert_one(document)
+def insert_after_seconds(seconds, location_id):
+    print(f"Waiting for {seconds} seconds for traffic light or inserting...")
+    time.sleep(seconds)
+    insert_document(location_id)
+    print("Document inserted")
 
 def find_recent_set_timer(location_id):
   
@@ -141,32 +156,41 @@ def find_recent_set_timer(location_id):
         {'location_id': location_id},
         sort=[('timestamp', -1)]  
     )
-
+    
     if recent_document:
+        curr_time = datetime.datetime.utcnow().replace(tzinfo=pytz.utc)
+        kathmandu_tz = pytz.timezone('Asia/Kathmandu')
+        current_time = curr_time.astimezone(kathmandu_tz)
+        timestamp_str = recent_document.get('timestamp')
+        timestamp = datetime.datetime.fromisoformat(timestamp_str).replace(tzinfo=pytz.utc)
+        print(current_time)
+        print(timestamp)
+        # if timestamp.date() == current_time.date() and (current_time - timestamp) <= timedelta(minutes=2):
+      
         set_timer_value = recent_document.get('modes_applied', {}).get('set_timer')
         print(f"Recent set_timer value for location_id {location_id}: {set_timer_value}")
-        return set_timer_value
+        insert_after_seconds(set_timer_value, location_id)
+    # else:
+        #     set_timer_value = 1
+        #     print(f"No Recent set_timer value for location_id {location_id}: {set_timer_value}")
+        #     insert_after_seconds(set_timer_value, location_id)
     else:
-        set_timer_value = 1
-        print(f"Recent set_timer value for location_id {location_id}: {set_timer_value}")
-        return set_timer_value
-
-def insert_after_seconds(seconds, location_id):
-    print(f"Waiting for {seconds} seconds for traffic light or inserting...")
-    time.sleep(seconds)
-    insert_document(location_id)
-    print("Document inserted")
+        set_timer_value = 1 
+        print(f"No location found for location_id {location_id}:{set_timer_value}")
+        insert_after_seconds(set_timer_value, location_id)
+  
 
 def creation_main():
     try:
         logger.info("Creation main process started.")
         while True:
-            location_id = 'Satdobato_984'  
-            set_timer_value = find_recent_set_timer(location_id)
-            if set_timer_value is not None:
-                insert_after_seconds(set_timer_value, location_id)
-            else:
-                pass
+            location_id = CamLocation
+            find_recent_set_timer(location_id)
+            # set_timer_value = find_recent_set_timer(location_id)
+            # if set_timer_value is not None:
+            #     insert_after_seconds(set_timer_value, location_id)
+            # else:
+            #     pass
     except Exception as e:
         logger.error(f"Error in creation_main: {str(e)}")
 
@@ -211,7 +235,6 @@ def process_video(video_source, camera_id, output_queue, area):
         if not ret:
             print(f"Video Ended: {video_source}")
             break
-        print('hell')
         img_resized = cv2.resize(img, (1024, 740))
         mask = np.zeros_like(img_resized, dtype=np.uint8)
         cv2.fillPoly(mask, [np.array(area, np.int32)], (255, 255, 255))
@@ -267,7 +290,7 @@ def process_video(video_source, camera_id, output_queue, area):
 
             cv2.putText(frame, f"FPS: {fps:.1f}", (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
             cv2.imshow(f'Video Source: {video_source}', frame)
-            cv2.imshow(f'Masked Image: {video_source}', img_masked)
+            # cv2.imshow(f'Masked Image: {video_source}', img_masked)
 
             for det in tracked_detections:
                 tracker_id = det[4]
@@ -300,7 +323,7 @@ def process_video(video_source, camera_id, output_queue, area):
             collection_live.update_one(
                 {"video_source": 'all'},
                 {"$set": {
-                    "location_id": "Satdobato_984",  
+                    "location_id": CamLocation,  
                     f"traffic_info.incoming.{camera_id}.vehicles.cars": len(counted_tracker_ids["cars"]),
                     f"traffic_info.incoming.{camera_id}.vehicles.bikes": len(counted_tracker_ids["bikes"]),
                     f"traffic_info.incoming.{camera_id}.vehicles.buses": len(counted_tracker_ids["buses"]),

@@ -16,7 +16,7 @@ class UserRegisterApi(APIView):
         if serializer.is_valid(raise_exception=True):
             try:
                 user=serializer.save()
-                return Response({'user_id': user['user_id'], 'msg': 'Registration successful'}, status=status.HTTP_201_CREATED)
+                return Response({'user_idd': user['user_id'], 'msg': 'Registration successful'}, status=status.HTTP_201_CREATED)
             except ValueError as ve:
                 return Response({'errors': {'email': str(ve)}}, status=status.HTTP_400_BAD_REQUEST)
             except Exception as e:
@@ -24,10 +24,23 @@ class UserRegisterApi(APIView):
 
         return Response({'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
+from rest_framework import permissions
+def get_tokens_for_user(user_data):
+    refresh = RefreshToken()
 
+    refresh['is_admin']=bool(user_data['is_admin'])
+    refresh['is_active']=bool(user_data['is_active'])
+    refresh['is_user']=bool(user_data['is_user'])
+    refresh['user_id'] = str(user_data['_id'])  
+    refresh['email'] = user_data['email']
+
+    return {
+        'refresh': str(refresh),
+        'access': str(refresh.access_token),
+    }
 class LoginApi(APIView):
     renderer_classes = [UserRenderer]
-
+    # permission_classes = (permissions.AllowAny,)
     def post(self, request):
         serializer = LoginApiSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
@@ -39,17 +52,7 @@ class LoginApi(APIView):
             if user:
                 token = get_tokens_for_user(user)
                 is_admin = user.get('is_admin', False)
-                return Response({'token': token,'is_admin': is_admin, 'msg': 'Login successful'}, status=status.HTTP_200_OK)
+                return Response({'token': token,'is_admin': is_admin,'id':user['_id'], 'msg': 'Login successful'}, status=status.HTTP_200_OK)
             else:
                 return Response({'errors': {'non_field_errors': ['Invalid Email or password']}}, status=status.HTTP_400_BAD_REQUEST)
 
-def get_tokens_for_user(user_data):
-    refresh = RefreshToken()
-
-    refresh['user_id'] = str(user_data['_id'])  
-    refresh['email'] = user_data['email']
-
-    return {
-        'refresh': str(refresh),
-        'access': str(refresh.access_token),
-    }

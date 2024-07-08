@@ -4,9 +4,12 @@ from pymongo import MongoClient
 from passlib.hash import django_pbkdf2_sha256 as handler
 from datetime import datetime
 
+from utils.mongodb import get_mongo_client
 from utils.counter import get_next_sequence_value
-client = MongoClient('mongodb://localhost:27017/')
-db = client['Flow']
+# client = MongoClient('mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+# db = client['Flow']
+
+db = get_mongo_client()
 users_collection = db['registration_users']
 users_collection.create_index([('email', 1)], unique=True)
 import random
@@ -37,7 +40,7 @@ def register_user_to_mongodb(email, password, phone_number,district,intersection
         }
     
         result = users_collection.insert_one(user_data)
-        client.close()
+        # client.close()
         return str(result.inserted_id)
     except Exception as e:
         if 'E11000' in str(e):
