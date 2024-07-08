@@ -5,6 +5,7 @@ import "./style.css";
 import UserDash from "./components/users/Dashboard/UserDash";
 import MyUser from "./components/users/MyUser";
 import SysRoutes from "./components/users/Dashboard/system/sysroutes";
+import SysHelloleft from "./components/users/Dashboard/system/UserDetails";
 // import User from "./components/users/User";
 const App = () => {
   const { isAuthenticated } = useAuth();
@@ -15,6 +16,8 @@ const App = () => {
       {isAuthenticated && <UserDash />} */}
       {/* {!isAuthenticated && <SysRoutes />} */}
       <SysRoutes />
+      
+
     </>
   );
 };

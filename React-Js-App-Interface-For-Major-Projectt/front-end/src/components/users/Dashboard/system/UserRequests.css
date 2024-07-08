@@ -1,0 +1,81 @@
+/* UserRequests.css */
+
+.dasheader {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .dasheader h1 {
+    font-size: 2em;
+    color: #333;
+  }
+  
+  .dasheader p {
+    font-size: 1.1em;
+    color: #555;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  table {
+    width: 100%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    height: 500px;
+  }
+  
+  table, th, td {
+    border: 1px solid #ddd;
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: center;
+  }
+  
+  th {
+    background-color: #1f9674;
+    color: #161515;
+    font-size: 20px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #fff;
+  }
+  
+  tr:nth-child(odd) {
+    background-color: #fff;
+  }
+  
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .accept-btn, .decline-btn {
+    padding: 6px 12px;
+    margin: 0 5px;
+    border: none;
+    background-color: transparent;
+    color: #000;
+    cursor: pointer;
+    
+  }
+  
+  .accept-btn:hover, .decline-btn:hover {
+    background-color: transparent;
+    text-decoration: none;
+    text-decoration: underline;
+  }
+  
+  .accept-btn {
+    color: #4CAF50;
+  }
+  
+  .decline-btn {
+    color: #f44336;
+  }
+
+  tr{
+    font-size: 15px;
+  }
+  
