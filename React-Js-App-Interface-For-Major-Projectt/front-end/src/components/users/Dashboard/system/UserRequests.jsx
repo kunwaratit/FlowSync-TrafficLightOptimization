@@ -5,13 +5,15 @@ const UserRequests = () => {
   return (
     <>
       <div className="dasheader">
-        <h1>Manage</h1>
+        <h1>User Details</h1>
         <p>
-          This section manages the System. In this section you have to manage
-          and observe the setting applied. The system setting applied can be
-          observed in this section through the downloaded video. If there is any
-          problem in camera angle, detection, counting with this we visualize
-          the reason for exact problem we are facing in the system.
+        This section is dedicated to managing user requests within the system. 
+        Below, you will find a table listing each user’s details, including their 
+        email, phone number, district, intersection, location ID, and their status 
+        (active, admin, or user). Each row represents a different user request, with 
+        options to either accept or decline the request. By carefully reviewing the 
+        information provided and making the appropriate decisions, administrators can 
+        effectively manage and maintain the integrity and functionality of the system.
         </p>
       </div>
       <hr />
@@ -31,42 +33,42 @@ const UserRequests = () => {
         </thead>
         <tbody>
           <tr>
-            <td>user1</td>
-            <td>password1</td>
-            <td>district1</td>
-            <td>intersection1</td>
-            <td>location_id1</td>
-            <td>is_active1</td>
-            <td>is_admin1</td>
-            <td>is_user1</td>
+            <td>manjit@gmail.com</td>
+            <td>password@123</td>
+            <td>Rolpa</td>
+            <td>xxxxxxxx</td>
+            <td>xxxxxxxx</td>
+            <td>xxxxxxxxxx</td>
+            <td>xxxxxxxx</td>
+            <td>xxxx</td>
             <td>
               <button className="accept-btn">Accept</button>
               <button className="decline-btn">Decline</button>
             </td>
           </tr>
           <tr>
-            <td>user2</td>
-            <td>password2</td>
-            <td>district2</td>
-            <td>intersection2</td>
-            <td>location_id2</td>
-            <td>is_active2</td>
-            <td>is_admin2</td>
-            <td>is_user2</td>
+            <td>atit@gmail.com</td>
+            <td>atit@123</td>
+            <td>Gulmi</td>
+            <td>xxxxxxxxx</td>
+            <td>xxxxxxxxx</td>
+            <td>xxxxxxxxx</td>
+            <td>xxxx</td>
+            <td>xxxx</td>
             <td>
               <button className="accept-btn">Accept</button>
               <button className="decline-btn">Decline</button>
             </td>
           </tr>
           <tr>
-            <td>user3</td>
-            <td>password3</td>
-            <td>district3</td>
-            <td>intersection3</td>
-            <td>location_id3</td>
-            <td>is_active3</td>
-            <td>is_admin3</td>
-            <td>is_user3</td>
+            <td>xxxxxxxx</td>
+            <td>xxxxxxxx</td>
+            <td>xxxxxxxxxxxx</td>
+            <td>xxxxxxxxxx</td>
+            <td>xxxxxxxx</td>
+            <td>xxxxxxxx</td>
+            <td>xxxxxx</td>
+            <td>xxxx</td>
             <td>
               <button className="accept-btn">Accept</button>
               <button className="decline-btn">Decline</button>
