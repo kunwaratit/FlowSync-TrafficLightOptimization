@@ -238,6 +238,7 @@ ul{
 
 .section-common-heading{
     font-size: 3.2rem;
+    
 }
 
 .section-common-subheading{
@@ -553,5 +554,5 @@ footer *{
       width: 100%;
       text-align: center;
     }
-  }
+}
 

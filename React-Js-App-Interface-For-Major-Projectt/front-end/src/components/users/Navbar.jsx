@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import mainlogo from "../images/mainlogo1.png";
-import "./navbar.css"; 
+import "./navbar.css";
 
 const Navbar = () => {
   const location = useLocation();
@@ -9,28 +9,28 @@ const Navbar = () => {
   const [isMobileScreen, setIsMobileScreen] = useState(false);
 
   useEffect(() => {
-    
     handleScreenResize();
-
-    
     window.addEventListener("resize", handleScreenResize);
-
-    
     return () => {
       window.removeEventListener("resize", handleScreenResize);
     };
   }, []);
 
   const handleScreenResize = () => {
-    
     setIsMobileScreen(window.innerWidth <= 768);
-    
-    
     setIsMobileMenuOpen(false);
   };
 
   const handleMobileMenuToggle = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const handleLinkClick = (event, target) => {
+    if (location.pathname === "/home" && target.startsWith("#")) {
+      event.preventDefault();
+      document.querySelector(target).scrollIntoView({ behavior: "smooth" });
+      setIsMobileMenuOpen(false);
+    }
   };
 
   return (
@@ -42,16 +42,6 @@ const Navbar = () => {
           </NavLink>
         </div>
 
-        
-        {!isMobileScreen && (
-          <div className="hamburger-menu" onClick={handleMobileMenuToggle}>
-            <div className="bar"></div>
-            <div className="bar"></div>
-            <div className="bar"></div>
-          </div>
-        )}
-
-        
         {isMobileScreen && (
           <div className={`menu-button ${isMobileMenuOpen ? 'open' : ''}`} onClick={handleMobileMenuToggle}>
             <div className="menu-button-lines"></div>
@@ -60,26 +50,25 @@ const Navbar = () => {
           </div>
         )}
 
-        
-        <nav className={`navbar ${isMobileScreen && isMobileMenuOpen ? "open" : ""}`}>
+        <nav className={`navbar ${isMobileScreen && isMobileMenuOpen ? "open" : ""}`} >
           <ul>
             <li className="nav-item">
-              <NavLink to="/home">Home</NavLink>
+              <NavLink to="/home" onClick={(e) => handleLinkClick(e, "#call-me-home")}>Home</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to="/home#call-me-about">About</NavLink>
+              <NavLink to="/home" onClick={(e) => handleLinkClick(e, "#call-me-about")}>About</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to="/home#section-contact--homepage">Contact</NavLink>
+              <NavLink to="/home" onClick={(e) => handleLinkClick(e, "#section-contact--homepage")}>Contact</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to="/check-status">Check Status</NavLink>
+              <NavLink to="/check-status" onClick={() => setIsMobileMenuOpen(false)}>Check Status</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to="/login">Login</NavLink>
+              <NavLink to="/login" onClick={() => setIsMobileMenuOpen(false)}>Login</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to="/register">Register</NavLink>
+              <NavLink to="/register" onClick={() => setIsMobileMenuOpen(false)}>Register</NavLink>
             </li>
           </ul>
         </nav>
