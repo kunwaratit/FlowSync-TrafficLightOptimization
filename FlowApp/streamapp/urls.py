@@ -6,4 +6,5 @@ urlpatterns = [
     path('stop_stream/', stop_stream, name='stop_stream'),
     path('select_video/', select_video, name='select_video'),
     path('list_videos/', list_videos, name='list_videos'),
+    # path('get_first_frame/',get_first_frame, name='get_first_frame'),
 ]

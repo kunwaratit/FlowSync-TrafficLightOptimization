@@ -1,10 +1,79 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./manage.css"; // Import your CSS file
 import camX from "../../images/camX.png";
+import axios from "axios";
+import { useNavigate, useLocation } from 'react-router-dom';
+
 const Manage = () => {
   const [userKey, setUserKey] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [selectedCity, setSelectedCity] = useState("city1"); // Set default value to 'city1'
+  const [streaming, setStreaming] = useState(false);
+  const [videos, setVideos] = useState([]);
+  const [selectedVideo, setSelectedVideo] = useState("");
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/a/list_videos/")
+      .then((response) => {
+        setVideos(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching video list:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    // Stop the stream after 30 seconds if streaming is true
+    if (streaming) {
+      const timer = setTimeout(() => {
+        handleStopStream();
+      }, 30000); // 30 seconds
+
+      // Clear the timer if the component unmounts or streaming changes
+      return () => clearTimeout(timer);
+    }
+  }, [streaming]);
+
+  const handleVideoChange = (event) => {
+    setSelectedVideo(event.target.value);
+  };
+
+  const handlePredictDetection = () => {
+    alert(`Predicting detection for ${selectedCity}`);
+    axios
+      .post(
+        "http://localhost:8000/a/select_video/",
+        { video_name: selectedVideo },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log("Video selected:", response);
+        setStreaming(true);
+      })
+      .catch((error) => {
+        console.error("Error selecting video:", error);
+      });
+  };
+
+  const handleStopStream = () => {
+    axios
+      .get("http://localhost:8000/a/stop_stream/")
+      .then((response) => {
+        console.log("Streaming stopped:", response);
+        setStreaming(false);
+      })
+      .catch((error) => {
+        console.error("Error stopping stream:", error);
+      });
+  };
 
   const validateKey = () => {
     if (userKey === "user") {
@@ -23,11 +92,6 @@ const Manage = () => {
     // Implement your logic here
   };
 
-  const handlePredictDetection = () => {
-    alert(`Predicting detection for ${selectedCity}`);
-    // Implement your logic here
-  };
-
   return (
     <>
       <div className="dasheader">
@@ -41,7 +105,6 @@ const Manage = () => {
         </p>
       </div>
       <hr />
-      {/* <div className="manage_cont"> */}
       {!isAuthenticated ? (
         <div className="center">
           <div className="manage_cont">
@@ -88,6 +151,7 @@ const Manage = () => {
                 Check Camera Angle
               </button>
             </div>
+
             <div className="detection">
               <div>
                 <p>
@@ -96,9 +160,27 @@ const Manage = () => {
                   intensity of light different climatic condition.
                 </p>
                 <div className="detectionVid">
-                  <a href={camX} target="_blank">
-                    <img src={camX} alt="Camera" />
-                  </a>
+                  {streaming ? (
+                    <a
+                      href="http://localhost:8000/a/video_feed/"
+                      target="_blank"
+                    >
+                      <img
+                        src="http://localhost:8000/a/video_feed/"
+                        alt="Video Stream"
+                      />
+                    </a>
+                  ) : (
+                    <a
+                      href="http://localhost:8000/a/video_feed/"
+                      target="_blank"
+                    >
+                      <img
+                        src="http://via.placeholder.com/640x480?text=Load Cam"
+                        alt="No Stream"
+                      />
+                    </a>
+                  )}
                 </div>
               </div>
               <select name="" id="">
@@ -107,17 +189,25 @@ const Manage = () => {
                 <option value="">Cam_C</option>
                 <option value="">Cam_D</option>
               </select>
+              <select onChange={handleVideoChange} value={selectedVideo}>
+                <option value="">Select a video</option>
+                {videos.map((video) => (
+                  <option key={video} value={video}>
+                    {video}
+                  </option>
+                ))}
+              </select>
               <button
                 onClick={handlePredictDetection}
                 className="predict-detection"
               >
                 Predict Detection
               </button>
+              <button onClick={handleStopStream}>Stop Stream</button>
             </div>
           </div>
         </div>
       )}
-      {/* </div> */}
     </>
   );
 };
