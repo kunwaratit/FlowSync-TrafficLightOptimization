@@ -20,8 +20,12 @@ const Sysleft =()=>{
                 <li>
                   <div className="admin-info"></div>
                 </li>
-                <NavLink activeClassName="active" to="/dash">
-                  <li><RiDashboardHorizontalFill className="icon" />Dashboard</li>
+                <NavLink activeClassName="active" to="/sup-user-details">
+                  <li><RiDashboardHorizontalFill className="icon" />User Details</li>
+                </NavLink>
+                
+                <NavLink activeClassName="active" to="/sup-requests">
+                  <li><RiDashboardHorizontalFill className="icon" />User Request</li>
                 </NavLink>
                 
               </ul>
