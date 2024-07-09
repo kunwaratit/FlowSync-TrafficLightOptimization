@@ -1,110 +1,90 @@
-.container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .navbar-brand {
-    flex: 1;
-  }
-  
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-brand {
+  flex: 1;
+}
+
+.navbar {
+  flex: 2;
+  text-align: right;
+  display: flex;
+}
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-item {
+  margin-left: 20px;
+}
+
+.menu-button {
+  display: none; /* Hide menu button by default */
+}
+
+.menu-button-lines {
+  width: 30px;
+  height: 4px;
+  background-color: #000;
+  margin-bottom: 5px; /* Add margin between lines */
+  transition: transform 0.4s;
+}
+
+.menu-button.open .menu-button-lines:nth-child(1) {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.menu-button.open .menu-button-lines:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-button.open .menu-button-lines:nth-child(3) {
+  transform: rotate(45deg) translate(-5px, -6px);
+}
+
+/* Media query for small screens */
+@media screen and (max-width: 768px) {
   .navbar {
-    flex: 2;
-    text-align: right;
-    display: flex; /* Ensure navbar is initially displayed */
+    position: absolute;
+    top: 100%; /* Position dropdown below the button */
+    right: 0;
+    width: 100%;
+    background-color: #fff;
+    display: none; /* Initially hide navbar on small screens */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    flex-direction: column; /* Stack menu items vertically */
   }
-  
-  .navbar ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: flex-end;
+
+  .navbar.open {
+    display: block; /* Show navbar when open */
   }
-  
-  .nav-item {
-    margin-left: 20px;
-  }
-  
+
   .menu-button {
-    display: none; /* Hide menu button by default */
+    display: flex; /* Show menu button on small screens */
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    padding: 10px;
   }
-  
-  .menu-button-lines {
-    width: 30px;
-    height: 4px;
-    background-color: #000;
-    margin-bottom: 5px; /* Add margin between lines */
-    transition: transform 0.4s;
+
+  .navbar ul {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
   }
-  
-  .menu-button.open .menu-button-lines:nth-child(1) {
-    transform: rotate(-45deg) translate(-5px, 6px);
+
+  .nav-item {
+    margin: 10px 0;
   }
-  
-  .menu-button.open .menu-button-lines:nth-child(2) {
-    opacity: 0;
-  }
-  
-  .menu-button.open .menu-button-lines:nth-child(3) {
-    transform: rotate(45deg) translate(-5px, -6px);
-  }
-  
-  /* Media query for small screens */
-  @media screen and (max-width: 768px) {
-    .navbar {
-      position: absolute;
-      top: 100%; /* Position dropdown below the button */
-      right: 0;
-      width: 100%;
-      background-color: #fff;
-      display: none; /* Initially hide navbar on small screens */
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
-    }
-  
-    .navbar.open {
-      display: block; /* Show navbar when open */
-    }
-  
-    .menu-button {
-      display: flex; /* Show menu button on small screens */
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      z-index: 1;
-      cursor: pointer;
-      padding: 10px;
-    }
-  
-    .menu-button-lines {
-      width: 30px;
-      height: 4px;
-      background-color: #000;
-      margin-bottom: 5px; /* Add margin between lines */
-      transition: transform 0.4s;
-    }
-  
-    .menu-button.open .menu-button-lines:nth-child(1) {
-      transform: rotate(-45deg) translate(-5px, 6px);
-    }
-  
-    .menu-button.open .menu-button-lines:nth-child(2) {
-      opacity: 0;
-    }
-  
-    .menu-button.open .menu-button-lines:nth-child(3) {
-      transform: rotate(45deg) translate(-5px, -6px);
-    }
-  
-    .navbar ul {
-      flex-direction: column;
-      align-items: center;
-      padding: 20px 0;
-    }
-  
-    .nav-item {
-      margin: 10px 0;
-    }
-  }
-  
+}
