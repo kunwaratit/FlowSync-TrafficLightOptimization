@@ -10,6 +10,7 @@ import Help from "./Help";
 import Logout from "./Logout";
 import { AuthProvider } from "../AuthContext";
 import Whole from "../Whole";
+import VideoPlayer from "./system/VideoPlayer.jsx";
 const DashRoutes = () => {
   return (
     <>
@@ -22,7 +23,7 @@ const DashRoutes = () => {
           <Route path="/contact" element={<ContactForm />} />
           <Route path="/help" element={<Help />} />
           <Route path="/logout" element={<Logout />} />
-
+          <Route path="/a" element={<VideoPlayer/>} />
           {/* <Route path="*" element={<Whole/>} /> */}
         </Routes>
       {/* </AuthProvider> */}

@@ -150,3 +150,11 @@ class HourStatus(APIView):
         except Exception as e:
             print(f"Error fetching data from MongoDB: {str(e)}")
             return JsonResponse({'error': 'Failed to fetch data'}, status=500)
+
+
+from django.http import JsonResponse
+
+def get_video_url(request):
+    # Replace this with your logic to fetch the actual video URL from your storage or database
+    video_url = './videos/w.mp4'
+    return JsonResponse({'video_url': video_url})

@@ -62,7 +62,8 @@ INSTALLED_APPS = [
 #    'AI_Detection_App'
 # 'background_tasks',
 'adminDash',
-'FetchApp'
+'FetchApp',
+'streamapp'
 #  'FlowApp.background_tasks.apps.BackgroundTasksConfig',
 ]
 MEDIA_URL = '/media/'
@@ -219,6 +220,9 @@ USE_I18N = True
 
 USE_TZ = True
 
+
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
