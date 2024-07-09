@@ -27,14 +27,14 @@
 }
 
 .menu-button {
-  display: none; /* Hide menu button by default */
+  display: none; 
 }
 
 .menu-button-lines {
   width: 30px;
   height: 4px;
-  background-color: #000;
-  margin-bottom: 5px; /* Add margin between lines */
+  background-color: #bf1a1a;
+  margin-bottom: 5px; 
   transition: transform 0.4s;
 }
 
@@ -53,38 +53,31 @@
 /* Media query for small screens */
 @media screen and (max-width: 768px) {
   .navbar {
-    position: absolute;
-    top: 100%; /* Position dropdown below the button */
-    right: 0;
-    width: 100%;
-    background-color: #fff;
-    display: none; /* Initially hide navbar on small screens */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    flex-direction: column; /* Stack menu items vertically */
+    text-align: center;
   }
 
-  .navbar.open {
-    display: block; /* Show navbar when open */
-  }
-
-  .menu-button {
-    display: flex; /* Show menu button on small screens */
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    z-index: 1;
-    cursor: pointer;
-    padding: 10px;
-  }
-
-  .navbar ul {
+  .nav-items {
     flex-direction: column;
-    align-items: center;
-    padding: 20px 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+    display: none;
+  }
+
+  .nav-items.open {
+    display: flex;
   }
 
   .nav-item {
-    margin: 10px 0;
+    margin-left: 0;
+    margin-bottom: 10px;
   }
 }
+.section-navbar{
+  background-color: #e7eaee;
+}
+

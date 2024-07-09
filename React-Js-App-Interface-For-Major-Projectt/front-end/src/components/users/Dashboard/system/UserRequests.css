@@ -1,64 +1,75 @@
+.table-container {
+  width: 100%;
+  overflow-x: hidden; 
+}
 
-  
-  table {
-    width: 100%;
-    margin: 20px auto;
-    border-collapse: collapse;
-    height: 500px;
-  }
-  
-  table, th, td {
-    border: 1px solid #ddd;
-  }
-  
-  th, td {
-    padding: 12px;
-    text-align: center;
-  }
-  
-  th {
-    background-color: #76cb80b1;
-    color: #161515;
-    font-size: 20px;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #fff;
-  }
-  
-  tr:nth-child(odd) {
-    background-color: #fff;
-  }
-  
-  tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .accept-btn, .decline-btn {
-    padding: 6px 12px;
-    margin: 0 5px;
-    border: none;
-    background-color: transparent;
-    color: #000;
-    cursor: pointer;
-    
-  }
-  
-  .accept-btn:hover, .decline-btn:hover {
-    background-color: transparent;
-    text-decoration: none;
-    text-decoration: underline;
-  }
-  
-  .accept-btn {
-    color: #4CAF50;
-  }
-  
-  .decline-btn {
-    color: #f44336;
-  }
+table {
+  width: 100%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  max-width: 100%; 
+  table-layout: fixed; 
+}
 
-  tr{
-    font-size: 15px;
-  }
-  
+table, th, td {
+  border: 1px solid #ddd;
+}
+
+th, td {
+  padding: 1px; 
+  text-align: center;
+  word-wrap: break-word; 
+}
+
+th {
+  background-color: #76cb80b1;
+  color: #ffffff;
+  font-size: 18px; 
+}
+
+tr:nth-child(even) {
+  background-color: #fff;
+}
+
+tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+.accept-btn, .decline-btn {
+  padding: 4px 8px; 
+  margin: 0 3px; 
+  border: none;
+  background-color: transparent;
+  color: #000;
+  cursor: pointer;
+}
+
+.accept-btn:hover, .decline-btn:hover {
+  background-color: transparent;
+  text-decoration: none;
+  text-decoration: underline;
+}
+
+.accept-btn {
+  color: #4CAF50;
+}
+
+.decline-btn {
+  color: #f44336;
+}
+
+tr {
+  font-size: 14px; 
+}
+
+tr{
+  color: #000;
+}
+
+.dasheader h1{
+  color: #333;
+}
