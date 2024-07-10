@@ -91,13 +91,14 @@ hr {
     width: auto;
     margin: 2%;
 }.camera,.detection{ 
-    width: 50%;
+    /* width: 50%; */
     border: 1px solid;
     padding: 1%;
     background-color: #cddfd7;
     border: 1px solid #ccc;
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1); 
     border-radius: 5px;
+    width: fit-content;
 
 
 }.camera{
@@ -110,7 +111,7 @@ hr {
 .cameraImg,.detectionVid{
     align-self: center;
     height: 250px;
-    width: 250px;
+    width: 100%;
     border: 1px solid #ccc;
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1); 
     border-radius: 5px;
@@ -120,3 +121,59 @@ hr {
 }.cameraImg img,.detectionVid img{
     height: 200px;
 }
+
+
+@media (max-width: 900px) {
+    .manage_cont {
+        padding: 10px; 
+    }
+
+    .operation-container {
+        flex-direction: column; 
+        align-items: center; 
+    }
+
+    .camera, .detection {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .cameraImg, .detectionVid {
+        align-self: center;
+        max-width: 100%; 
+        height: auto; 
+        border: 1px solid #ccc;
+        box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1); 
+        border-radius: 5px;
+        padding: 5px;
+        background-color: #ffffff;
+        width: 100%; 
+    }
+    
+    .cameraImg img, .detectionVid img {
+        max-width: 100%; 
+        height: auto; 
+    }
+    
+}
+
+
+@media (min-width: 901px) {
+    .manage_cont {
+        width: 80%;
+        margin: 20px auto; 
+    }
+
+    .operation-container {
+        justify-content: space-around; 
+    }
+
+    .camera, .detection {
+        width: 45%;
+    }
+
+    .camera {
+        margin-right: 10px; 
+    }
+}
+

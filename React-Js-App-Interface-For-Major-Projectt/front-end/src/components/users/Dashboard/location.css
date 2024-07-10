@@ -1,84 +1,152 @@
-.content{
+.content {
     margin: 1%;
     padding: 1%;
-    border:1px solid rgba(226, 15, 15, 0.833);
-    /* width:fit-content; */
+    border: 1px solid rgba(226, 15, 15, 0.833);
     background: rgb(156 163 175);
-    border: 1px solid #c7c7c7;
     border-radius: 6px;
 }
-.roadimg img{
-    height:150px;
 
-}.vehiclesPerHrchart,.vehiclesinfo{
+.roadimg img {
+    height: 150px;
+}
+
+.vehiclesPerHrchart,
+.vehiclesinfo {
     margin: 1%;
     background-color: azure;
-    /* width:47%; */
-
-    width: 100%;  /* Set the width of the container to 80% of its parent */
-  height: 300px;
+    height: 300px;
 }
-.Per-hour-Charts h1{
+
+.Per-hour-Charts h1 {
     font-weight: lighter;
-  color: #0b2849ab!important;
-    
-
+    color: #0b2849ab !important;
 }
-.dashcontainer{
+
+.dashcontainer {
     background-color: #809f8d63;
     margin-top: 1%;
-    border:1px solid rgba(188, 188, 188, 0.833);
-    /* display: flex; */
-}.Per-hour-Charts{
+    border: 1px solid rgba(188, 188, 188, 0.833);
+}
+
+.Per-hour-Charts {
     display: flex;
-}.vehicle-info{
-    /* display: flex; */
-   width: 50%;
+}
+
+.vehicle-info {
+    width: 100%;
     text-align: center;
-    /* justify-content: center; */
-}.holdcontainer{
+}
+
+.holdcontainer {
     background-color: #0a597b;
     margin: 1%;
-    padding:2% 4%;
-    border:1px solid grey;
+    padding: 2% 4%;
+    border: 1px solid grey;
     border-radius: 5px;
     box-shadow: 2px 5px 5px #919191;
-    
-}.holdcontainer p,.holdcontainer span{
-    color:white;
+}
+
+.holdcontainer p,
+.holdcontainer span {
+    color: white;
     font-size: x-large;
     font-weight: bolder;
     text-align: center;
-}.total-vehicles{
-    text-align: center;
-    align-self: center;
-    /* width: 40%; */
 }
-.total-vehicles h1,.holdcontainer h1{
+
+.total-vehicles {
+    text-align: center;
+    width: 100%;
+}
+
+.total-vehicles h1,
+.holdcontainer h1 {
     font-size: xxx-large;
     color: whitesmoke;
-    /* display: block!important; */
-}.veh{
+}
+
+.veh {
     display: flex;
     background-color: #00365273;
     justify-content: space-between;
-}.dashcontainer .flex{
+}
+
+.dashcontainer .flex {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-}.total-bus{
-    /* width: 60%; */
-}.everyside{
-   
-    /* width: 20%; */
 }
-.vehhlogo{
-    /* width: 20%; */
-}.everyside p,.everyside span{
-    font-size: small ;
+
+.everyside p,
+.everyside span {
+    font-size: small;
     font-weight: 200;
     text-decoration: underline;
     text-align: justify;
-}.vehicle-info h1{
+}
+
+.vehicle-info h1 {
     font-size: x-large;
+}
+
+
+
+@media only screen and (max-width: 768px) {
+     .content {
+        padding: 0.5%;
+    }
+
+    .vehiclesPerHrchart,
+    .vehiclesinfo {
+        margin: 1%;
+        width: 100%;
+        height: auto;
+    }
+
+    .vehicle-info {
+        width: 100%;
+    }
+
+    .Per-hour-Charts {
+        flex-direction: column;
+    }
+
+    .dashcontainer .flex {
+        flex-direction: column;
+    }
+
+    .total-vehicles h1,
+    .holdcontainer h1 {
+        font-size: large;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .content {
+        padding: 0.5%;
+    }
+
+    .vehiclesPerHrchart,
+    .vehiclesinfo {
+        margin: 1%;
+        width: 100%;
+        height: auto;
+    }
+
+    .vehicle-info {
+        width: 100%;
+    }
+
+    .Per-hour-Charts {
+        flex-direction: column;
+    }
+
+    .dashcontainer .flex {
+        flex-direction: column;
+    }
+
+    .total-vehicles h1,
+    .holdcontainer h1 {
+        font-size: large;
+    }
 }
