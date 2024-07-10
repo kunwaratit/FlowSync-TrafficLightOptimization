@@ -17,7 +17,7 @@ import { RiMotorbikeFill } from "react-icons/ri";
 import { GiTrafficLightsRed } from "react-icons/gi";
 import "./location.css"; // Assuming you have styles in admin.css
 
-const Admin = () => {
+const VehicleCountTable = () => {
   const [time, setTime] = useState([]);
   const [totalVehicles, setTotalVehicles] = useState(0);
   const [totalCars, setTotalCars] = useState(0);
@@ -31,9 +31,16 @@ const Admin = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/api/dash/fetch-data/");
+        const token = localStorage.getItem('authToken');
+        console.log(token)
+        const response = await axios.get(
+          "http://127.0.0.1:8000/api/current-status/",{
+            headers: {
+            Authorization: `Bearer ${token}` 
+          }
+        });
         const data = response.data.data; // Assuming your API response is structured as { data: [...] }
-        
+
         // Aggregate totals for each time interval and calculate overall totals
         const { aggregatedData, totalVehicles, totalCars, totalBikes, totalBuses, directions } = aggregateDataByTime(data);
 
@@ -136,7 +143,7 @@ const Admin = () => {
       </div>
       <hr />
       <div className="dashcontainer">
-        <h1>Total Number of Vechiles</h1>
+        <h1>Current Scenario</h1>
         <div className="holdcontainer flex">
           {/* Total vehicles section */}
           <div className="total-vehicles">
@@ -195,4 +202,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default VehicleCountTable;

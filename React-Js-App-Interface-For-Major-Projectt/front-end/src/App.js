@@ -8,15 +8,13 @@ import SysRoutes from "./components/users/Dashboard/system/sysroutes";
 import SysHelloleft from "./components/users/Dashboard/system/UserDetails";
 // import User from "./components/users/User";
 const App = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated,isAdmin } = useAuth();
 
   return (
     <>
-      {!isAuthenticated && <MyUser />}
-      {isAuthenticated && <UserDash />}
-      {/* {!isAuthenticated && <SysRoutes />} */}
-      {/* <SysRoutes /> */}
-      
+      {!isAuthenticated && !isAdmin && <MyUser />}
+      {isAuthenticated && !isAdmin&& <UserDash />}
+      {isAdmin&&<SysRoutes />}
 
     </>
   );

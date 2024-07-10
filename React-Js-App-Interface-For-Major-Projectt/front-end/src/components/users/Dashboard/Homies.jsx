@@ -8,7 +8,6 @@ import { useAuth } from "../AuthContext";
 const Homies = () => {
   const [search, setSearch] = useState("");
   const { isAuthenticated } = useAuth();
-  
 
   console.log(search);
   return (
@@ -16,7 +15,10 @@ const Homies = () => {
       <div className="my-content">
         <div className="dasheader">
           <h1>Check Status</h1>
-          <p>This is the section to check the status of the traffic in current scenario.</p>
+          <p>
+            This is the section to check the status of the traffic in current
+            scenario.
+          </p>
         </div>
         <hr />
         <div className="homeContainer">
@@ -50,8 +52,9 @@ const Homies = () => {
                   <div className="info">
                     <span>
                       <strong>Note: </strong>The Junction Looks {item.situation}
-                      
-                    </span><br /><p>{item.content}</p>
+                    </span>
+                    <br />
+                    <p>{item.content}</p>
                   </div>
                 </div>
               ))}
@@ -74,10 +77,9 @@ const Homies = () => {
               </div>
               <div className="info">asbdjasdkasd</div>
             </div> */}
-          
           </div>
           {/* {isAuthenticated && <VehicleCountTable />} */}
-          <VehicleCountTable />
+          {isAuthenticated && <VehicleCountTable />}
         </div>
       </div>
     </>

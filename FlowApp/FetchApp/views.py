@@ -14,45 +14,81 @@ class CurrentLiveStatus(APIView):
 
     def get(self, request):
         user_id = int(request.user.id)
-        print(user_id)
+        # print(user_id)
         # Assuming 'registration_users' collection has 'location_id' field
         users_collection = db['registration_users']
+        user_data = users_collection.find_one({'_id': user_id})
+        if not user_data:
+            return JsonResponse({'error': 'User not found'}, status=404)
+        location_id = user_data.get('location_id')
+        query = {
+                'location_id': location_id}
+        live_count_collection = db['live_count']
+        results = list(live_count_collection.find(query,{"_id":0}))
+        data=[]
+        for result in results:
+            traffic_info = result.get('traffic_info', {})
+            incoming = traffic_info.get('incoming', {})
+            for cam, cam_data in incoming.items():
+                entry = {
+                    'time': '',
+                    'camera': cam,
+                    'total_vehicles': cam_data.get('total_vehicles', 0),
+                    'cars': cam_data.get('vehicles', {}).get('cars', 0),
+                    'bikes': cam_data.get('vehicles', {}).get('bikes', 0),
+                    'buses': cam_data.get('vehicles', {}).get('buses', 0)
+                }
+                data.append(entry)
+        if not data:
+            default_entry = {
+                'time': '',
+                'camera': 'N/A',
+                'total_vehicles': 0,
+                'cars': 0,
+                'bikes': 0,
+                'buses': 0
+            }
+            data.append(default_entry)
+        response_data = {
+            
+            'data': data
+        }
+        return JsonResponse(response_data)
+        # pipeline = [
+        #     {'$match': {'_id': user_id}},
 
-        pipeline = [
-            {'$match': {'_id': user_id}},
-
-            {'$lookup': {
-                'from': 'live_count',
-                'let': {'location_id': '$location_id'},
-                'pipeline': [
-                    {'$match': {'$expr': {'$eq': ['$location_id', '$$location_id']}}},
-                    {'$project': {'_id': 0,
-                                   "location_id": 1,
-                                   "timestamp": 1,
-                                   "traffic_info":1
+        #     {'$lookup': {
+        #         'from': 'live_count',
+        #         'let': {'location_id': '$location_id'},
+        #         'pipeline': [
+        #             {'$match': {'$expr': {'$eq': ['$location_id', '$$location_id']}}},
+        #             {'$project': {'_id': 0,
+        #                            "location_id": 1,
+        #                            "timestamp": 1,
+        #                            "traffic_info":1
                                   
                                   
-                                  }}  
-                ],
-                'as': 'related_data'
-            }},
+        #                           }}  
+        #         ],
+        #         'as': 'related_data'
+        #     }},
 
-            {'$project': {
-                '_id': 0, 
-                'district': 1,
-                'intersection': 1,
-                'related_data': 1,
-                #  "video_source":0
-            }}
-        ]
+        #     {'$project': {
+        #         '_id': 0, 
+        #         'district': 1,
+        #         'intersection': 1,
+        #         'related_data': 1,
+        #         #  "video_source":0
+        #     }}
+        # ]
 
-        aggregation_result = list(users_collection.aggregate(pipeline))
-
-        if aggregation_result:
-            response_data = aggregation_result[0]
-            return JsonResponse(response_data)
-        else:
-            return JsonResponse({'error': 'Related data not found'}, status=404)
+        # aggregation_result = list(users_collection.aggregate(pipeline))
+        
+        # if aggregation_result:
+        #     response_data = aggregation_result[0]
+        #     return JsonResponse(response_data)
+        # else:
+        #     return JsonResponse({'error': 'Related data not found'}, status=404)
 
 class HourStatus(APIView):
     permission_classes = [IsAuthenticated]

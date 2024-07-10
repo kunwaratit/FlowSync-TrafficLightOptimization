@@ -6,7 +6,7 @@ import numpy as np
 from collections import defaultdict, namedtuple
 from multiprocessing import Process, Queue
 from ultralytics import YOLO
-from FlowApp.utils.mongodb import get_mongo_client
+# from utils.mongodb import get_mongo_client
 from myMind import mind
 import supervision as sv
 from pymongo import MongoClient
@@ -16,14 +16,14 @@ import random
 import torch
 import pytz
 from datetime import timedelta
-CamLocation='Satdobato_990'
+CamLocation="Satdobato_984"
 
 logger = logging.getLogger(__name__)
 # client = MongoClient('mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
-# client=MongoClient('mongodb://localhost:27017/')
-# db = client['Flow']
+client=MongoClient('mongodb://localhost:27017/')
+db = client['Flow']
 
-db = get_mongo_client()
+# db = get_mongo_client()
 collection = db['vehicle_count']
 collection_live = db['live_count']
 
@@ -100,17 +100,22 @@ def insert_document(location_id):
     # print(f"ve {last_traffic_info['incoming']['cam_B']['total_vehicles']}")
     if last_flag==0:
         # camCD
-        print('im here')
+        # print('im here')
         
         camC_vehicle=last_traffic_info['incoming']['cam_C']['total_vehicles']
+        
         camD_vehicle=last_traffic_info['incoming']['cam_D']['total_vehicles']
         avg_vehicles=(camC_vehicle+camD_vehicle)/2
         allocated_time=timing_allocation(avg_vehicles)
         new_flag=1
         
-    if last_flag ==1:
+    else:
+        print('here')
+        
         # camAB
         camA_vehicle=last_traffic_info['incoming']['cam_A']['total_vehicles']
+        print('heree')
+        
         camB_vehicle=last_traffic_info['incoming']['cam_B']['total_vehicles']
         avg_vehicles=(camA_vehicle+camB_vehicle)/2
         allocated_time=timing_allocation(avg_vehicles)
@@ -146,6 +151,7 @@ def insert_document(location_id):
     vehicle_count_collection.insert_one(document)
 def insert_after_seconds(seconds, location_id):
     print(f"Waiting for {seconds} seconds for traffic light or inserting...")
+    
     time.sleep(seconds)
     insert_document(location_id)
     print("Document inserted")
@@ -156,7 +162,6 @@ def find_recent_set_timer(location_id):
         {'location_id': location_id},
         sort=[('timestamp', -1)]  
     )
-    
     if recent_document:
         curr_time = datetime.datetime.utcnow().replace(tzinfo=pytz.utc)
         kathmandu_tz = pytz.timezone('Asia/Kathmandu')
@@ -185,6 +190,7 @@ def creation_main():
         logger.info("Creation main process started.")
         while True:
             location_id = CamLocation
+            
             find_recent_set_timer(location_id)
             # set_timer_value = find_recent_set_timer(location_id)
             # if set_timer_value is not None:
@@ -201,7 +207,7 @@ def creation_main():
 # working 
 def process_video(video_source, camera_id, output_queue, area):
     Detection = namedtuple('Detection', ['xyxy', 'mask', 'confidence', 'class_id', 'tracker_id'])
-
+    
     cap = cv2.VideoCapture(video_source)
     model = YOLO('best.pt')
     if torch.cuda.is_available():
@@ -319,11 +325,11 @@ def process_video(video_source, camera_id, output_queue, area):
                         trackers.remove(tracker_id)
                         break
                 unique_tracker_ids.remove(tracker_id)
-
+            print(CamLocation)
             collection_live.update_one(
                 {"video_source": 'all'},
                 {"$set": {
-                    "location_id": CamLocation,  
+                    "location_id": CamLocation, 
                     f"traffic_info.incoming.{camera_id}.vehicles.cars": len(counted_tracker_ids["cars"]),
                     f"traffic_info.incoming.{camera_id}.vehicles.bikes": len(counted_tracker_ids["bikes"]),
                     f"traffic_info.incoming.{camera_id}.vehicles.buses": len(counted_tracker_ids["buses"]),
