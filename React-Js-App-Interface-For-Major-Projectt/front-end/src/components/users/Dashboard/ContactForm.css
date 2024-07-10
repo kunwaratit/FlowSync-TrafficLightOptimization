@@ -61,3 +61,19 @@ h2 {
 /* .form-group button:hover {
     background-color: #4cae4c;
 } */
+
+
+@media (max-width: 600px) {
+    .container_container {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 400px) {
+    .container_container {
+        padding: 15px;
+    }
+    .form-group button {
+        font-size: 14px;
+    }
+}
