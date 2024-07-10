@@ -1,7 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "./UserRequests.css";
+import { data } from "../data";
 
 const UserRequests = () => {
+  const [userData,setUserData]=useState([])
+  useEffect(()=>{
+    const fetchUser=async()=>{
+      try{
+        const token = localStorage.getItem('authToken');
+        const response = await axios.get(
+          "http://127.0.0.1:8000/api/dash/user-data/",{
+            headers: {
+            Authorization: `Bearer ${token}` 
+          }
+        });
+        const data = response.data;
+        setUserData(data)
+      }catch(error){
+        console.error("Error fetching data:", error);
+      }
+    }
+    fetchUser();
+  },[]);
+
+
+
   return (
     <>
       <div className="dasheader">
@@ -21,6 +45,7 @@ const UserRequests = () => {
         <table>
           <thead>
             <tr>
+              <th>S.N.</th>
               <th>email</th>
               <th>phone_number</th>
               <th>district</th>
@@ -33,48 +58,38 @@ const UserRequests = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>manjit@gmail.com</td>
-              <td>password@123</td>
-              <td>Rolpa</td>
-              <td>xxxxxxxx</td>
-              <td>xxxxxxxx</td>
-              <td>xxxxxxxxxx</td>
-              <td>xxxxxxxx</td>
-              <td>xxxx</td>
+          {userData.map((user,index) => (
+            <tr key={user._id}>
+              <td>{index+1}</td>
+              <td>{user.email}</td>
+              <td>{user.phone_number}</td>
+              <td>{user.district}</td>
+              <td>{user.intersection}</td>
+              <td>{user.location_id}</td>
+              <td>{user.is_active ? 'Active' : 'Inactive'}</td>
+              <td>{user.is_admin ? 'Admin' : '-'}</td>
+              <td>{user.is_user ? 'User' : '-'}</td>
               <td>
-                <button className="accept-btn">Accept</button>
-                <button className="decline-btn">Decline</button>
-              </td>
-            </tr>
+                  <button className="accept-btn">Edit</button>
+                  <button className="decline-btn">Delete</button>
+                </td>
+            </tr>))}
             <tr>
+              <td>0</td>
               <td>atit@gmail.com</td>
-              <td>atit@123</td>
+              <td>9842803777</td>
               <td>Gulmi</td>
-              <td>xxxxxxxxx</td>
-              <td>xxxxxxxxx</td>
-              <td>xxxxxxxxx</td>
-              <td>xxxx</td>
-              <td>xxxx</td>
+              <td>Satdobato</td>
+              <td>Satdobato_1</td>
+              <td>Active</td>
+              <td>Admin</td>
+              <td>User</td>
               <td>
-                <button className="accept-btn">Accept</button>
-                <button className="decline-btn">Decline</button>
-              </td>
+                  <button className="accept-btn">Edit</button>
+                  <button className="decline-btn">Delete</button>
+                </td>
             </tr>
-            <tr>
-              <td>xxxxxxxx</td>
-              <td>xxxxxxxx</td>
-              <td>xxxxxxxxxxxx</td>
-              <td>xxxxxxxxxx</td>
-              <td>xxxxxxxx</td>
-              <td>xxxxxxxx</td>
-              <td>xxxxxx</td>
-              <td>xxxx</td>
-              <td>
-                <button className="accept-btn">Accept</button>
-                <button className="decline-btn">Decline</button>
-              </td>
-            </tr>
+            
           </tbody>
         </table>
       </div>

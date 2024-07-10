@@ -18,7 +18,7 @@ class UserData(APIView):
     def get(self,request):
         is_admin=request.user.is_admin
         if is_admin:
-            fields_to_include = ['email',"phone_number","district","intersection","location_id","is_user","is_admin"]
+            fields_to_include = ['email',"phone_number","district","intersection","location_id",'is_active',"is_user","is_admin"]
             projection = {}
             for field in fields_to_include:
                 projection[field] = 1

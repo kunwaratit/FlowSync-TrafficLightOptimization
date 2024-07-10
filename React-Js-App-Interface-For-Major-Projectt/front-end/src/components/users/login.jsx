@@ -17,7 +17,7 @@ const Login = () => {
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate(); // Use useNavigate hook for navigation
-
+  
   const handleLogin = async (e) => {
     e.preventDefault();
     setErrors({ ...errors, general: "" });
@@ -43,7 +43,11 @@ const Login = () => {
       localStorage.setItem("message", msg);
 
       login();
-      navigate("/dash"); 
+      if (is_admin) {
+        navigate("/das");
+      } else {
+        navigate("/dash");
+      }
     } catch (error) {
       if (error.response && error.response.data && error.response.data.errors) {
         const { errors: apiErrors } = error.response.data;

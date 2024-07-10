@@ -27,7 +27,10 @@ const Sysleft =()=>{
                 <NavLink activeClassName="active" to="/sup-requests">
                   <li><RiDashboardHorizontalFill className="icon" />User Request</li>
                 </NavLink>
-                
+                <NavLink activeClassName="active" to="/logout">
+              {" "}
+              <li><BiLogOutCircle  className="icon"/>Logout</li>
+            </NavLink>
               </ul>
             </nav>
           </div>

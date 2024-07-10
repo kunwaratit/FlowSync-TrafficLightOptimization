@@ -14,7 +14,7 @@ const App = () => {
     <>
       {!isAuthenticated && !isAdmin && <MyUser />}
       {isAuthenticated && !isAdmin&& <UserDash />}
-      {isAdmin&&<SysRoutes />}
+      {isAuthenticated&&isAdmin&&<SysRoutes />}
 
     </>
   );
