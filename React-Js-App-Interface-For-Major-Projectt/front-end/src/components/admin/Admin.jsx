@@ -33,7 +33,6 @@ const Admin = () => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('authToken');
-        console.log(token)
         const response = await axios.get(
           "http://127.0.0.1:8000/api/hour-status/",{
             headers: {

@@ -45,14 +45,15 @@ const UserRequests = () => {
             <thead>
               <tr>
               <th>S.N.</th>
-                <th>email</th>
-                <th>phone_number</th>
-                <th>district</th>
-                <th>intersection</th>
-                <th>location_id</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>District</th>
+                <th>Intersection</th>
+                <th>Location id</th>
                 <th>is_active</th>
-                <th>is_admin</th>
-                <th>is_user</th>
+                <th>Role</th>
+                {/* <th>is_admin</th>
+                <th>is_user</th> */}
                 <th>Actions</th>
               </tr>
             </thead>
@@ -67,8 +68,9 @@ const UserRequests = () => {
                   <td>{user.intersection}</td>
                   <td>{user.location_id}</td>
                   <td>{user.is_active ? "Active" : "Inactive"}</td>
-                  <td>{user.is_admin ? "Admin" : "-"}</td>
-                  <td>{user.is_user ? "User" : "-"}</td>
+                  <td>{user.is_admin ? 'Admin' : user.is_user ? 'User' : '-'}</td>
+                  {/* <td>{user.is_admin ? "Admin" : "-"}</td>
+                  <td>{user.is_user ? "User" : "-"}</td> */}
                   <td>
                     <button className="accept-btn">Accept</button>
                     <button className="decline-btn">Decline</button>
@@ -83,7 +85,6 @@ const UserRequests = () => {
                 <td>xxxxxxxxx</td>
                 <td>xxxxxxxxx</td>
                 <td>xxxxxxxxx</td>
-                <td>xxxx</td>
                 <td>xxxx</td>
                 <td>
                   <button className="accept-btn">Accept</button>

@@ -52,7 +52,8 @@ class LoginApi(APIView):
             if user:
                 token = get_tokens_for_user(user)
                 is_admin = user.get('is_admin', False)
-                return Response({'token': token,'is_admin': is_admin,'id':user['_id'], 'msg': 'Login successful'}, status=status.HTTP_200_OK)
+                # is_user=user.get(is_user)
+                return Response({'token': token,'is_admin': is_admin,'id':user['_id'],'is_active':user['is_active'], 'msg': 'Login successful'}, status=status.HTTP_200_OK)
             else:
                 return Response({'errors': {'non_field_errors': ['Invalid Email or password']}}, status=status.HTTP_400_BAD_REQUEST)
 

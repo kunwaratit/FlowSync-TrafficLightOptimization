@@ -10,7 +10,7 @@ const SysRoutes = () => {
       <div className="dashboard">
         <div className="dashleft">
           <div className="left">
-            <Sysleft /> sysleft
+            <Sysleft />
           </div>
         </div>
         <div className="dashright">

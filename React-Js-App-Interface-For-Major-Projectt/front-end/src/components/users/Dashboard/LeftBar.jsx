@@ -32,9 +32,7 @@ const LeftBar = () => {
               <li><TbAdjustmentsCog  className="icon" />Manage</li>
             </NavLink>
 
-            <NavLink activeClassName="active" to="/setting">
-              <li><IoSettings  className="icon" />SYS-Setting </li>
-            </NavLink>
+            
 
             <NavLink activeClassName="active" to="/contact">
               {" "}
