@@ -3,6 +3,7 @@ import provincesData from "./provincesData"; // Import provincesData from separa
 import "./registration.css";
 import { validateForm } from "./Validation";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -74,7 +75,7 @@ const RegistrationForm = () => {
         } else {
           // Registration successful, handle accordingly
           console.log("Registration successful");
-          setSuccessMessage("Request for verification submitted successfully!");
+          setSuccessMessage("Request submitted successfully!");
           setFormData({
             email: "",
             phone_number: "",
@@ -97,7 +98,7 @@ const RegistrationForm = () => {
           setErrors({ ...errors, ...serverErrors });
         } else {
           console.error(error);
-        } // Handle the error response from the server, e.g., show an error message
+        } 
       }
     }
   };
@@ -118,7 +119,7 @@ const RegistrationForm = () => {
               onChange={handleChange}
               className={`form-control ${errors.email ? "error" : ""}`}
               placeholder="user@example.com"
-              // required
+              
             /></div>
             {errors.email && (
               <div className="error-message">{errors.email}</div>
@@ -135,7 +136,7 @@ const RegistrationForm = () => {
                 onChange={handleChange}
                 className={`form-control ${errors.phone_number ? "error" : ""}`}
                 placeholder="98********"
-                // required
+                
               />
             </div>
             {errors.phone_number && (
@@ -152,7 +153,7 @@ const RegistrationForm = () => {
               onChange={handleChange}
               className={`form-control ${errors.password ? "error" : ""}`}
               placeholder="Password"
-              // required
+             
             />
             {errors.password && (
               <div className="error-message">{errors.password}</div>
@@ -168,7 +169,7 @@ const RegistrationForm = () => {
               onChange={handleChange}
               className={`form-control ${errors.password2 ? "error" : ""}`}
               placeholder="Confirm Password"
-              // required
+              
             />
             {errors.password2 && (
               <div className="error-message">{errors.password2}</div>
@@ -182,7 +183,7 @@ const RegistrationForm = () => {
               value={formData.province}
               onChange={handleProvinceChange}
               className={`form-control ${errors.province ? "error" : ""}`}
-              // required
+              
             >
               <option value="">Select Province</option>
               {provincesData.map((province, index) => (
@@ -203,7 +204,7 @@ const RegistrationForm = () => {
               value={formData.district}
               onChange={handleDistrictChange}
               className={`form-control ${errors.district ? "error" : ""}`}
-              // required
+              
             >
               <option value="">Select District</option>
               {formData.province &&
@@ -236,11 +237,15 @@ const RegistrationForm = () => {
             )}
           </div>
           <button type="submit" className="btn btn-primary">
-            Request Registration
+            Register
           </button>
           {successMessage && (
             <div className="success-message">{successMessage}</div>
           )}
+
+          <div className="links signup" >
+       <span id ="already">Already Have an Account?</span> <Link to="/login">Sign in</Link>
+      </div>
         </form>
       </div>
     </div>

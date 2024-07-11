@@ -98,3 +98,12 @@
     border-radius: 4px;
 }
 
+.signup Link{
+  text-decoration: underline;
+}
+
+#already{
+  font-size: small;
+  color: rgb(80, 78, 78);
+}
+

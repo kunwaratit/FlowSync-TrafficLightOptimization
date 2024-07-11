@@ -1,13 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./static/dashboard.css";
 import "./static/home.css";
 import road from "../../images/image.png";
 import { data } from "./data";
 import VehicleCountTable from "./location";
 import { useAuth } from "../AuthContext";
+
 const Homies = () => {
   const [search, setSearch] = useState("");
   const { isAuthenticated } = useAuth();
+
+  const [activeLight, setActiveLight] = useState("red");
+
+  useEffect(() => {
+    const lights = ["red", "yellow", "green"];
+    let currentIndex = 0;
+
+    const interval = setInterval(() => {
+      setActiveLight(lights[currentIndex]);
+      currentIndex = (currentIndex + 1) % lights.length;
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   console.log(search);
   return (
@@ -41,8 +56,8 @@ const Homies = () => {
                   : item.location_id.toLowerCase().includes(search);
               })
               .map((item) => (
-                <div className="installedInfo">
-                  <div className="card" key={item.id}>
+                <div className="installedInfo" key={item.id}>
+                  <div className="card">
                     <div className="roadimg">
                       <p>{item.location_id}</p>
                       <span className="live">Live</span>
@@ -78,8 +93,14 @@ const Homies = () => {
               <div className="info">asbdjasdkasd</div>
             </div> */}
           </div>
-          {/* {isAuthenticated && <VehicleCountTable />} */}
           {isAuthenticated && <VehicleCountTable />}
+        </div>
+        <div className="lightbg">
+        <div className="traffic-light">
+          <div className={`light ${activeLight === "red" ? "red" : ""}`}></div>
+          <div className={`light ${activeLight === "yellow" ? "yellow" : ""}`}></div>
+          <div className={`light ${activeLight === "green" ? "green" : ""}`}></div>
+        </div>
         </div>
       </div>
     </>

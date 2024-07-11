@@ -21,7 +21,7 @@ const DashRoutes = () => {
 
   return (
     <Routes>
-      {IsSupAuthenticated ? (
+      {/* {IsSupAuthenticated ? ( */}
         <>
           <Route path="/a" element={<VideoPlayer />} />
           <Route path="/sup-dash" element={<SupDash />} />
@@ -29,7 +29,7 @@ const DashRoutes = () => {
           <Route path="/sup-user-details" element={<UserDetails />} />
           <Route path="/sup-requests" element={<UserRequests />} />
         </>
-      ) : (
+      {/* ) : ( */}
         <>
           <Route path="/dash" element={<Admin />} />
           <Route path="/d-home" element={<Homies />} />
@@ -37,7 +37,7 @@ const DashRoutes = () => {
           <Route path="/contact" element={<ContactForm />} />
           <Route path="/help" element={<Help />} />
         </>
-      )}
+      {/* )} */}
       {/* Catch all route for any invalid paths */}
       <Route path="*" element={<Invalid />} />
       <Route path="/logout" element={<Logout />} />
