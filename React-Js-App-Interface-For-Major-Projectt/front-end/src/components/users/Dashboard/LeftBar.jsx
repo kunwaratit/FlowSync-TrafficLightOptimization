@@ -7,6 +7,7 @@ import { MdManageAccounts } from "react-icons/md";
 import { IoSettings } from "react-icons/io5";
 import { GrContact } from "react-icons/gr";
 import { IoMdHelp } from "react-icons/io";
+import { RxUpdate } from "react-icons/rx";
 import { BiLogOutCircle } from "react-icons/bi";
 import { TbAdjustmentsCog } from "react-icons/tb";
 import { AiOutlineFileSearch } from "react-icons/ai";
@@ -42,6 +43,11 @@ const LeftBar = () => {
             <NavLink activeClassName="active" to="/help">
               {" "}
               <li><IoMdHelp  className="icon" />Help </li>
+            </NavLink>
+
+            <NavLink activeClassName="active" to="/user_setting">
+              {" "}
+              <li><RxUpdate  className="icon" />Update User</li>
             </NavLink>
             <NavLink activeClassName="active" to="/logout">
               {" "}

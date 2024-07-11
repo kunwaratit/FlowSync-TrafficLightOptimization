@@ -13,7 +13,7 @@ const Contact = () => {
             <h2 className="contact-tittle">Let's Be in Touch</h2>
             <p>Contact us for more Details</p>
             <div className="btn">
-              <a href="ContactForm">
+              <a href="contact"> 
                 Write Us
                 <i className="fa-solid fa-arrow-circle-right"></i>
               </a>

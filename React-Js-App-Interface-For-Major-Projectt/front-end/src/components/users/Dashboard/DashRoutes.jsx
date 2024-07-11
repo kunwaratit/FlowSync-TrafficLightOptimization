@@ -13,6 +13,7 @@ import VideoPlayer from "./system/VideoPlayer.jsx";
 import UserDetails from "./system/UserDetails";
 import { useAuth } from "../AuthContext";
 import Invalid from "../Invalid.jsx";
+import UserSettiongsForm from "./user_setting.jsx";
 import Whole from "../Whole";
 
 const DashRoutes = () => {
