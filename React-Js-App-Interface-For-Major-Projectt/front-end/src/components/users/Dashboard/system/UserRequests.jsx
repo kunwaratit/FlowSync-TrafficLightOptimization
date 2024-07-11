@@ -27,15 +27,11 @@ const UserRequests = () => {
   return (
     <>
       <div className="dasheader">
-        <h1>User Details</h1>
+        <h1>User Requests</h1>
         <p>
           This section is dedicated to managing user requests within the system.
-          Below, you will find a table listing each user’s details, including
-          their email, phone number, district, intersection, location ID, and
-          their status (active, admin, or user). Each row represents a different
-          user request, with options to either accept or decline the request. By
-          carefully reviewing the information provided and making the
-          appropriate decisions, administrators can effectively manage and
+          Each row represents a different
+          user request, with options to either accept or decline the request. Administrators can effectively manage and
           maintain the integrity and functionality of the system.
         </p>
 
@@ -44,17 +40,15 @@ const UserRequests = () => {
           <table>
             <thead>
               <tr>
-              <th>S.N.</th>
-                <th>Email</th>
-                <th>Phone Number</th>
-                <th>District</th>
+              <th style={{ width: '40px' }}>S.N.</th>
+                <th >Email</th>
+                <th style={{ width: '150px' }}>Phone Number</th>
+                <th style={{ width: '115px' }}>District</th>
                 <th>Intersection</th>
-                <th>Location id</th>
-                <th>is_active</th>
-                <th>Role</th>
-                {/* <th>is_admin</th>
-                <th>is_user</th> */}
-                <th>Actions</th>
+                <th style={{ width: '115px' }}>Location id</th>
+                <th style={{ width: '115px' }}>is_active</th>
+                <th style={{ width: '78px' }}>Role</th>
+                <th style={{ width: '78px' }}>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -80,12 +74,15 @@ const UserRequests = () => {
                <tr>
                 <td>0</td>
                 <td>atit@gmail.com</td>
-                <td>atit@123</td>
+                <td>1234567890</td>
                 <td>Gulmi</td>
-                <td>xxxxxxxxx</td>
-                <td>xxxxxxxxx</td>
-                <td>xxxxxxxxx</td>
-                <td>xxxx</td>
+                <td>Thankot Chowk</td>
+                <td>44600</td>
+                <td>
+                <span className="dot red-dot"></span>
+                  InActive
+                </td>
+                <td>Admin</td>
                 <td>
                   <button className="accept-btn">Accept</button>
                   <button className="decline-btn">Decline</button>

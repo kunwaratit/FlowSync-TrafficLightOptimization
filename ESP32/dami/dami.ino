@@ -7,11 +7,11 @@
 #include <ArduinoJson.h>
 #include <BlynkSimpleEsp32.h>
 
-char ssid[] = "sagarnemkul_2.4";
-char pass[] = "CLEB12FD03";
+char ssid[] = "manjit@vianet";
+char pass[] = "manjit459011";
 char auth[] = "j5qFQfjs-6ZlD7JnBZafmPu7r63B6GZ6";
 
-const char* serverName = "http://192.168.1.121:5000/timers"; // Replace with your Flask server IP
+const char* serverName = "http://192.168.1.17:5000/timers"; // Replace with your Flask server IP
 
 const int yellow1 = 2;
 const int red1 = 4;

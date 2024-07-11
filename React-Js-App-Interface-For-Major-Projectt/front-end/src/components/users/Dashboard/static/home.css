@@ -63,3 +63,44 @@
     color: black;
     border: 2px solid #64da64;
 }
+
+.traffic-light {
+    display: flex;
+    flex-direction: row; /* Make it horizontal */
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+    background-color: black;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 20px; /* Adjust as needed */
+    margin-left: auto; /* Center horizontally */
+    margin-right: auto; /* Center horizontally */
+  }
+  
+  .light {
+    width: 60px; /* Change the size as needed */
+    height: 60px; /* Change the size as needed */
+    border-radius: 50%;
+    margin: 0 30px; /* Adjust spacing between lights */
+    background-color: grey; /* Default color when off */
+    transition: background-color 0.5s ease; 
+  }
+  
+  .red {
+    background-color: red;
+  }
+  
+  .yellow {
+    background-color: yellow;
+  }
+  
+  .green {
+    background-color: green;
+  }
+  
+  .lightbg{
+    background-color: rgb(149, 230, 179);
+    padding: 30px;
+  }
+  
