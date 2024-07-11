@@ -111,13 +111,13 @@ hr {
 .cameraImg,.detectionVid{
     align-self: center;
     height: 250px;
-    width: 100%;
+    width: fit-content;
     border: 1px solid #ccc;
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1); 
     border-radius: 5px;
     padding: 5px;
     background-color: #ffffff;
-    width: 465px;
+    /* width: 465px; */
 }.cameraImg img,.detectionVid img{
     height: 200px;
 }

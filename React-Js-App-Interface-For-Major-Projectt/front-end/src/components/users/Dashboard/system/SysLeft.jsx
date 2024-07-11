@@ -59,8 +59,7 @@ const Sysleft = () => {
             <NavLink activeClassName="active" to="/sup-requests">
               <li>
                 <RiDashboardHorizontalFill className="icon" />
-                User Request <span className="usercount"><sup>{userData.user_count}</sup></span>
-                {/* <span>{user count}</span> */}
+                User Request<span className="usercount"><sup>{userData.user_count}</sup></span>
               </li>
             </NavLink>
             <NavLink activeClassName="active" to="/setting">

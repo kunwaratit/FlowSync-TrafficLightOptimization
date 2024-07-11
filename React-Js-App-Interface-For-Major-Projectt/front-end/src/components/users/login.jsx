@@ -5,7 +5,8 @@ import { useAuth } from "./AuthContext";
 import "../static/Login.css";
 
 const Login = () => {
-  const { login } = useAuth();
+  const { login, isAuthenticated, isActive, isAdmin, IsSupAuthenticated } =
+    useAuth();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -16,8 +17,8 @@ const Login = () => {
     general: "",
   });
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate(); // Use useNavigate hook for navigation
-  
+  const navigate = useNavigate();
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setErrors({ ...errors, general: "" });
@@ -35,18 +36,27 @@ const Login = () => {
 
       const {
         token: { access },
-        msg,is_admin,
+        msg,
+        is_admin,
+        is_active,
       } = response.data;
+
       localStorage.setItem("authToken", access);
-      localStorage.setItem("authenticated", "true");
       localStorage.setItem("is_admin", is_admin);
+      localStorage.setItem("is_active", is_active);
       localStorage.setItem("message", msg);
 
       login();
-      if (is_admin) {
-        navigate("/das");
-      } else {
+      if (IsSupAuthenticated) {
+        login();
+        navigate("/sup-dash");
+      } else if (isAuthenticated && isActive) {
         navigate("/dash");
+      } else {
+        setErrors({
+          ...errors,
+          general: "Your account is not yet active.Please contact support.",
+        });
       }
     } catch (error) {
       if (error.response && error.response.data && error.response.data.errors) {
@@ -66,7 +76,7 @@ const Login = () => {
         });
       }
     } finally {
-      setLoading(false); // Set loading state to false after login attempt is finished
+      setLoading(false);
     }
   };
 

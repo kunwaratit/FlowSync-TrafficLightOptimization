@@ -7,19 +7,23 @@ import DashRoutes from "./DashRoutes";
 import './static/dashboard.css'
 import VehicleCountTable from "./location";
 import Check from "./check";
+import { useAuth } from "../AuthContext";
+import Sysleft from "./system/SysLeft";
 const UserDash = () => {
-  const isAdmin = localStorage.getItem('is_admin') === 'true';
+  // const isAdmin = localStorage.getItem('is_admin') === 'true';
+  const { IsSupAuthenticated } = useAuth();
+
   return (
     <>
       <div className="dashboard">
         <div className="dashleft">
           <div className="left">
-            <LeftBar />
+           {IsSupAuthenticated?<Sysleft/>:<LeftBar />} 
           </div>
         </div>
         <div className="dashright">
           <div className="rightcontainer">
-          {isAdmin ? <Check /> : <DashRoutes />}   
+         <DashRoutes />
           </div>
         </div>
       </div>

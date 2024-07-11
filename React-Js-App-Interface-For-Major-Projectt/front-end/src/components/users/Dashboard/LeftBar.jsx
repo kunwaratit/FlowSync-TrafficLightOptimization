@@ -17,9 +17,9 @@ const LeftBar = () => {
       <div className="dashnav">
         <nav>
           <ul>
-            <li>
+            {/* <li>
               <div className="admin-info"></div>
-            </li>
+            </li> */}
             <NavLink activeClassName="active" to="/dash">
               <li><RiDashboardHorizontalFill className="icon" />Dashboard</li>
             </NavLink>
