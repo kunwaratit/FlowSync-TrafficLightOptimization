@@ -1,4 +1,3 @@
-import React from "react";
 import { NavLink } from "react-router-dom";
 import "../static/dashboard.css";
 import { AiFillHome } from "react-icons/ai";
@@ -10,8 +9,32 @@ import { IoMdHelp } from "react-icons/io";
 import { BiLogOutCircle } from "react-icons/bi";
 import { TbAdjustmentsCog } from "react-icons/tb";
 import { AiOutlineFileSearch } from "react-icons/ai";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "./SysLeft.css"
 
 const Sysleft = () => {
+  const [userData,setUserData]=useState([])
+  useEffect(()=>{
+    const fetchUser=async()=>{
+      try{
+        const token = localStorage.getItem('authToken');
+        const response = await axios.get(
+          "http://127.0.0.1:8000/api/dash/count-user/",{
+            headers: {
+            Authorization: `Bearer ${token}` 
+          }
+        });
+        const data = response.data;
+        setUserData(data)
+        console.log(data)
+      }catch(error){
+        console.error("Error fetching data:", error);
+      }
+    }
+    fetchUser();
+  },[]);
+
   return (
     <>
       <div className="dashnav">
@@ -36,7 +59,8 @@ const Sysleft = () => {
             <NavLink activeClassName="active" to="/sup-requests">
               <li>
                 <RiDashboardHorizontalFill className="icon" />
-                User Request
+                User Request <span className="usercount"><sup>{userData.user_count}</sup></span>
+                {/* <span>{user count}</span> */}
               </li>
             </NavLink>
             <NavLink activeClassName="active" to="/setting">

@@ -1,0 +1,10 @@
+.usercount{
+    background-color: red;
+    border-radius: 100%;
+    padding: 5px;
+    padding-bottom: 0px;
+    color: white;
+    font-size: small;
+    font-weight: bold;
+
+}
