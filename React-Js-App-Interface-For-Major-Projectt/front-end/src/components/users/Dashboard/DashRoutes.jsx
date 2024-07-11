@@ -15,6 +15,7 @@ import Whole from "../Whole";
 import VideoPlayer from "./system/VideoPlayer.jsx";
 import UserDetails from "./system/UserDetails";
 import Invalid from "../Invalid.jsx";
+import UserSettiongsForm from "./user_setting.jsx";
 const DashRoutes = () => {
   return (
     <>
@@ -26,12 +27,15 @@ const DashRoutes = () => {
         <Route path="/setting" element={<Setting />} />
         <Route path="/contact" element={<ContactForm />} />
         <Route path="/help" element={<Help />} />
+        <Route path="/user_setting" element={<UserSettiongsForm />} />
+
         <Route path="/logout" element={<Logout />} />
 
         <Route path="/a" element={<VideoPlayer />} />
         <Route path="/sup-dash" element={<SupDash />} />
         <Route path="/sup-user-details" element={<UserDetails />} />
         <Route path="/sup-requests" element={<UserRequests />} />
+        
 
         {/* <Route path="*" element={<Whole/>} /> */}
       </Routes>

@@ -74,7 +74,7 @@ const RegistrationForm = () => {
         } else {
           // Registration successful, handle accordingly
           console.log("Registration successful");
-          setSuccessMessage("Request submitted successfully!");
+          setSuccessMessage("Request for verification submitted successfully!");
           setFormData({
             email: "",
             phone_number: "",
@@ -236,7 +236,7 @@ const RegistrationForm = () => {
             )}
           </div>
           <button type="submit" className="btn btn-primary">
-            Register
+            Request Registration
           </button>
           {successMessage && (
             <div className="success-message">{successMessage}</div>
