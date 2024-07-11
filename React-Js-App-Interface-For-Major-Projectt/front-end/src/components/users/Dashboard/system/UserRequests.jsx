@@ -4,7 +4,10 @@ import "./UserRequests.css";
 
 const UserRequests = () => {
   const [UserRequests, setUserRequests] = useState([]);
-  useEffect(() => {
+  
+    useEffect(() => {
+      fetchUser(); // Initial fetch on component mount
+    }, []); 
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem("authToken");
@@ -22,8 +25,28 @@ const UserRequests = () => {
         console.error("Error fetching data:", error);
       }
     };
-    fetchUser();
-  }, []);
+   
+  const handleAcceptRequest = async (userId) => {
+    try {
+      const token = localStorage.getItem("authToken");
+      const response = await axios.post(
+        `http://127.0.0.1:8000/api/dash/user-reg-requests/${userId}/`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const updatedRequests = UserRequests.map((user) =>
+        user._id === userId ? { ...user, is_active: true } : user
+      );
+      setUserRequests(updatedRequests);
+      fetchUser();
+    } catch (error) {
+      console.error("Error accepting user request:", error);
+    }
+  };
   return (
     <>
       <div className="dasheader">
@@ -44,7 +67,7 @@ const UserRequests = () => {
           <table>
             <thead>
               <tr>
-              <th>S.N.</th>
+                <th>S.N.</th>
                 <th>Email</th>
                 <th>Phone Number</th>
                 <th>District</th>
@@ -58,9 +81,8 @@ const UserRequests = () => {
               </tr>
             </thead>
             <tbody>
-             
               {UserRequests.map((user, index) => (
-                <tr key={UserRequests._id}>
+                <tr key={user._id}>
                   <td>{index + 1}</td>
                   <td>{user.email}</td>
                   <td>{user.phone_number}</td>
@@ -68,16 +90,23 @@ const UserRequests = () => {
                   <td>{user.intersection}</td>
                   <td>{user.location_id}</td>
                   <td>{user.is_active ? "Active" : "Inactive"}</td>
-                  <td>{user.is_admin ? 'Admin' : user.is_user ? 'User' : '-'}</td>
+                  <td>
+                    {user.is_admin ? "Admin" : user.is_user ? "User" : "-"}
+                  </td>
                   {/* <td>{user.is_admin ? "Admin" : "-"}</td>
                   <td>{user.is_user ? "User" : "-"}</td> */}
                   <td>
-                    <button className="accept-btn">Accept</button>
+                    <button
+                      className="accept-btn"
+                      onClick={() => handleAcceptRequest(user._id)}
+                    >
+                      Accept
+                    </button>
                     <button className="decline-btn">Decline</button>
                   </td>
                 </tr>
               ))}
-               <tr>
+              <tr>
                 <td>0</td>
                 <td>atit@gmail.com</td>
                 <td>atit@123</td>

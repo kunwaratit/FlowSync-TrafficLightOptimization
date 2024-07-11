@@ -71,17 +71,34 @@ class RegisterRequests(APIView):
             all_users = list(users_collection.find(filter_query,projection,))
             return JsonResponse(all_users, safe=False)
     def post(self,request,user_id):
+        permission_classes=[IsAuthenticated]
+        
         if not request.user.is_admin:
             return JsonResponse({"error": "Unauthorized"}, status=403)
         data = request.data
-        user_cond = data.get('is_user')
-        if not data:
-            return HttpResponseBadRequest("No data provided")
+        user_cond = data.get('is_active', True)
+        
         users_collection.update_one(
                 {'_id': user_id},  
-                {'$set': {'is_user':user_cond} } 
+                {'$set': {'is_active':user_cond} } 
             )
         return JsonResponse({'User updated':'Accepted'})
+class DeleteUser(APIView):
+    permission_classes=[IsAuthenticated]
+    
+    def post(self, request, user_id):
+        if not request.user.is_admin:
+                return Response({"error": "Unauthorized"}, status=status.HTTP_403_FORBIDDEN)
+
+        try:
+            result = users_collection.delete_one({'_id': user_id})
+            if result.deleted_count == 1:
+                return Response({'message': 'User deleted successfully'})
+            else:
+                return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 class CountRequests(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -105,6 +122,8 @@ from rest_framework.views import APIView
 from pymongo import MongoClient
 
 class MaskAreaAPIView(APIView):
+    permission_classes=[IsAuthenticated]
+    
     def post(self, request, *args, **kwargs):
         coordinates = request.data.get('coordinates', [])
         coordinates = [eval(coord) for coord in coordinates]
