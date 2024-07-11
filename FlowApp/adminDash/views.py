@@ -82,7 +82,20 @@ class RegisterRequests(APIView):
                 {'$set': {'is_user':user_cond} } 
             )
         return JsonResponse({'User updated':'Accepted'})
-    
+class CountRequests(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        is_admin = request.user.is_admin
+        if not is_admin:
+            return JsonResponse({"error": "Unauthorized"}, status=403)
+        filter_query = {"is_active": False}
+        
+        # Example counting the number of users
+        count = users_collection.count_documents(filter_query,{})
+        
+        return JsonResponse({'user_count': count})
+           
     
 # myapp/views.py
 
