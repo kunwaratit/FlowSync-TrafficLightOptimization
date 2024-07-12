@@ -11,6 +11,7 @@ import { RxUpdate } from "react-icons/rx";
 import { BiLogOutCircle } from "react-icons/bi";
 import { TbAdjustmentsCog } from "react-icons/tb";
 import { AiOutlineFileSearch } from "react-icons/ai";
+import user from "./images/user.png"
 const LeftBar = () => {
         
   return (
@@ -18,9 +19,11 @@ const LeftBar = () => {
       <div className="dashnav">
         <nav>
           <ul>
-            {/* <li>
-              <div className="admin-info"></div>
-            </li> */}
+            <li>
+              <div className="admin-info">
+              <img src={user} alt="" className="user_img1"/>
+              </div>
+            </li>
             <NavLink activeClassName="active" to="/dash">
               <li><RiDashboardHorizontalFill className="icon" />Dashboard</li>
             </NavLink>

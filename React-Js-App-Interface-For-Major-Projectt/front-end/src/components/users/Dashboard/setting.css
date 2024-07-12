@@ -100,4 +100,32 @@ img{
     border-radius: 4px;
     word-wrap: break-word;
   }
+
+  .settings-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 20px;
+    
+  }
+  
+  .settings-controls input,
+  .settings-controls select,
+  .settings-controls button {
+    padding: 10px;
+    font-size: 16px;
+    
+  }
+  
+  .locid{
+    width: 10px;
+  }
+  .buttonsize{
+    width: 90px;
+  }
+
+  .select_id{
+    width: 200px;
+    
+  }
   
