@@ -15,9 +15,9 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
   }
-  
+
   .stat-box {
     background-color: #0a597b;
     color: white;
