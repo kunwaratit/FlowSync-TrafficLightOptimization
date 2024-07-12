@@ -5,9 +5,9 @@ from pymongo import MongoClient
 app = Flask(__name__)
 CORS(app)
 
-# Connect to MongoDB
-client = MongoClient('mongodb://localhost:27017/')
-db = client['led_timer_db']
+
+client = MongoClient('mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+db = client['Flow']
 collection = db['timers']
 
 @app.route('/timers', methods=['GET'])

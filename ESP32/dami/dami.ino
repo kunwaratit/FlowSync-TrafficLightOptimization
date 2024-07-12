@@ -11,7 +11,7 @@ char ssid[] = "manjit@vianet";
 char pass[] = "manjit459011";
 char auth[] = "j5qFQfjs-6ZlD7JnBZafmPu7r63B6GZ6";
 
-const char* serverName = "http://192.168.1.17:5000/timers"; // Replace with your Flask server IP
+const char* serverName = "http://192.168.1.17:5000/timers"; 
 
 const int yellow1 = 2;
 const int red1 = 4;
@@ -78,7 +78,7 @@ BLYNK_WRITE(V1) {
   int buttonState = param.asInt();
   if (buttonState == 1) {
     while(true) {
-      fetchTimers(); // Fetch timers before using them
+      fetchTimers(); 
       Serial.println(greenOnTime);
       
       digitalWrite(red1, HIGH);
@@ -123,7 +123,7 @@ BLYNK_WRITE(V1) {
 
 BLYNK_WRITE(V2)
 {
-  int buttonState = param.asInt(); // Getting the state of the button
+  int buttonState = param.asInt(); 
 
   if (buttonState == 1)
   {
@@ -147,7 +147,7 @@ BLYNK_WRITE(V2)
 // emergency
 BLYNK_WRITE(V3)
 {
-  int buttonState = param.asInt(); // Getting the state of the button
+  int buttonState = param.asInt(); 
 
   if (buttonState == 1)
   {
