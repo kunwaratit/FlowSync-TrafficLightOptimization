@@ -13,7 +13,6 @@ const UserSettingsForm = () => {
     is_admin: false,
   });
 
-  // Fetch user data from Django API on component mount
   useEffect(() => {
     const fetchUser = async () => {
         try {

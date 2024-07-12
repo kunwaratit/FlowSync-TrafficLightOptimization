@@ -191,7 +191,6 @@ class HourStatus(APIView):
 from django.http import JsonResponse
 
 def get_video_url(request):
-    # Replace this with your logic to fetch the actual video URL from your storage or database
     video_url = './videos/w.mp4'
     return JsonResponse({'video_url': video_url})
 

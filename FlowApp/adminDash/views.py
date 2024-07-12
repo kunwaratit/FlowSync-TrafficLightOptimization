@@ -91,6 +91,7 @@ class DeleteUser(APIView):
                 return Response({"error": "Unauthorized"}, status=status.HTTP_403_FORBIDDEN)
 
         try:
+            users_collection = db['registration_users']
             result = users_collection.delete_one({'_id': user_id})
             if result.deleted_count == 1:
                 return Response({'message': 'User deleted successfully'})
@@ -173,3 +174,30 @@ def select_video(request):
 def get_selected_video(request):
     global selected_video
     return JsonResponse({'selected_video': selected_video})
+
+
+class CountTotal(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        if not request.user.is_admin:
+            return JsonResponse({"error": "Unauthorized"}, status=403)
+        
+    
+        users_collection = db['registration_users']
+        
+        # Count users based on different filters
+        filter_queries = {
+            'is_active_false': {'is_active': False},
+            'is_active_true': {'is_active': True},
+            'is_user_true': {'is_user': True},
+        }
+        
+        counts = {}
+        
+        for key, query in filter_queries.items():
+            count = users_collection.count_documents(query)
+            counts[key] = count
+        
+        
+        return JsonResponse(counts)

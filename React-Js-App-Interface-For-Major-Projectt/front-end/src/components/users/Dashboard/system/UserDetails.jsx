@@ -1,13 +1,15 @@
+// UserRequests.jsx
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./UserRequests.css";
-import { data } from "../data";
+import { data } from "../data"; // Remove if not needed
 
 const UserRequests = () => {
   const [userData, setUserData] = useState([]);
-  
+
   useEffect(() => {
-    const fetchUser = async () => {
+    const fetchUsers = async () => {
       try {
         const token = localStorage.getItem('authToken');
         const response = await axios.get("http://127.0.0.1:8000/api/dash/user-data/", {
@@ -15,27 +17,36 @@ const UserRequests = () => {
             Authorization: `Bearer ${token}`
           }
         });
-        const data = response.data;
-        setUserData(data);
+        setUserData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-    fetchUser();
+
+    fetchUsers();
   }, []);
+
+  const handleDeleteUser = async (userId) => {
+    try {
+      const token = localStorage.getItem('authToken');
+      await axios.post(`http://127.0.0.1:8000/api/dash/delete-user/${userId}/`, null, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      // Update state after successful deletion
+      setUserData(userData.filter(user => user._id !== userId));
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
+  };
 
   return (
     <>
       <div className="dasheader">
         <h1>User Details</h1>
         <p>
-        This dashboard allows administrators to manage user by displaying a 
-        list of users with their details such as email, phone number, district, 
-        intersection, location ID, and status (admin, or user). 
-        Each user's information is shown in a table, and administrators can 
-        choose to edit or delete user authority. The dashboard retrieves this 
-        information securely, ensuring only authorized individuals can view and 
-        manage these details. 
+          This dashboard allows administrators to manage users by displaying a list of users with their details such as email, phone number, district, intersection, location ID, and status (admin or user). Each user's information is shown in a table, and administrators can choose to edit or delete user authority. The dashboard retrieves this information securely, ensuring only authorized individuals can view and manage these details.
         </p>
         <hr />
         <div className="table-container">
@@ -69,27 +80,10 @@ const UserRequests = () => {
                   <td>{user.is_admin ? 'Admin' : user.is_user ? 'User' : '-'}</td>
                   <td>
                     <button className="accept-btn">Edit</button>
-                    <button className="decline-btn">Delete</button>
+                    <button className="decline-btn" onClick={() => handleDeleteUser(user._id)}>Delete</button>
                   </td>
                 </tr>
               ))}
-              <tr>
-                <td>0</td>
-                <td>manjit@gmail.com</td>
-                <td>1234567890</td>
-                <td>Rolpa</td>
-                <td>Thankot Chowk</td>
-                <td>43500</td>
-                <td>
-                  <span className="dot green-dot"></span>
-                  Active
-                </td>
-                <td>Admin</td>
-                <td>
-                  <button className="accept-btn">Edit</button>
-                  <button className="decline-btn">Delete</button>
-                </td>
-              </tr>
             </tbody>
           </table>
         </div>

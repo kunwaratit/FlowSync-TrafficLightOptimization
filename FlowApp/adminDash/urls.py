@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import MaskAreaAPIView, UserData,RegisterRequests,CountRequests,DeleteUser
+from .views import MaskAreaAPIView, UserData,RegisterRequests,CountRequests,DeleteUser,CountTotal
 from . import views
 urlpatterns = [
     path('user-data/', UserData.as_view(), name='user-data'),
@@ -10,6 +10,7 @@ urlpatterns = [
    
     path('count-user/',CountRequests.as_view(),name='count-user'),
     path('delete-user/<int:user_id>/',DeleteUser.as_view(),name='asd'),
+    path('count-total/',CountTotal.as_view(),name='count-total'),
     
     path('mask-area/', MaskAreaAPIView.as_view(), name='mask-area'),
     
