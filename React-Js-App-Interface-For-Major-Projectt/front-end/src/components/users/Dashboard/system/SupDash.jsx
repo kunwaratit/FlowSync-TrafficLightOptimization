@@ -42,7 +42,7 @@ const UserDashboard = () => {
         <div className="holdcontainer flex">
         <a href="/sup-user-details" className="stat-box">
           <div >
-            <FaUserAlt fill="white" size={56} />
+            <FaUserAlt fill="white" size={250} />
             <div className="stat-info">
               <p>Total Users</p>
               <h1>{totalUsers}</h1>

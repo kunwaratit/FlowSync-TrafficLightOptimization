@@ -163,7 +163,7 @@ const Admin = () => {
             <p>Total vehicles</p>
             <h1>{totalVehicles}</h1>
           </div>
-          <GiTrafficLightsRed fill="white" size={120} />
+          <GiTrafficLightsRed fill="white" size={250} />
 
           {/* Vehicle info section */}
           <div className="vehicle-info">

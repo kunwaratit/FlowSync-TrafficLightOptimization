@@ -77,30 +77,41 @@
     margin-left: auto; /* Center horizontally */
     margin-right: auto; /* Center horizontally */
   }
-  
+  .lr{
+    background-color: rgba(255, 42, 0, 0.335);
+  }
+  .ly{
+    background-color: rgba(255, 255, 0, 0.445);
+  }
+  .lg{
+    background-color: rgba(34, 255, 0, 0.583);
+  }
   .light {
     width: 60px; /* Change the size as needed */
     height: 60px; /* Change the size as needed */
     border-radius: 50%;
     margin: 0 30px; /* Adjust spacing between lights */
-    background-color: grey; /* Default color when off */
-    transition: background-color 0.5s ease; 
+    /* transition: background-color 0.5s ease;  */
   }
   
   .red {
     background-color: red;
   }
-  
   .yellow {
     background-color: yellow;
-  }
-  
+  } 
   .green {
-    background-color: green;
+    background-color: rgba(0, 255, 0, 0.913);
   }
-  
   .lightbg{
     background-color: rgb(149, 230, 179);
     padding: 30px;
+  }
+  .time{
+color: red;
+font-size: xx-large;
+background-color: #c7c7c7;
+padding: 5px;
+border-radius: 5px;
   }
   

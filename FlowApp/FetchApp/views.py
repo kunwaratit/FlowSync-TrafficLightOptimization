@@ -194,3 +194,22 @@ def get_video_url(request):
     # Replace this with your logic to fetch the actual video URL from your storage or database
     video_url = './videos/w.mp4'
     return JsonResponse({'video_url': video_url})
+
+
+class myData(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self,request):
+        user_id =int(request.user.id)
+            
+        users_collection = db['registration_users']
+        fields_to_include = ['email',"phone_number","district","intersection","location_id",'is_active',"is_user","is_admin"]
+        projection = {}
+        for field in fields_to_include:
+                projection[field] = 1
+        user_data = users_collection.find_one({'_id': user_id},projection)
+        if user_data:
+            return Response(user_data, status=200)
+        else:
+            return Response({'error': 'User not found'}, status=404)
+        
+            

@@ -37,6 +37,7 @@ const Homies = () => {
         </div>
         <hr />
         <div className="homeContainer">
+        {isAuthenticated && <VehicleCountTable />}
           <div className="search">
             <input
               type="search"
@@ -93,13 +94,14 @@ const Homies = () => {
               <div className="info">asbdjasdkasd</div>
             </div> */}
           </div>
-          {isAuthenticated && <VehicleCountTable />}
+          {/* {isAuthenticated && <VehicleCountTable />} */}
         </div>
         <div className="lightbg">
         <div className="traffic-light">
-          <div className={`light ${activeLight === "red" ? "red" : ""}`}></div>
-          <div className={`light ${activeLight === "yellow" ? "yellow" : ""}`}></div>
-          <div className={`light ${activeLight === "green" ? "green" : ""}`}></div>
+          <div className={`lr light ${activeLight === "red" ? "red" : ""}`}></div>
+          <div className={`ly light ${activeLight === "yellow" ? "yellow" : ""}`}></div>
+          <div className={`lg light ${activeLight === "green" ? "green" : ""}`}></div>
+          <div className="time">60</div>
         </div>
         </div>
       </div>

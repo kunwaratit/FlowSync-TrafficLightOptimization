@@ -16,13 +16,13 @@ import random
 import torch
 import pytz
 from datetime import timedelta
-CamLocation="Satdobato_984"
+CamLocation="Satdobato_585"
 
 logger = logging.getLogger(__name__)
-# client = MongoClient('mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
-client=MongoClient('mongodb://localhost:27017/')
+client = MongoClient('mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+# client=MongoClient('mongodb://localhost:27017/')
 db = client['Flow']
-
+timer_collection=db['timers']
 # db = get_mongo_client()
 collection = db['vehicle_count']
 collection_live = db['live_count']
@@ -69,18 +69,30 @@ def get_traffic_info(location_id):
     if new_doc:
         traffic_info_data = new_doc.get('traffic_info', {})
     else:
-        traffic_info_data = "live_details"
+        traffic_info_data =  {
+            'incoming': {
+                'cam_A': {'total_vehicles': 0, 'vehicles': {'cars': 0, 'bikes': 0, 'buses': 0}},
+                'cam_B': {'total_vehicles': 0, 'vehicles': {'cars': 0, 'bikes': 0, 'buses': 0}},
+                'cam_C': {'total_vehicles': 0, 'vehicles': {'cars': 0, 'bikes': 0, 'buses': 0}},
+                'cam_D': {'total_vehicles': 0, 'vehicles': {'cars': 0, 'bikes': 0, 'buses': 0}}
+            },
+            'outgoing': {
+                'cam_A': {'total_vehicles': 0, 'vehicles': {'cars': 0, 'bikes': 0, 'buses': 0}},
+                'cam_B': {'total_vehicles': 0, 'vehicles': {'cars': 0, 'bikes': 0, 'buses': 0}},
+                'cam_C': {'total_vehicles': 0, 'vehicles': {'cars': 0, 'bikes': 0, 'buses': 0}},
+                'cam_D': {'total_vehicles': 0, 'vehicles': {'cars': 0, 'bikes': 0, 'buses': 0}}
+            }}
 
     return traffic_info_data
 
 def timing_allocation(avg_vehicles):
     if avg_vehicles==0:
         return 5
-    elif avg_vehicles<=30 or avg_vehicles>=0:
+    elif avg_vehicles<=5 and avg_vehicles>=0:
         return 15
-    elif avg_vehicles<=50 or avg_vehicles>=30:
+    elif avg_vehicles<=20 and avg_vehicles>=5:
         return 30
-    elif avg_vehicles<=150 or avg_vehicles>100:
+    elif avg_vehicles<=150 and avg_vehicles>100:
         return 60
     elif avg_vehicles>150:
         return 120
@@ -149,6 +161,9 @@ def insert_document(location_id):
         "timestamp": datetime.datetime.now().isoformat(),
     }
     vehicle_count_collection.insert_one(document)
+    update_query = { "$set": { "green_on_time": allocated_time*1000 } }
+
+    timer_collection.update_one({}, update_query)
 def insert_after_seconds(seconds, location_id):
     print(f"Waiting for {seconds} seconds for traffic light or inserting...")
     

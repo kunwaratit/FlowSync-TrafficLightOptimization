@@ -7,7 +7,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const Manage = () => {
   const [userKey, setUserKey] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [selectedCity, setSelectedCity] = useState("city1"); // Set default value to 'city1'
   const [streaming, setStreaming] = useState(false);
   const [videos, setVideos] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState("");
@@ -43,7 +42,6 @@ const Manage = () => {
   };
 
   const handlePredictDetection = () => {
-    alert(`Predicting detection for ${selectedCity}`);
     axios
       .post(
         "http://localhost:8000/a/select_video/",
@@ -83,13 +81,9 @@ const Manage = () => {
     }
   };
 
-  const handleCityChange = (event) => {
-    setSelectedCity(event.target.value);
-  };
+
 
   const handleCheckCameraAngle = () => {
-    alert(`Checking camera angle for ${selectedCity}`);
-    // Implement your logic here
   };
 
   return (

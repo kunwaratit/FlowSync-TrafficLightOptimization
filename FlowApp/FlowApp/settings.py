@@ -106,7 +106,7 @@ REST_FRAMEWORK = {
 }
 from datetime import timedelta
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=50),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=120),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
      "SIGNING_KEY": settings.SECRET_KEY,
     "VERIFYING_KEY": "",
@@ -165,12 +165,12 @@ from pymongo.errors import ConnectionFailure
 
 # try:
     # pass
-pymongo.MongoClient('mongodb://localhost:27017/').admin.command('ismaster')
-cluster_host = 'mongodb://localhost:27017/'
-print('local database is used')
-# pymongo.MongoClient('mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0').admin.command('ismaster')
-# cluster_host = 'mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
-# print('cluster is used')
+# pymongo.MongoClient('mongodb://localhost:27017/').admin.command('ismaster')
+# cluster_host = 'mongodb://localhost:27017/'
+# print('local database is used')
+pymongo.MongoClient('mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0').admin.command('ismaster')
+cluster_host = 'mongodb+srv://atit191508:463vLueggjud8Lt9@cluster0.lzqevpf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+print('cluster is used')
 # except ConnectionFailure:
 #     cluster_host = 'mongodb://localhost:27017/'
 #     print('local database is used')
