@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import axios from "axios"; // Import axios for making HTTP requests
+import axios from "axios";
 import "./setting.css";
-import settingpic from "../../images/1.jpg";
 
 const Setting = () => {
   const [key, setKey] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [coordinates, setCoordinates] = useState({ x: 0, y: 0 });
   const [storedCoordinates, setStoredCoordinates] = useState([]);
-  const [locationId, setLocationId] = useState("");
-  const [selectedCamera, setSelectedCamera] = useState("Camera 1");
+  const [selectedFile, setSelectedFile] = useState(null); // State for selected file
 
   const validateKey = () => {
     if (key === "master") {
@@ -26,37 +24,32 @@ const Setting = () => {
     setCoordinates({ x, y });
   };
 
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]); // Assuming single file selection
+  };
+
+  const handleFileUpload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("image", selectedFile);
+
+      const response = await axios.post("http://127.0.0.1:8000/api/upload-image/", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      console.log("Image uploaded successfully:", response.data);
+      // Optionally, clear stored coordinates after successful upload
+      setStoredCoordinates([]);
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  };
+
   const handleClick = () => {
     const newCoord = `(${coordinates.x}, ${coordinates.y})`;
     setStoredCoordinates([...storedCoordinates, newCoord]);
-  };
-
-  const handleApply = () => {
-    // Assuming your Django API endpoint is at this URL
-    const apiUrl = "http://127.0.0.1:8000/api/dash/mask-area/";
-
-    // Example data to send to the API
-    const data = {
-      coordinates: storedCoordinates,
-      locationId: locationId,
-      selectedCamera: selectedCamera,
-    };
-
-    // Example headers, adjust as per your API requirements
-    const headers = {
-      "Content-Type": "application/json",
-    };
-
-    // Make a POST request to send data to Django API
-    axios.post(apiUrl, data, { headers })
-      .then((response) => {
-        console.log("Data sent successfully:", response.data);
-        // Optionally, clear stored coordinates after successful submission
-        setStoredCoordinates([]);
-      })
-      .catch((error) => {
-        console.error("Error sending data:", error);
-      });
   };
 
   return (
@@ -91,44 +84,40 @@ const Setting = () => {
           ) : (
             <div id="content-container">
               <div className="settings-controls">
-              <div className="locationid">
-                <input 
-                  type="text" className="locid"
-                  placeholder="Location ID"
-                  value={locationId}
-                  onChange={(e) => setLocationId(e.target.value)}
-                />
+                <div className="upload-section">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                  />
+                  <button onClick={handleFileUpload}>Upload Image</button>
                 </div>
-                <div className="select_id">
-                <select
-                  value={selectedCamera}
-                  onChange={(e) => setSelectedCamera(e.target.value)}
-                >
-                  <option value="Camera 1">Camera 1</option>
-                  <option value="Camera 2">Camera 2</option>
-                  <option value="Camera 3">Camera 3</option>
-                </select>
-                </div>
-                <div className="buttonsize">
-                <button onClick={handleApply}>Apply</button>
-                </div>
-              </div>
-              <div className="main-img">
-                <img
-                  src={settingpic}
-                  alt="setting"
-                  className="setimg"
-                  onMouseMove={handleMouseMove}
-                  onClick={handleClick}
-                />
                 <div className="coordinates">
                   Coordinates: ({coordinates.x}, {coordinates.y})
                 </div>
+                <div className="stored-coordinates">
+                  <h3>Stored Coordinates:</h3>
+                  <div className="coord-list">
+                    {storedCoordinates.join(", ")}
+                  </div>
+                </div>
               </div>
-              <div className="stored-coordinates">
-                <h3>Stored Coordinates:</h3>
-                <div className="coord-list">
-                  {storedCoordinates.join(", ")}
+              <div className="main-img">
+                {/* Placeholder for image display */}
+                <div className="setimg"
+                  onMouseMove={handleMouseMove}
+                  onClick={handleClick}
+                >
+                  {/* Display image or image placeholder */}
+                  {selectedFile ? (
+                    <img
+                      src={URL.createObjectURL(selectedFile)}
+                      alt="Uploaded"
+                      className="uploaded-image"
+                    />
+                  ) : (
+                    <p>No image uploaded</p>
+                  )}
                 </div>
               </div>
             </div>
