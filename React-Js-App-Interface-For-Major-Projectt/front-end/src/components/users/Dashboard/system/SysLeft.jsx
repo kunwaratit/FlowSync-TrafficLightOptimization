@@ -8,32 +8,34 @@ import { GrContact } from "react-icons/gr";
 import { IoMdHelp } from "react-icons/io";
 import { BiLogOutCircle } from "react-icons/bi";
 import { TbAdjustmentsCog } from "react-icons/tb";
-import { AiOutlineFileSearch } from "react-icons/ai";
+import { FaUserPlus } from "react-icons/fa6";
+import { FaUserFriends } from "react-icons/fa";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./SysLeft.css"
+import mainlogo1 from "../../../images/mainlogo1.png"
 
 const Sysleft = () => {
-  const [userData,setUserData]=useState([])
-  useEffect(()=>{
-    const fetchUser=async()=>{
-      try{
+  const [userData, setUserData] = useState([])
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
         const token = localStorage.getItem('authToken');
         const response = await axios.get(
-          "http://127.0.0.1:8000/api/dash/count-user/",{
-            headers: {
-            Authorization: `Bearer ${token}` 
+          "http://127.0.0.1:8000/api/dash/count-user/", {
+          headers: {
+            Authorization: `Bearer ${token}`
           }
         });
         const data = response.data;
         setUserData(data)
         console.log(data)
-      }catch(error){
+      } catch (error) {
         console.error("Error fetching data:", error);
       }
     }
     fetchUser();
-  },[]);
+  }, []);
 
   return (
     <>
@@ -41,7 +43,12 @@ const Sysleft = () => {
         <nav>
           <ul>
             <li>
-              <div className="admin-info"></div>
+              <div className="admin-info">
+                <img src={mainlogo1} alt="" className="user_img"/>
+                <h3>System Admin</h3>
+                <hr />
+              </div>
+             
             </li>
             <NavLink activeClassName="active" to="/sup-dash">
               <li>
@@ -51,14 +58,14 @@ const Sysleft = () => {
             </NavLink>
             <NavLink activeClassName="active" to="/sup-user-details">
               <li>
-                <RiDashboardHorizontalFill className="icon" />
+                <FaUserFriends className="icon" />
                 User Details
               </li>
             </NavLink>
 
             <NavLink activeClassName="active" to="/sup-requests">
               <li>
-                <RiDashboardHorizontalFill className="icon" />
+                <FaUserPlus className="icon" />
                 User Request<span className="usercount"><sup>{userData.user_count}</sup></span>
               </li>
             </NavLink>

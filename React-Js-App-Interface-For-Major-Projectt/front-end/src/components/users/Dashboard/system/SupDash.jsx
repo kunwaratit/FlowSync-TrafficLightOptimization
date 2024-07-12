@@ -40,27 +40,36 @@ const UserDashboard = () => {
       <div className="dashcontainer">
         <h1>Statistics</h1>
         <div className="holdcontainer flex">
-          <div className="stat-box">
+        <a href="/sup-user-details" className="stat-box">
+          <div >
             <FaUserAlt fill="white" size={56} />
             <div className="stat-info">
               <p>Total Users</p>
               <h1>{totalUsers}</h1>
             </div>
           </div>
-          <div className="stat-box">
+          </a>
+          <a href="/sup-user-details" className="stat-box">
+          <div >
             <FaUserCheck fill="white" size={56} />
             <div className="stat-info">
               <p>Active Users</p>
               <h1>{activeUsers}</h1>
             </div>
           </div>
-          <div className="stat-box">
+          </a>
+          
+          <a href="/sup-requests" className="stat-box">
+          <div >
             <FaUserClock fill="white" size={56} />
             <div className="stat-info">
               <p>User Requests</p>
               <h1>{userRequests}</h1>
             </div>
           </div>
+
+          </a>
+          
         </div>
       </div>
     </>

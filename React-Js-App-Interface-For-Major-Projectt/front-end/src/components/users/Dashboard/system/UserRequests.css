@@ -4,6 +4,10 @@
   overflow-x: hidden; 
 }
 
+.table-container th{
+  padding: 8px 0;
+}
+
 table {
   width: 100%;
   margin: 20px auto;
@@ -76,8 +80,8 @@ tr{
 } */
 
 .dot {
-  height: 15px;
-  width: 15px;
+  height: 8px;
+  width: 8px;
   border-radius: 50%;
   display: inline-block;
   margin-right: 5px;
@@ -85,7 +89,7 @@ tr{
 }
 
 .green-dot {
-  background-color: green;
+  background-color: rgb(3, 230, 3);
 }
 
 .red-dot {
